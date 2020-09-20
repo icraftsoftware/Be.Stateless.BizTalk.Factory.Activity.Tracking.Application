@@ -1,0 +1,84 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <RootNamespace>Be.Stateless.BizTalk</RootNamespace>
+    <AssemblyTitle>Be.Stateless.BizTalk.Activity.Tracking</AssemblyTitle>
+    <Description>BizTalk.Factory's activity model and tracking API for general purpose BizTalk Server development.</Description>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/icraftsoftware/Be.Stateless.BizTalk.Activity.Tracking</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#system-variables -->
+    <ContinuousIntegrationBuild Condition="'$(TF_BUILD)' == 'true'">true</ContinuousIntegrationBuild>
+    <Deterministic>true</Deterministic>
+    <GeneratePackageOnBuild Condition=" '$(GeneratePackageOnBuild)' == '' ">false</GeneratePackageOnBuild>
+    <IsPackable>true</IsPackable>
+    <PackageId>$(AssemblyTitle)</PackageId>
+    <PackageDescription>$(Description)</PackageDescription>
+    <!--<PackageIconUrl>icon url prop</PackageIconUrl>-->
+    <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+    <!--<PackageReleaseNotes>release notes prop</PackageReleaseNotes>-->
+    <PackageTags>library extension utility</PackageTags>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\$(AssemblyTitle).xml</DocumentationFile>
+    <NoWarn>1701;1702</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\.settings\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Activity\Model\" />
+    <Folder Include="Activity\Tracking\Messaging\" />
+    <Folder Include="Activity\Tracking\Processing\" />
+  </ItemGroup>
+
+  <Target Name="GenerateTypedBamApi" Inputs="$(MSBuildThisFileDirectory)Activity\Model\ActivityModel.xml;$(MSBuildThisFileDirectory)Activity\Model\ActivityModelToTypedApi.xslt" Outputs="$(MSBuildThisFileDirectory)Activity\Tracking\Messaging\Tracking.Designer.cs;$(MSBuildThisFileDirectory)Activity\Tracking\Processing\Tracking.Designer.cs">
+    <Message Text="Generating Activity\Tracking\Messaging\Tracking.Designer.cs" />
+    <XslTransformation
+      XslInputPath="$(MSBuildThisFileDirectory)Activity\Model\ActivityModelToTypedApi.xslt"
+      XmlInputPaths="$(MSBuildThisFileDirectory)Activity\Model\ActivityModel.xml"
+      OutputPaths="$(MSBuildThisFileDirectory)Activity\Tracking\Messaging\Tracking.Designer.cs"
+      Parameters="&lt;Parameter Name='EventStreamType' Value='Buffered'/&gt;&lt;Parameter Name='TargetNamespace' Value='$(RootNamespace).Tracking.Messaging'/&gt;" />
+    <Message Text="Generating Activity\Tracking\Processing\Tracking.Designer.cs" />
+    <XslTransformation
+      XslInputPath="$(MSBuildThisFileDirectory)Activity\Model\ActivityModelToTypedApi.xslt"
+      XmlInputPaths="$(MSBuildThisFileDirectory)Activity\Model\ActivityModel.xml"
+      OutputPaths="$(MSBuildThisFileDirectory)Activity\Tracking\Processing\Tracking.Designer.cs"
+      Parameters="&lt;Parameter Name='EventStreamType' Value='Orchestration'/&gt;&lt;Parameter Name='TargetNamespace' Value='$(RootNamespace).Tracking.Processing'/&gt;" />
+  </Target>
+
+  <PropertyGroup>
+    <CustomBeforeBuildDependsOn>
+      $(CustomBeforeBuildDependsOn);
+      GenerateTypedBamApi;
+    </CustomBeforeBuildDependsOn>
+  </PropertyGroup>
+  <Target Name="CustomBeforeBuild" BeforeTargets="BeforeBuild" DependsOnTargets="$(CustomBeforeBuildDependsOn)" />
+
+</Project>
