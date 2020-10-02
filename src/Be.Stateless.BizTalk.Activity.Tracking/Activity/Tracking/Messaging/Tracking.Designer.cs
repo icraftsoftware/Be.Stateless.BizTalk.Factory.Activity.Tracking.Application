@@ -21,7 +21,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using Microsoft.BizTalk.Bam.EventObservation;
 
-namespace Be.Stateless.BizTalk.Tracking.Messaging
+namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 {
 	[GeneratedCode("BamActivityModel", "2.0.0.0")]
 	[Serializable]
@@ -36,10 +36,9 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 
 		public Process(string activityId, EventStream eventStream)
 		{
-			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException("activityId", "activityId is required.");
-			if (eventStream == null) throw new ArgumentNullException("eventStream", "eventStream is required.");
+			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException(nameof(activityId));
 			_activityId = activityId;
-			_eventStream = eventStream;
+			_eventStream = eventStream ?? throw new ArgumentNullException(nameof(eventStream));
 		}
 
 		public string ActivityId
@@ -109,8 +108,7 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		public void BeginProcessActivity()
 		{
 			// Begin the Activity using the passed identifier
-			EventStream es = _eventStream;
-			es.BeginActivity(ActivityName, _activityId);
+			_eventStream.BeginActivity(ActivityName, _activityId);
 		}
 
 		/// <summary>
@@ -127,9 +125,8 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 			}
 
 			// Update the BAM Activity with all of the data
-			EventStream es = _eventStream;
-			es.UpdateActivity(ActivityName, _activityId, al.ToArray());
-			es.Flush();
+			_eventStream.UpdateActivity(ActivityName, _activityId, al.ToArray());
+			_eventStream.Flush();
 		}
 
 		/// <summary>
@@ -138,8 +135,7 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		public void EndProcessActivity()
 		{
 			// End this activity, no more data can be added.
-			EventStream es = _eventStream;
-			es.EndActivity(ActivityName, _activityId);
+			_eventStream.EndActivity(ActivityName, _activityId);
 		}
 
 		/// <summary>
@@ -158,12 +154,10 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		/// <param name="referenceType">The related item type. Reference type identifiers are limited to 128 characters.</param>
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData)
 		{
 			// Add a reference to another activity
-			EventStream es = _eventStream;
-			es.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData);
+			_eventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData);
 		}
 
 		/// <summary>
@@ -173,12 +167,10 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
 		/// <param name="longReferenceData">The related item data containing up to 512 KB of Unicode characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData, string longReferenceData)
 		{
 			// Add a reference to another activity
-			EventStream es = _eventStream;
-			es.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData, longReferenceData);
+			_eventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData, longReferenceData);
 		}
 
 		/// <summary>
@@ -188,8 +180,7 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		public string EnableContinuation()
 		{
 			string continuationId = ContinuationPrefix + _activityId;
-			EventStream es = _eventStream;
-			es.EnableContinuation(ActivityName, _activityId, continuationId);
+			_eventStream.EnableContinuation(ActivityName, _activityId, continuationId);
 			return continuationId;
 		}
 
@@ -198,8 +189,7 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		/// </summary>
 		public void Flush()
 		{
-			EventStream es = _eventStream;
-			es.Flush();
+		_eventStream.Flush();
 		}
 	}
 
@@ -216,10 +206,9 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 
 		public ProcessingStep(string activityId, EventStream eventStream)
 		{
-			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException("activityId", "activityId is required.");
-			if (eventStream == null) throw new ArgumentNullException("eventStream", "eventStream is required.");
+			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException(nameof(activityId));
 			_activityId = activityId;
-			_eventStream = eventStream;
+			_eventStream = eventStream ?? throw new ArgumentNullException(nameof(eventStream));
 		}
 
 		public string ActivityId
@@ -282,8 +271,7 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		public void BeginProcessingStepActivity()
 		{
 			// Begin the Activity using the passed identifier
-			EventStream es = _eventStream;
-			es.BeginActivity(ActivityName, _activityId);
+			_eventStream.BeginActivity(ActivityName, _activityId);
 		}
 
 		/// <summary>
@@ -300,9 +288,8 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 			}
 
 			// Update the BAM Activity with all of the data
-			EventStream es = _eventStream;
-			es.UpdateActivity(ActivityName, _activityId, al.ToArray());
-			es.Flush();
+			_eventStream.UpdateActivity(ActivityName, _activityId, al.ToArray());
+			_eventStream.Flush();
 		}
 
 		/// <summary>
@@ -311,8 +298,7 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		public void EndProcessingStepActivity()
 		{
 			// End this activity, no more data can be added.
-			EventStream es = _eventStream;
-			es.EndActivity(ActivityName, _activityId);
+			_eventStream.EndActivity(ActivityName, _activityId);
 		}
 
 		/// <summary>
@@ -331,12 +317,10 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		/// <param name="referenceType">The related item type. Reference type identifiers are limited to 128 characters.</param>
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData)
 		{
 			// Add a reference to another activity
-			EventStream es = _eventStream;
-			es.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData);
+			_eventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData);
 		}
 
 		/// <summary>
@@ -346,12 +330,10 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
 		/// <param name="longReferenceData">The related item data containing up to 512 KB of Unicode characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData, string longReferenceData)
 		{
 			// Add a reference to another activity
-			EventStream es = _eventStream;
-			es.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData, longReferenceData);
+			_eventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData, longReferenceData);
 		}
 
 		/// <summary>
@@ -361,8 +343,7 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		public string EnableContinuation()
 		{
 			string continuationId = ContinuationPrefix + _activityId;
-			EventStream es = _eventStream;
-			es.EnableContinuation(ActivityName, _activityId, continuationId);
+			_eventStream.EnableContinuation(ActivityName, _activityId, continuationId);
 			return continuationId;
 		}
 
@@ -371,8 +352,7 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		/// </summary>
 		public void Flush()
 		{
-			EventStream es = _eventStream;
-			es.Flush();
+		_eventStream.Flush();
 		}
 	}
 
@@ -389,10 +369,9 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 
 		public ProcessMessagingStep(string activityId, EventStream eventStream)
 		{
-			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException("activityId", "activityId is required.");
-			if (eventStream == null) throw new ArgumentNullException("eventStream", "eventStream is required.");
+			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException(nameof(activityId));
 			_activityId = activityId;
-			_eventStream = eventStream;
+			_eventStream = eventStream ?? throw new ArgumentNullException(nameof(eventStream));
 		}
 
 		public string ActivityId
@@ -427,8 +406,7 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		public void BeginProcessMessagingStepActivity()
 		{
 			// Begin the Activity using the passed identifier
-			EventStream es = _eventStream;
-			es.BeginActivity(ActivityName, _activityId);
+			_eventStream.BeginActivity(ActivityName, _activityId);
 		}
 
 		/// <summary>
@@ -445,9 +423,8 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 			}
 
 			// Update the BAM Activity with all of the data
-			EventStream es = _eventStream;
-			es.UpdateActivity(ActivityName, _activityId, al.ToArray());
-			es.Flush();
+			_eventStream.UpdateActivity(ActivityName, _activityId, al.ToArray());
+			_eventStream.Flush();
 		}
 
 		/// <summary>
@@ -456,8 +433,7 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		public void EndProcessMessagingStepActivity()
 		{
 			// End this activity, no more data can be added.
-			EventStream es = _eventStream;
-			es.EndActivity(ActivityName, _activityId);
+			_eventStream.EndActivity(ActivityName, _activityId);
 		}
 
 		/// <summary>
@@ -476,12 +452,10 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		/// <param name="referenceType">The related item type. Reference type identifiers are limited to 128 characters.</param>
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData)
 		{
 			// Add a reference to another activity
-			EventStream es = _eventStream;
-			es.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData);
+			_eventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData);
 		}
 
 		/// <summary>
@@ -491,12 +465,10 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
 		/// <param name="longReferenceData">The related item data containing up to 512 KB of Unicode characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData, string longReferenceData)
 		{
 			// Add a reference to another activity
-			EventStream es = _eventStream;
-			es.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData, longReferenceData);
+			_eventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData, longReferenceData);
 		}
 
 		/// <summary>
@@ -506,8 +478,7 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		public string EnableContinuation()
 		{
 			string continuationId = ContinuationPrefix + _activityId;
-			EventStream es = _eventStream;
-			es.EnableContinuation(ActivityName, _activityId, continuationId);
+			_eventStream.EnableContinuation(ActivityName, _activityId, continuationId);
 			return continuationId;
 		}
 
@@ -516,8 +487,7 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		/// </summary>
 		public void Flush()
 		{
-			EventStream es = _eventStream;
-			es.Flush();
+		_eventStream.Flush();
 		}
 	}
 
@@ -534,10 +504,9 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 
 		public MessagingStep(string activityId, EventStream eventStream)
 		{
-			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException("activityId", "activityId is required.");
-			if (eventStream == null) throw new ArgumentNullException("eventStream", "eventStream is required.");
+			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException(nameof(activityId));
 			_activityId = activityId;
-			_eventStream = eventStream;
+			_eventStream = eventStream ?? throw new ArgumentNullException(nameof(eventStream));
 		}
 
 		public string ActivityId
@@ -663,8 +632,7 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		public void BeginMessagingStepActivity()
 		{
 			// Begin the Activity using the passed identifier
-			EventStream es = _eventStream;
-			es.BeginActivity(ActivityName, _activityId);
+			_eventStream.BeginActivity(ActivityName, _activityId);
 		}
 
 		/// <summary>
@@ -681,9 +649,8 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 			}
 
 			// Update the BAM Activity with all of the data
-			EventStream es = _eventStream;
-			es.UpdateActivity(ActivityName, _activityId, al.ToArray());
-			es.Flush();
+			_eventStream.UpdateActivity(ActivityName, _activityId, al.ToArray());
+			_eventStream.Flush();
 		}
 
 		/// <summary>
@@ -692,8 +659,7 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		public void EndMessagingStepActivity()
 		{
 			// End this activity, no more data can be added.
-			EventStream es = _eventStream;
-			es.EndActivity(ActivityName, _activityId);
+			_eventStream.EndActivity(ActivityName, _activityId);
 		}
 
 		/// <summary>
@@ -712,12 +678,10 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		/// <param name="referenceType">The related item type. Reference type identifiers are limited to 128 characters.</param>
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData)
 		{
 			// Add a reference to another activity
-			EventStream es = _eventStream;
-			es.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData);
+			_eventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData);
 		}
 
 		/// <summary>
@@ -727,12 +691,10 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
 		/// <param name="longReferenceData">The related item data containing up to 512 KB of Unicode characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData, string longReferenceData)
 		{
 			// Add a reference to another activity
-			EventStream es = _eventStream;
-			es.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData, longReferenceData);
+			_eventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData, longReferenceData);
 		}
 
 		/// <summary>
@@ -742,8 +704,7 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		public string EnableContinuation()
 		{
 			string continuationId = ContinuationPrefix + _activityId;
-			EventStream es = _eventStream;
-			es.EnableContinuation(ActivityName, _activityId, continuationId);
+			_eventStream.EnableContinuation(ActivityName, _activityId, continuationId);
 			return continuationId;
 		}
 
@@ -752,8 +713,7 @@ namespace Be.Stateless.BizTalk.Tracking.Messaging
 		/// </summary>
 		public void Flush()
 		{
-			EventStream es = _eventStream;
-			es.Flush();
+		_eventStream.Flush();
 		}
 	}
 

@@ -92,10 +92,9 @@ namespace </xsl:text><xsl:value-of select="$TargetNamespace" /><xsl:text>
       <xsl:text>
 		public </xsl:text><xsl:value-of select="$CompressedDisplayName" /><xsl:text>(string activityId, EventStream eventStream)
 		{
-			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException("activityId", "activityId is required.");
-			if (eventStream == null) throw new ArgumentNullException("eventStream", "eventStream is required.");
+			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException(nameof(activityId));
 			_activityId = activityId;
-			_eventStream = eventStream;
+			_eventStream = eventStream ?? throw new ArgumentNullException(nameof(eventStream));
 		}
 </xsl:text>
     </xsl:if>
@@ -104,7 +103,7 @@ namespace </xsl:text><xsl:value-of select="$TargetNamespace" /><xsl:text>
       <xsl:text>
 		public </xsl:text><xsl:value-of select="$CompressedDisplayName" /><xsl:text>(string activityId)
 		{
-			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException("activityId", "activityId is required.");
+			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException(nameof(activityId));
 			_activityId = activityId;
 		}
 </xsl:text>
@@ -137,8 +136,7 @@ namespace </xsl:text><xsl:value-of select="$TargetNamespace" /><xsl:text>
 			// Begin the Activity using the passed identifier</xsl:text>
     <xsl:if test="$EventStreamType != 'Orchestration'">
       <xsl:text>
-			EventStream es = _eventStream;
-			es.BeginActivity(ActivityName, _activityId);</xsl:text>
+			_eventStream.BeginActivity(ActivityName, _activityId);</xsl:text>
     </xsl:if>
     <xsl:if test="$EventStreamType = 'Orchestration'">
       <xsl:text>
@@ -165,9 +163,8 @@ namespace </xsl:text><xsl:value-of select="$TargetNamespace" /><xsl:text>
 			// Update the BAM Activity with all of the data</xsl:text>
     <xsl:if test="$EventStreamType != 'Orchestration'">
       <xsl:text>
-			EventStream es = _eventStream;
-			es.UpdateActivity(ActivityName, _activityId, al.ToArray());
-			es.Flush();</xsl:text>
+			_eventStream.UpdateActivity(ActivityName, _activityId, al.ToArray());
+			_eventStream.Flush();</xsl:text>
     </xsl:if>
     <xsl:if test="$EventStreamType = 'Orchestration'">
       <xsl:text>
@@ -185,8 +182,7 @@ namespace </xsl:text><xsl:value-of select="$TargetNamespace" /><xsl:text>
 			// End this activity, no more data can be added.</xsl:text>
     <xsl:if test="$EventStreamType != 'Orchestration'">
       <xsl:text>
-			EventStream es = _eventStream;
-			es.EndActivity(ActivityName, _activityId);</xsl:text>
+			_eventStream.EndActivity(ActivityName, _activityId);</xsl:text>
     </xsl:if>
     <xsl:if test="$EventStreamType = 'Orchestration'">
       <xsl:text>
@@ -215,14 +211,12 @@ namespace </xsl:text><xsl:value-of select="$TargetNamespace" /><xsl:text>
 		/// &lt;param name="referenceType"&gt;The related item type. Reference type identifiers are limited to 128 characters.&lt;/param&gt;
 		/// &lt;param name="referenceName"&gt;The related item name. Reference names are limited to 128 characters.&lt;/param&gt;
 		/// &lt;param name="referenceData"&gt;The related item data. Limited to 1024 characters of data.&lt;/param&gt;
-		/// &lt;remarks&gt;See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx&lt;/remarks&gt;
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData)
 		{
 			// Add a reference to another activity</xsl:text>
-		<xsl:if test="$EventStreamType != 'Orchestration'">
+    <xsl:if test="$EventStreamType != 'Orchestration'">
       <xsl:text>
-			EventStream es = _eventStream;
-			es.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData);</xsl:text>
+			_eventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData);</xsl:text>
     </xsl:if>
     <xsl:if test="$EventStreamType = 'Orchestration'">
       <xsl:text>
@@ -240,14 +234,12 @@ namespace </xsl:text><xsl:value-of select="$TargetNamespace" /><xsl:text>
 		/// &lt;param name="referenceName"&gt;The related item name. Reference names are limited to 128 characters.&lt;/param&gt;
 		/// &lt;param name="referenceData"&gt;The related item data. Limited to 1024 characters of data.&lt;/param&gt;
 		/// &lt;param name="longReferenceData"&gt;The related item data containing up to 512 KB of Unicode characters of data.&lt;/param&gt;
-		/// &lt;remarks&gt;See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx&lt;/remarks&gt;
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData, string longReferenceData)
 		{
 			// Add a reference to another activity</xsl:text>
     <xsl:if test="$EventStreamType != 'Orchestration'">
       <xsl:text>
-			EventStream es = _eventStream;
-			es.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData, longReferenceData);</xsl:text>
+			_eventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData, longReferenceData);</xsl:text>
     </xsl:if>
     <xsl:if test="$EventStreamType = 'Orchestration'">
       <xsl:text>
@@ -267,13 +259,12 @@ namespace </xsl:text><xsl:value-of select="$TargetNamespace" /><xsl:text>
 			string continuationId = ContinuationPrefix + _activityId;</xsl:text>
     <xsl:if test="$EventStreamType != 'Orchestration'">
       <xsl:text>
-			EventStream es = _eventStream;
-			es.EnableContinuation(ActivityName, _activityId, continuationId);</xsl:text>
-		</xsl:if>
-		<xsl:if test="$EventStreamType = 'Orchestration'">
+			_eventStream.EnableContinuation(ActivityName, _activityId, continuationId);</xsl:text>
+    </xsl:if>
+    <xsl:if test="$EventStreamType = 'Orchestration'">
       <xsl:text>
 			OrchestrationEventStream.EnableContinuation(ActivityName, _activityId, continuationId);</xsl:text>
-		</xsl:if>
+    </xsl:if>
     <xsl:text>
 			return continuationId;
 		}
@@ -286,8 +277,7 @@ namespace </xsl:text><xsl:value-of select="$TargetNamespace" /><xsl:text>
 		/// &lt;/summary&gt;
 		public void Flush()
 		{
-			EventStream es = _eventStream;
-			es.Flush();
+		_eventStream.Flush();
 		}
 </xsl:text>
     </xsl:if>
@@ -315,8 +305,8 @@ namespace </xsl:text><xsl:value-of select="$TargetNamespace" /><xsl:text>
   <xsl:template match="bam:Checkpoint[@DataType='NVARCHAR']">
     <xsl:variable name="Name" select="@Name" />
     <xsl:variable name="CompressedDisplayName" select="translate(@Name, ' ', '')" />
-		<xsl:variable name="DataType">
-			<xsl:call-template name="ResolveClrType" />
+    <xsl:variable name="DataType">
+      <xsl:call-template name="ResolveClrType" />
     </xsl:variable>
     <xsl:text>
 		internal const string </xsl:text><xsl:value-of select="$CompressedDisplayName" /><xsl:text>FieldName = "</xsl:text><xsl:value-of select="@Name" /><xsl:text>";
@@ -328,18 +318,18 @@ namespace </xsl:text><xsl:value-of select="$TargetNamespace" /><xsl:text>
 </xsl:text>
   </xsl:template>
 
-	<xsl:template name="ResolveClrType">
-		<xsl:param name="bamDataType" select="@DataType" />
-		<xsl:choose>
-			<xsl:when test="$bamDataType = 'NVARCHAR'">string</xsl:when>
-			<xsl:when test="$bamDataType = 'DATETIME'">DateTime?</xsl:when>
-			<xsl:when test="$bamDataType = 'FLOAT'">decimal</xsl:when>
-			<xsl:when test="$bamDataType = 'INT'">int?</xsl:when>
-			<xsl:otherwise>
-				<xsl:message terminate="yes">
-					<xsl:text>Unsupported bam data type '</xsl:text>
-					<xsl:value-of select="$bamDataType"/>
-					<xsl:text>'.</xsl:text>
+  <xsl:template name="ResolveClrType">
+    <xsl:param name="bamDataType" select="@DataType" />
+    <xsl:choose>
+      <xsl:when test="$bamDataType = 'NVARCHAR'">string</xsl:when>
+      <xsl:when test="$bamDataType = 'DATETIME'">DateTime?</xsl:when>
+      <xsl:when test="$bamDataType = 'FLOAT'">decimal</xsl:when>
+      <xsl:when test="$bamDataType = 'INT'">int?</xsl:when>
+      <xsl:otherwise>
+        <xsl:message terminate="yes">
+          <xsl:text>Unsupported bam data type '</xsl:text>
+          <xsl:value-of select="$bamDataType"/>
+          <xsl:text>'.</xsl:text>
         </xsl:message>
       </xsl:otherwise>
     </xsl:choose>

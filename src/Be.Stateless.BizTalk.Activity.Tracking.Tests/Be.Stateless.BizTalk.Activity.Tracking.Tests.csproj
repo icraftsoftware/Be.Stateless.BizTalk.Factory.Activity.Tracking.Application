@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Be.Stateless.BizTalk.Messaging.Unit" Version="2.0.20224.39655" />
+    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.Components.XUnit" Version="2.0.20225.25392" />
+    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="coverlet.msbuild" Version="2.9.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -28,6 +34,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Be.Stateless.BizTalk.Activity.Tracking\Be.Stateless.BizTalk.Activity.Tracking.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Transactions" />
   </ItemGroup>
 
 </Project>

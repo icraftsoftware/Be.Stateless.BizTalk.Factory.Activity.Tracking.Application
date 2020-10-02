@@ -21,7 +21,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using Microsoft.BizTalk.Bam.EventObservation;
 
-namespace Be.Stateless.BizTalk.Tracking.Processing
+namespace Be.Stateless.BizTalk.Activity.Tracking.Processing
 {
 	[GeneratedCode("BamActivityModel", "2.0.0.0")]
 	[Serializable]
@@ -35,7 +35,7 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 
 		public Process(string activityId)
 		{
-			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException("activityId", "activityId is required.");
+			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException(nameof(activityId));
 			_activityId = activityId;
 		}
 
@@ -151,7 +151,6 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		/// <param name="referenceType">The related item type. Reference type identifiers are limited to 128 characters.</param>
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData)
 		{
 			// Add a reference to another activity
@@ -165,7 +164,6 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
 		/// <param name="longReferenceData">The related item data containing up to 512 KB of Unicode characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData, string longReferenceData)
 		{
 			// Add a reference to another activity
@@ -196,7 +194,7 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 
 		public ProcessingStep(string activityId)
 		{
-			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException("activityId", "activityId is required.");
+			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException(nameof(activityId));
 			_activityId = activityId;
 		}
 
@@ -305,7 +303,6 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		/// <param name="referenceType">The related item type. Reference type identifiers are limited to 128 characters.</param>
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData)
 		{
 			// Add a reference to another activity
@@ -319,7 +316,6 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
 		/// <param name="longReferenceData">The related item data containing up to 512 KB of Unicode characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData, string longReferenceData)
 		{
 			// Add a reference to another activity
@@ -350,7 +346,7 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 
 		public ProcessMessagingStep(string activityId)
 		{
-			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException("activityId", "activityId is required.");
+			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException(nameof(activityId));
 			_activityId = activityId;
 		}
 
@@ -431,7 +427,6 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		/// <param name="referenceType">The related item type. Reference type identifiers are limited to 128 characters.</param>
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData)
 		{
 			// Add a reference to another activity
@@ -445,7 +440,6 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
 		/// <param name="longReferenceData">The related item data containing up to 512 KB of Unicode characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData, string longReferenceData)
 		{
 			// Add a reference to another activity
@@ -476,7 +470,7 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 
 		public MessagingStep(string activityId)
 		{
-			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException("activityId", "activityId is required.");
+			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException(nameof(activityId));
 			_activityId = activityId;
 		}
 
@@ -648,7 +642,6 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		/// <param name="referenceType">The related item type. Reference type identifiers are limited to 128 characters.</param>
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData)
 		{
 			// Add a reference to another activity
@@ -662,7 +655,6 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
 		/// <param name="longReferenceData">The related item data containing up to 512 KB of Unicode characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData, string longReferenceData)
 		{
 			// Add a reference to another activity
