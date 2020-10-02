@@ -21,21 +21,15 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using Microsoft.BizTalk.Bam.EventObservation;
 
-namespace Be.Stateless.BizTalk.Tracking.Processing
+namespace Be.Stateless.BizTalk.Activity.Tracking.Processing
 {
-	[GeneratedCode("BamActivityModel", "2.0.0.0")]
+	[GeneratedCode("BamActivityModel", "2.0.0.1")]
 	[Serializable]
 	public partial class Process
 	{
-		public const string ActivityName = "Process";
-		internal const string ContinuationPrefix = "CONT_";
-
-		private readonly string _activityId;
-		private readonly Dictionary<string, object> _activityItems = new Dictionary<string, object>();
-
 		public Process(string activityId)
 		{
-			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException("activityId", "activityId is required.");
+			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException(nameof(activityId));
 			_activityId = activityId;
 		}
 
@@ -44,60 +38,52 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 			get { return _activityId; }
 		}
 
-		internal const string BeginTimeFieldName = "BeginTime";
 		public DateTime? BeginTime
 		{
-			get { return (DateTime?) _activityItems[BeginTimeFieldName]; }
-			set { if (value.HasValue) _activityItems[BeginTimeFieldName] = value.Value; }
+			get { return (DateTime?) _activityItems[nameof(BeginTime)]; }
+			set { if (value.HasValue) _activityItems[nameof(BeginTime)] = value.Value; }
 		}
 
-		internal const string EndTimeFieldName = "EndTime";
 		public DateTime? EndTime
 		{
-			get { return (DateTime?) _activityItems[EndTimeFieldName]; }
-			set { if (value.HasValue) _activityItems[EndTimeFieldName] = value.Value; }
+			get { return (DateTime?) _activityItems[nameof(EndTime)]; }
+			set { if (value.HasValue) _activityItems[nameof(EndTime)] = value.Value; }
 		}
 
-		internal const string InterchangeIDFieldName = "InterchangeID";
 		public string InterchangeID
 		{
-			get { return (string) _activityItems[InterchangeIDFieldName]; }
-			set { if (value != null) _activityItems[InterchangeIDFieldName] = value; }
+			get { return (string) _activityItems[nameof(InterchangeID)]; }
+			set { if (value != null) _activityItems[nameof(InterchangeID)] = value; }
 		}
 
-		internal const string ProcessNameFieldName = "ProcessName";
 		public string ProcessName
 		{
-			get { return (string) _activityItems[ProcessNameFieldName]; }
-			set { if (value != null) _activityItems[ProcessNameFieldName] = value; }
+			get { return (string) _activityItems[nameof(ProcessName)]; }
+			set { if (value != null) _activityItems[nameof(ProcessName)] = value; }
 		}
 
-		internal const string StatusFieldName = "Status";
 		public string Status
 		{
-			get { return (string) _activityItems[StatusFieldName]; }
-			set { if (value != null) _activityItems[StatusFieldName] = value; }
+			get { return (string) _activityItems[nameof(Status)]; }
+			set { if (value != null) _activityItems[nameof(Status)] = value; }
 		}
 
-		internal const string Value1FieldName = "Value1";
 		public string Value1
 		{
-			get { return (string) _activityItems[Value1FieldName]; }
-			set { if (value != null) _activityItems[Value1FieldName] = value; }
+			get { return (string) _activityItems[nameof(Value1)]; }
+			set { if (value != null) _activityItems[nameof(Value1)] = value; }
 		}
 
-		internal const string Value2FieldName = "Value2";
 		public string Value2
 		{
-			get { return (string) _activityItems[Value2FieldName]; }
-			set { if (value != null) _activityItems[Value2FieldName] = value; }
+			get { return (string) _activityItems[nameof(Value2)]; }
+			set { if (value != null) _activityItems[nameof(Value2)] = value; }
 		}
 
-		internal const string Value3FieldName = "Value3";
 		public string Value3
 		{
-			get { return (string) _activityItems[Value3FieldName]; }
-			set { if (value != null) _activityItems[Value3FieldName] = value; }
+			get { return (string) _activityItems[nameof(Value3)]; }
+			set { if (value != null) _activityItems[nameof(Value3)] = value; }
 		}
 
 		/// <summary>
@@ -106,7 +92,7 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		public void BeginProcessActivity()
 		{
 			// Begin the Activity using the passed identifier
-			OrchestrationEventStream.BeginActivity(ActivityName, _activityId);
+			OrchestrationEventStream.BeginActivity(nameof(Process), _activityId);
 		}
 
 		/// <summary>
@@ -121,9 +107,8 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 				al.Add(kvp.Key);
 				al.Add(kvp.Value);
 			}
-
 			// Update the BAM Activity with all of the data
-			OrchestrationEventStream.UpdateActivity(ActivityName, _activityId, al.ToArray());
+			OrchestrationEventStream.UpdateActivity(nameof(Process), _activityId, al.ToArray());
 		}
 
 		/// <summary>
@@ -132,7 +117,7 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		public void EndProcessActivity()
 		{
 			// End this activity, no more data can be added.
-			OrchestrationEventStream.EndActivity(ActivityName, _activityId);
+			OrchestrationEventStream.EndActivity(nameof(Process), _activityId);
 		}
 
 		/// <summary>
@@ -151,11 +136,10 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		/// <param name="referenceType">The related item type. Reference type identifiers are limited to 128 characters.</param>
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData)
 		{
 			// Add a reference to another activity
-			OrchestrationEventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData);
+			OrchestrationEventStream.AddReference(nameof(Process), _activityId, referenceType, referenceName, referenceData);
 		}
 
 		/// <summary>
@@ -165,11 +149,10 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
 		/// <param name="longReferenceData">The related item data containing up to 512 KB of Unicode characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData, string longReferenceData)
 		{
 			// Add a reference to another activity
-			OrchestrationEventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData, longReferenceData);
+			OrchestrationEventStream.AddReference(nameof(Process), _activityId, referenceType, referenceName, referenceData, longReferenceData);
 		}
 
 		/// <summary>
@@ -179,24 +162,23 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		public string EnableContinuation()
 		{
 			string continuationId = ContinuationPrefix + _activityId;
-			OrchestrationEventStream.EnableContinuation(ActivityName, _activityId, continuationId);
+			OrchestrationEventStream.EnableContinuation(nameof(Process), _activityId, continuationId);
 			return continuationId;
 		}
-	}
 
-	[GeneratedCode("BamActivityModel", "2.0.0.0")]
-	[Serializable]
-	public partial class ProcessingStep
-	{
-		public const string ActivityName = "ProcessingStep";
 		internal const string ContinuationPrefix = "CONT_";
 
 		private readonly string _activityId;
 		private readonly Dictionary<string, object> _activityItems = new Dictionary<string, object>();
+	}
 
+	[GeneratedCode("BamActivityModel", "2.0.0.1")]
+	[Serializable]
+	public partial class ProcessingStep
+	{
 		public ProcessingStep(string activityId)
 		{
-			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException("activityId", "activityId is required.");
+			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException(nameof(activityId));
 			_activityId = activityId;
 		}
 
@@ -205,53 +187,46 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 			get { return _activityId; }
 		}
 
-		internal const string BeginTimeFieldName = "BeginTime";
 		public DateTime? BeginTime
 		{
-			get { return (DateTime?) _activityItems[BeginTimeFieldName]; }
-			set { if (value.HasValue) _activityItems[BeginTimeFieldName] = value.Value; }
+			get { return (DateTime?) _activityItems[nameof(BeginTime)]; }
+			set { if (value.HasValue) _activityItems[nameof(BeginTime)] = value.Value; }
 		}
 
-		internal const string EndTimeFieldName = "EndTime";
 		public DateTime? EndTime
 		{
-			get { return (DateTime?) _activityItems[EndTimeFieldName]; }
-			set { if (value.HasValue) _activityItems[EndTimeFieldName] = value.Value; }
+			get { return (DateTime?) _activityItems[nameof(EndTime)]; }
+			set { if (value.HasValue) _activityItems[nameof(EndTime)] = value.Value; }
 		}
 
-		internal const string ErrorDescriptionFieldName = "ErrorDescription";
 		public string ErrorDescription
 		{
-			get { return (string) _activityItems[ErrorDescriptionFieldName]; }
-			set { if (value != null) _activityItems[ErrorDescriptionFieldName] = value; }
+			get { return (string) _activityItems[nameof(ErrorDescription)]; }
+			set { if (value != null) _activityItems[nameof(ErrorDescription)] = value; }
 		}
 
-		internal const string MachineNameFieldName = "MachineName";
 		public string MachineName
 		{
-			get { return (string) _activityItems[MachineNameFieldName]; }
-			set { if (value != null) _activityItems[MachineNameFieldName] = value; }
+			get { return (string) _activityItems[nameof(MachineName)]; }
+			set { if (value != null) _activityItems[nameof(MachineName)] = value; }
 		}
 
-		internal const string ProcessActivityIDFieldName = "ProcessActivityID";
 		public string ProcessActivityID
 		{
-			get { return (string) _activityItems[ProcessActivityIDFieldName]; }
-			set { if (value != null) _activityItems[ProcessActivityIDFieldName] = value; }
+			get { return (string) _activityItems[nameof(ProcessActivityID)]; }
+			set { if (value != null) _activityItems[nameof(ProcessActivityID)] = value; }
 		}
 
-		internal const string StatusFieldName = "Status";
 		public string Status
 		{
-			get { return (string) _activityItems[StatusFieldName]; }
-			set { if (value != null) _activityItems[StatusFieldName] = value; }
+			get { return (string) _activityItems[nameof(Status)]; }
+			set { if (value != null) _activityItems[nameof(Status)] = value; }
 		}
 
-		internal const string StepNameFieldName = "StepName";
 		public string StepName
 		{
-			get { return (string) _activityItems[StepNameFieldName]; }
-			set { if (value != null) _activityItems[StepNameFieldName] = value; }
+			get { return (string) _activityItems[nameof(StepName)]; }
+			set { if (value != null) _activityItems[nameof(StepName)] = value; }
 		}
 
 		/// <summary>
@@ -260,7 +235,7 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		public void BeginProcessingStepActivity()
 		{
 			// Begin the Activity using the passed identifier
-			OrchestrationEventStream.BeginActivity(ActivityName, _activityId);
+			OrchestrationEventStream.BeginActivity(nameof(ProcessingStep), _activityId);
 		}
 
 		/// <summary>
@@ -275,9 +250,8 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 				al.Add(kvp.Key);
 				al.Add(kvp.Value);
 			}
-
 			// Update the BAM Activity with all of the data
-			OrchestrationEventStream.UpdateActivity(ActivityName, _activityId, al.ToArray());
+			OrchestrationEventStream.UpdateActivity(nameof(ProcessingStep), _activityId, al.ToArray());
 		}
 
 		/// <summary>
@@ -286,7 +260,7 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		public void EndProcessingStepActivity()
 		{
 			// End this activity, no more data can be added.
-			OrchestrationEventStream.EndActivity(ActivityName, _activityId);
+			OrchestrationEventStream.EndActivity(nameof(ProcessingStep), _activityId);
 		}
 
 		/// <summary>
@@ -305,11 +279,10 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		/// <param name="referenceType">The related item type. Reference type identifiers are limited to 128 characters.</param>
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData)
 		{
 			// Add a reference to another activity
-			OrchestrationEventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData);
+			OrchestrationEventStream.AddReference(nameof(ProcessingStep), _activityId, referenceType, referenceName, referenceData);
 		}
 
 		/// <summary>
@@ -319,11 +292,10 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
 		/// <param name="longReferenceData">The related item data containing up to 512 KB of Unicode characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData, string longReferenceData)
 		{
 			// Add a reference to another activity
-			OrchestrationEventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData, longReferenceData);
+			OrchestrationEventStream.AddReference(nameof(ProcessingStep), _activityId, referenceType, referenceName, referenceData, longReferenceData);
 		}
 
 		/// <summary>
@@ -333,24 +305,23 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		public string EnableContinuation()
 		{
 			string continuationId = ContinuationPrefix + _activityId;
-			OrchestrationEventStream.EnableContinuation(ActivityName, _activityId, continuationId);
+			OrchestrationEventStream.EnableContinuation(nameof(ProcessingStep), _activityId, continuationId);
 			return continuationId;
 		}
-	}
 
-	[GeneratedCode("BamActivityModel", "2.0.0.0")]
-	[Serializable]
-	public partial class ProcessMessagingStep
-	{
-		public const string ActivityName = "ProcessMessagingStep";
 		internal const string ContinuationPrefix = "CONT_";
 
 		private readonly string _activityId;
 		private readonly Dictionary<string, object> _activityItems = new Dictionary<string, object>();
+	}
 
+	[GeneratedCode("BamActivityModel", "2.0.0.1")]
+	[Serializable]
+	public partial class ProcessMessagingStep
+	{
 		public ProcessMessagingStep(string activityId)
 		{
-			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException("activityId", "activityId is required.");
+			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException(nameof(activityId));
 			_activityId = activityId;
 		}
 
@@ -359,25 +330,22 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 			get { return _activityId; }
 		}
 
-		internal const string MessagingStepActivityIDFieldName = "MessagingStepActivityID";
 		public string MessagingStepActivityID
 		{
-			get { return (string) _activityItems[MessagingStepActivityIDFieldName]; }
-			set { if (value != null) _activityItems[MessagingStepActivityIDFieldName] = value; }
+			get { return (string) _activityItems[nameof(MessagingStepActivityID)]; }
+			set { if (value != null) _activityItems[nameof(MessagingStepActivityID)] = value; }
 		}
 
-		internal const string MessagingStepStatusFieldName = "MessagingStepStatus";
 		public string MessagingStepStatus
 		{
-			get { return (string) _activityItems[MessagingStepStatusFieldName]; }
-			set { if (value != null) _activityItems[MessagingStepStatusFieldName] = value; }
+			get { return (string) _activityItems[nameof(MessagingStepStatus)]; }
+			set { if (value != null) _activityItems[nameof(MessagingStepStatus)] = value; }
 		}
 
-		internal const string ProcessActivityIDFieldName = "ProcessActivityID";
 		public string ProcessActivityID
 		{
-			get { return (string) _activityItems[ProcessActivityIDFieldName]; }
-			set { if (value != null) _activityItems[ProcessActivityIDFieldName] = value; }
+			get { return (string) _activityItems[nameof(ProcessActivityID)]; }
+			set { if (value != null) _activityItems[nameof(ProcessActivityID)] = value; }
 		}
 
 		/// <summary>
@@ -386,7 +354,7 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		public void BeginProcessMessagingStepActivity()
 		{
 			// Begin the Activity using the passed identifier
-			OrchestrationEventStream.BeginActivity(ActivityName, _activityId);
+			OrchestrationEventStream.BeginActivity(nameof(ProcessMessagingStep), _activityId);
 		}
 
 		/// <summary>
@@ -401,9 +369,8 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 				al.Add(kvp.Key);
 				al.Add(kvp.Value);
 			}
-
 			// Update the BAM Activity with all of the data
-			OrchestrationEventStream.UpdateActivity(ActivityName, _activityId, al.ToArray());
+			OrchestrationEventStream.UpdateActivity(nameof(ProcessMessagingStep), _activityId, al.ToArray());
 		}
 
 		/// <summary>
@@ -412,7 +379,7 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		public void EndProcessMessagingStepActivity()
 		{
 			// End this activity, no more data can be added.
-			OrchestrationEventStream.EndActivity(ActivityName, _activityId);
+			OrchestrationEventStream.EndActivity(nameof(ProcessMessagingStep), _activityId);
 		}
 
 		/// <summary>
@@ -431,11 +398,10 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		/// <param name="referenceType">The related item type. Reference type identifiers are limited to 128 characters.</param>
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData)
 		{
 			// Add a reference to another activity
-			OrchestrationEventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData);
+			OrchestrationEventStream.AddReference(nameof(ProcessMessagingStep), _activityId, referenceType, referenceName, referenceData);
 		}
 
 		/// <summary>
@@ -445,11 +411,10 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
 		/// <param name="longReferenceData">The related item data containing up to 512 KB of Unicode characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData, string longReferenceData)
 		{
 			// Add a reference to another activity
-			OrchestrationEventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData, longReferenceData);
+			OrchestrationEventStream.AddReference(nameof(ProcessMessagingStep), _activityId, referenceType, referenceName, referenceData, longReferenceData);
 		}
 
 		/// <summary>
@@ -459,24 +424,23 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		public string EnableContinuation()
 		{
 			string continuationId = ContinuationPrefix + _activityId;
-			OrchestrationEventStream.EnableContinuation(ActivityName, _activityId, continuationId);
+			OrchestrationEventStream.EnableContinuation(nameof(ProcessMessagingStep), _activityId, continuationId);
 			return continuationId;
 		}
-	}
 
-	[GeneratedCode("BamActivityModel", "2.0.0.0")]
-	[Serializable]
-	public partial class MessagingStep
-	{
-		public const string ActivityName = "MessagingStep";
 		internal const string ContinuationPrefix = "CONT_";
 
 		private readonly string _activityId;
 		private readonly Dictionary<string, object> _activityItems = new Dictionary<string, object>();
+	}
 
+	[GeneratedCode("BamActivityModel", "2.0.0.1")]
+	[Serializable]
+	public partial class MessagingStep
+	{
 		public MessagingStep(string activityId)
 		{
-			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException("activityId", "activityId is required.");
+			if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException(nameof(activityId));
 			_activityId = activityId;
 		}
 
@@ -485,116 +449,100 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 			get { return _activityId; }
 		}
 
-		internal const string ErrorCodeFieldName = "ErrorCode";
 		public string ErrorCode
 		{
-			get { return (string) _activityItems[ErrorCodeFieldName]; }
-			set { if (value != null) _activityItems[ErrorCodeFieldName] = value; }
+			get { return (string) _activityItems[nameof(ErrorCode)]; }
+			set { if (value != null) _activityItems[nameof(ErrorCode)] = value; }
 		}
 
-		internal const string ErrorDescriptionFieldName = "ErrorDescription";
 		public string ErrorDescription
 		{
-			get { return (string) _activityItems[ErrorDescriptionFieldName]; }
-			set { if (value != null) _activityItems[ErrorDescriptionFieldName] = value; }
+			get { return (string) _activityItems[nameof(ErrorDescription)]; }
+			set { if (value != null) _activityItems[nameof(ErrorDescription)] = value; }
 		}
 
-		internal const string InterchangeIDFieldName = "InterchangeID";
 		public string InterchangeID
 		{
-			get { return (string) _activityItems[InterchangeIDFieldName]; }
-			set { if (value != null) _activityItems[InterchangeIDFieldName] = value; }
+			get { return (string) _activityItems[nameof(InterchangeID)]; }
+			set { if (value != null) _activityItems[nameof(InterchangeID)] = value; }
 		}
 
-		internal const string MachineNameFieldName = "MachineName";
 		public string MachineName
 		{
-			get { return (string) _activityItems[MachineNameFieldName]; }
-			set { if (value != null) _activityItems[MachineNameFieldName] = value; }
+			get { return (string) _activityItems[nameof(MachineName)]; }
+			set { if (value != null) _activityItems[nameof(MachineName)] = value; }
 		}
 
-		internal const string MessageIDFieldName = "MessageID";
 		public string MessageID
 		{
-			get { return (string) _activityItems[MessageIDFieldName]; }
-			set { if (value != null) _activityItems[MessageIDFieldName] = value; }
+			get { return (string) _activityItems[nameof(MessageID)]; }
+			set { if (value != null) _activityItems[nameof(MessageID)] = value; }
 		}
 
-		internal const string MessageSizeFieldName = "MessageSize";
 		public int? MessageSize
 		{
-			get { return (int?) _activityItems[MessageSizeFieldName]; }
-			set { if (value.HasValue) _activityItems[MessageSizeFieldName] = value.Value; }
+			get { return (int?) _activityItems[nameof(MessageSize)]; }
+			set { if (value.HasValue) _activityItems[nameof(MessageSize)] = value.Value; }
 		}
 
-		internal const string MessageTypeFieldName = "MessageType";
 		public string MessageType
 		{
-			get { return (string) _activityItems[MessageTypeFieldName]; }
-			set { if (value != null) _activityItems[MessageTypeFieldName] = value; }
+			get { return (string) _activityItems[nameof(MessageType)]; }
+			set { if (value != null) _activityItems[nameof(MessageType)] = value; }
 		}
 
-		internal const string PortNameFieldName = "PortName";
 		public string PortName
 		{
-			get { return (string) _activityItems[PortNameFieldName]; }
-			set { if (value != null) _activityItems[PortNameFieldName] = value; }
+			get { return (string) _activityItems[nameof(PortName)]; }
+			set { if (value != null) _activityItems[nameof(PortName)] = value; }
 		}
 
-		internal const string RetryCountFieldName = "RetryCount";
 		public int? RetryCount
 		{
-			get { return (int?) _activityItems[RetryCountFieldName]; }
-			set { if (value.HasValue) _activityItems[RetryCountFieldName] = value.Value; }
+			get { return (int?) _activityItems[nameof(RetryCount)]; }
+			set { if (value.HasValue) _activityItems[nameof(RetryCount)] = value.Value; }
 		}
 
-		internal const string StatusFieldName = "Status";
 		public string Status
 		{
-			get { return (string) _activityItems[StatusFieldName]; }
-			set { if (value != null) _activityItems[StatusFieldName] = value; }
+			get { return (string) _activityItems[nameof(Status)]; }
+			set { if (value != null) _activityItems[nameof(Status)] = value; }
 		}
 
-		internal const string TimeFieldName = "Time";
 		public DateTime? Time
 		{
-			get { return (DateTime?) _activityItems[TimeFieldName]; }
-			set { if (value.HasValue) _activityItems[TimeFieldName] = value.Value; }
+			get { return (DateTime?) _activityItems[nameof(Time)]; }
+			set { if (value.HasValue) _activityItems[nameof(Time)] = value.Value; }
 		}
 
-		internal const string TransportLocationFieldName = "TransportLocation";
 		public string TransportLocation
 		{
-			get { return (string) _activityItems[TransportLocationFieldName]; }
-			set { if (value != null) _activityItems[TransportLocationFieldName] = value; }
+			get { return (string) _activityItems[nameof(TransportLocation)]; }
+			set { if (value != null) _activityItems[nameof(TransportLocation)] = value; }
 		}
 
-		internal const string TransportTypeFieldName = "TransportType";
 		public string TransportType
 		{
-			get { return (string) _activityItems[TransportTypeFieldName]; }
-			set { if (value != null) _activityItems[TransportTypeFieldName] = value; }
+			get { return (string) _activityItems[nameof(TransportType)]; }
+			set { if (value != null) _activityItems[nameof(TransportType)] = value; }
 		}
 
-		internal const string Value1FieldName = "Value1";
 		public string Value1
 		{
-			get { return (string) _activityItems[Value1FieldName]; }
-			set { if (value != null) _activityItems[Value1FieldName] = value; }
+			get { return (string) _activityItems[nameof(Value1)]; }
+			set { if (value != null) _activityItems[nameof(Value1)] = value; }
 		}
 
-		internal const string Value2FieldName = "Value2";
 		public string Value2
 		{
-			get { return (string) _activityItems[Value2FieldName]; }
-			set { if (value != null) _activityItems[Value2FieldName] = value; }
+			get { return (string) _activityItems[nameof(Value2)]; }
+			set { if (value != null) _activityItems[nameof(Value2)] = value; }
 		}
 
-		internal const string Value3FieldName = "Value3";
 		public string Value3
 		{
-			get { return (string) _activityItems[Value3FieldName]; }
-			set { if (value != null) _activityItems[Value3FieldName] = value; }
+			get { return (string) _activityItems[nameof(Value3)]; }
+			set { if (value != null) _activityItems[nameof(Value3)] = value; }
 		}
 
 		/// <summary>
@@ -603,7 +551,7 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		public void BeginMessagingStepActivity()
 		{
 			// Begin the Activity using the passed identifier
-			OrchestrationEventStream.BeginActivity(ActivityName, _activityId);
+			OrchestrationEventStream.BeginActivity(nameof(MessagingStep), _activityId);
 		}
 
 		/// <summary>
@@ -618,9 +566,8 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 				al.Add(kvp.Key);
 				al.Add(kvp.Value);
 			}
-
 			// Update the BAM Activity with all of the data
-			OrchestrationEventStream.UpdateActivity(ActivityName, _activityId, al.ToArray());
+			OrchestrationEventStream.UpdateActivity(nameof(MessagingStep), _activityId, al.ToArray());
 		}
 
 		/// <summary>
@@ -629,7 +576,7 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		public void EndMessagingStepActivity()
 		{
 			// End this activity, no more data can be added.
-			OrchestrationEventStream.EndActivity(ActivityName, _activityId);
+			OrchestrationEventStream.EndActivity(nameof(MessagingStep), _activityId);
 		}
 
 		/// <summary>
@@ -648,11 +595,10 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		/// <param name="referenceType">The related item type. Reference type identifiers are limited to 128 characters.</param>
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData)
 		{
 			// Add a reference to another activity
-			OrchestrationEventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData);
+			OrchestrationEventStream.AddReference(nameof(MessagingStep), _activityId, referenceType, referenceName, referenceData);
 		}
 
 		/// <summary>
@@ -662,11 +608,10 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		/// <param name="referenceName">The related item name. Reference names are limited to 128 characters.</param>
 		/// <param name="referenceData">The related item data. Limited to 1024 characters of data.</param>
 		/// <param name="longReferenceData">The related item data containing up to 512 KB of Unicode characters of data.</param>
-		/// <remarks>See http://msdn.microsoft.com/en-us/library/aa956648(BTS.10).aspx</remarks>
 		public void AddCustomReference(string referenceType, string referenceName, string referenceData, string longReferenceData)
 		{
 			// Add a reference to another activity
-			OrchestrationEventStream.AddReference(ActivityName, _activityId, referenceType, referenceName, referenceData, longReferenceData);
+			OrchestrationEventStream.AddReference(nameof(MessagingStep), _activityId, referenceType, referenceName, referenceData, longReferenceData);
 		}
 
 		/// <summary>
@@ -676,9 +621,14 @@ namespace Be.Stateless.BizTalk.Tracking.Processing
 		public string EnableContinuation()
 		{
 			string continuationId = ContinuationPrefix + _activityId;
-			OrchestrationEventStream.EnableContinuation(ActivityName, _activityId, continuationId);
+			OrchestrationEventStream.EnableContinuation(nameof(MessagingStep), _activityId, continuationId);
 			return continuationId;
 		}
+
+		internal const string ContinuationPrefix = "CONT_";
+
+		private readonly string _activityId;
+		private readonly Dictionary<string, object> _activityItems = new Dictionary<string, object>();
 	}
 
 }

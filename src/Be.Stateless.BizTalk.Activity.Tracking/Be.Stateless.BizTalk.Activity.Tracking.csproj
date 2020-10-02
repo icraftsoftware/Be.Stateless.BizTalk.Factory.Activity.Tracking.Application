@@ -3,36 +3,30 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <RootNamespace>Be.Stateless.BizTalk</RootNamespace>
-    <AssemblyTitle>Be.Stateless.BizTalk.Activity.Tracking</AssemblyTitle>
+    <AssemblyName>Be.Stateless.BizTalk.Activity.Tracking</AssemblyName>
     <Description>BizTalk.Factory's activity model and tracking API for general purpose BizTalk Server development.</Description>
   </PropertyGroup>
 
   <PropertyGroup>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/icraftsoftware/Be.Stateless.BizTalk.Activity.Tracking</RepositoryUrl>
+    <RepositoryUrl>https://github.com/icraftsoftware/Be.Stateless.BizTalk.Factory.Activity.Tracking.Application</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <!-- embed source files that are not tracked by the source control manager in the PDB -->
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
 
   <PropertyGroup>
-    <!-- https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#system-variables -->
-    <ContinuousIntegrationBuild Condition="'$(TF_BUILD)' == 'true'">true</ContinuousIntegrationBuild>
-    <Deterministic>true</Deterministic>
     <GeneratePackageOnBuild Condition=" '$(GeneratePackageOnBuild)' == '' ">false</GeneratePackageOnBuild>
     <IsPackable>true</IsPackable>
-    <PackageId>$(AssemblyTitle)</PackageId>
+    <PackageId>$(AssemblyName)</PackageId>
     <PackageDescription>$(Description)</PackageDescription>
-    <!--<PackageIconUrl>icon url prop</PackageIconUrl>-->
     <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
-    <!--<PackageReleaseNotes>release notes prop</PackageReleaseNotes>-->
-    <PackageTags>library extension utility</PackageTags>
+    <PackageTags>BizTalk library activity tracking</PackageTags>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DocumentationFile>bin\Release\$(AssemblyTitle).xml</DocumentationFile>
+    <DocumentationFile>bin\Release\$(AssemblyName).xml</DocumentationFile>
     <NoWarn>1701;1702</NoWarn>
   </PropertyGroup>
 
@@ -41,36 +35,42 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Be.Stateless.BizTalk.Abstractions" Version="2.1.22025.23485" />
+    <PackageReference Include="Be.Stateless.BizTalk.Messaging" Version="2.1.22025.26745" />
+    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents" Version="2.1.22025.28006" />
+    <PackageReference Include="Be.Stateless.BizTalk.Settings" Version="2.1.22025.21655" />
+    <PackageReference Include="Be.Stateless.BizTalk.Stream" Version="2.1.22025.26169" />
+    <PackageReference Include="Be.Stateless.BizTalk.XLang" Version="2.1.22025.26179" />
+    <PackageReference Include="Be.Stateless.BizTalk.Xml" Version="2.1.22025.24612" />
+    <PackageReference Include="Be.Stateless.Extensions" Version="2.1.22025.20499" />
+    <PackageReference Include="Be.Stateless.Reflection" Version="2.1.22025.20814" />
+    <PackageReference Include="Be.Stateless.Stream" Version="2.1.22025.21947" />
+    <PackageReference Include="Be.Stateless.Xml" Version="2.1.22025.22704" />
     <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+    <PackageReference Include="log4net" Version="2.0.14" />
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Activity\Model\" />
-    <Folder Include="Activity\Tracking\Messaging\" />
-    <Folder Include="Activity\Tracking\Processing\" />
+    <ProjectReference Include="..\Be.Stateless.BizTalk.Claim.Check.Schemas\Be.Stateless.BizTalk.Claim.Check.Schemas.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Configuration.Install" />
   </ItemGroup>
 
   <Target Name="GenerateTypedBamApi" Inputs="$(MSBuildThisFileDirectory)Activity\Model\ActivityModel.xml;$(MSBuildThisFileDirectory)Activity\Model\ActivityModelToTypedApi.xslt" Outputs="$(MSBuildThisFileDirectory)Activity\Tracking\Messaging\Tracking.Designer.cs;$(MSBuildThisFileDirectory)Activity\Tracking\Processing\Tracking.Designer.cs">
     <Message Text="Generating Activity\Tracking\Messaging\Tracking.Designer.cs" />
-    <XslTransformation
-      XslInputPath="$(MSBuildThisFileDirectory)Activity\Model\ActivityModelToTypedApi.xslt"
-      XmlInputPaths="$(MSBuildThisFileDirectory)Activity\Model\ActivityModel.xml"
-      OutputPaths="$(MSBuildThisFileDirectory)Activity\Tracking\Messaging\Tracking.Designer.cs"
-      Parameters="&lt;Parameter Name='EventStreamType' Value='Buffered'/&gt;&lt;Parameter Name='TargetNamespace' Value='$(RootNamespace).Tracking.Messaging'/&gt;" />
+    <XslTransformation XslInputPath="$(MSBuildThisFileDirectory)Activity\Model\ActivityModelToTypedApi.xslt" XmlInputPaths="$(MSBuildThisFileDirectory)Activity\Model\ActivityModel.xml" OutputPaths="$(MSBuildThisFileDirectory)Activity\Tracking\Messaging\Tracking.Designer.cs" Parameters="&lt;Parameter Name='EventStreamType' Value='Buffered'/&gt;&lt;Parameter Name='TargetNamespace' Value='$(RootNamespace).Activity.Tracking.Messaging'/&gt;" />
     <Message Text="Generating Activity\Tracking\Processing\Tracking.Designer.cs" />
-    <XslTransformation
-      XslInputPath="$(MSBuildThisFileDirectory)Activity\Model\ActivityModelToTypedApi.xslt"
-      XmlInputPaths="$(MSBuildThisFileDirectory)Activity\Model\ActivityModel.xml"
-      OutputPaths="$(MSBuildThisFileDirectory)Activity\Tracking\Processing\Tracking.Designer.cs"
-      Parameters="&lt;Parameter Name='EventStreamType' Value='Orchestration'/&gt;&lt;Parameter Name='TargetNamespace' Value='$(RootNamespace).Tracking.Processing'/&gt;" />
+    <XslTransformation XslInputPath="$(MSBuildThisFileDirectory)Activity\Model\ActivityModelToTypedApi.xslt" XmlInputPaths="$(MSBuildThisFileDirectory)Activity\Model\ActivityModel.xml" OutputPaths="$(MSBuildThisFileDirectory)Activity\Tracking\Processing\Tracking.Designer.cs" Parameters="&lt;Parameter Name='EventStreamType' Value='Orchestration'/&gt;&lt;Parameter Name='TargetNamespace' Value='$(RootNamespace).Activity.Tracking.Processing'/&gt;" />
   </Target>
 
   <PropertyGroup>

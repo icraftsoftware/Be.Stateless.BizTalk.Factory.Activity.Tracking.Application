@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <RootNamespace>Be.Stateless.BizTalk</RootNamespace>
+    <AssemblyName>Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding</AssemblyName>
+    <Description>BizTalk.Factory's activity tracking application bindings.</Description>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/icraftsoftware/Be.Stateless.BizTalk.Factory.Activity.Tracking.Application</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\.settings\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Be.Stateless.BizTalk.Abstractions" Version="2.1.22025.23485" />
+    <PackageReference Include="Be.Stateless.BizTalk.Dsl.Binding" Version="2.1.22025.35897" />
+    <PackageReference Include="Be.Stateless.BizTalk.Dsl.Binding.Conventions" Version="2.1.22025.35897" />
+    <PackageReference Include="Be.Stateless.BizTalk.Dsl.Environment.Settings" Version="2.1.22025.35897" />
+    <PackageReference Include="Be.Stateless.BizTalk.Dsl.Pipeline" Version="2.1.22025.30333" />
+    <PackageReference Include="Be.Stateless.BizTalk.Messaging" Version="2.1.22025.26745" />
+    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.Components" Version="2.1.22025.28847" />
+    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents" Version="2.1.22025.28006" />
+    <PackageReference Include="Be.Stateless.BizTalk.Pipelines" Version="2.1.22025.39770" />
+    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="BizTalk.Server.2020.Runtime.Adapters" Version="1.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Be.Stateless.BizTalk.Activity.Tracking\Be.Stateless.BizTalk.Activity.Tracking.csproj" />
+    <ProjectReference Include="..\Be.Stateless.BizTalk.Claim.Check.Maps\Be.Stateless.BizTalk.Claim.Check.Maps.csproj" />
+  </ItemGroup>
+
+</Project>

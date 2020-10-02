@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mapsource Name="BizTalk Map" BizTalkServerMapperTool_Version="2.0" Version="2" XRange="100" YRange="420" OmitXmlDeclaration="Yes" TreatElementsAsRecords="No" OptimizeValueMapping="Yes" GenerateDefaultFixedNodes="Yes" PreserveSequenceOrder="No" CopyPIs="No" method="xml" xmlVersion="1.0" IgnoreNamespacesForLinks="Yes">
+  <SrcTree RootNode_Name="CheckIn">
+    <Reference Location="Be.Stateless.BizTalk.Schemas.Xml.Claim" />
+  </SrcTree>
+  <TrgTree>
+    <Reference Location="Be.Stateless.BizTalk.Schemas.Sql.Procedures.Claim.CheckIn" />
+  </TrgTree>
+  <ScriptTypePrecedence>
+    <CSharp Enabled="Yes" />
+    <ExternalAssembly Enabled="Yes" />
+    <VbNet Enabled="Yes" />
+    <JScript Enabled="Yes" />
+    <XsltCallTemplate Enabled="Yes" />
+    <Xslt Enabled="Yes" />
+  </ScriptTypePrecedence>
+  <CustomXSLT XsltPath=".\ClaimToCheckIn.xsl" ExtObjXmlPath="" />
+  <TreeValues>
+    <TestValues />
+    <ConstantValues />
+  </TreeValues>
+  <Pages>
+    <Page Name="Page 1">
+      <Links />
+      <Functoids />
+    </Page>
+  </Pages>
+</mapsource>

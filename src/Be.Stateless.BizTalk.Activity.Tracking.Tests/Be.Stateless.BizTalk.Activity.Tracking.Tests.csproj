@@ -3,23 +3,34 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <RootNamespace>Be.Stateless.BizTalk</RootNamespace>
-    <AssemblyTitle>Be.Stateless.BizTalk.Activity.Tracking.Tests</AssemblyTitle>
+    <AssemblyName>Be.Stateless.BizTalk.Activity.Tracking.Tests</AssemblyName>
     <Description>Unit tests for BizTalk.Factory's activity model and tracking API for general purpose BizTalk Server development.</Description>
+    <IsPublishable>false</IsPublishable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="coverlet.msbuild" Version="2.9.0">
+    <PackageReference Include="Be.Stateless.BizTalk.Activity.Monitoring" Version="2.1.22025.43746" />
+    <PackageReference Include="Be.Stateless.BizTalk.Explorer" Version="2.1.22025.23369" />
+    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents.XUnit" Version="2.1.22025.28006" />
+    <PackageReference Include="Be.Stateless.BizTalk.Settings.Unit" Version="2.1.22025.21655" />
+    <PackageReference Include="Be.Stateless.Stream.Unit" Version="2.1.22025.21947" />
+    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="FluentAssertions" Version="5.10.3" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
-    <PackageReference Include="Moq" Version="4.13.1" />
+    <PackageReference Include="coverlet.msbuild" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="FluentAssertions" Version="6.3.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="xunit.core" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Xunit.SkippableFact" Version="1.4.13" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +39,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Be.Stateless.BizTalk.Activity.Tracking\Be.Stateless.BizTalk.Activity.Tracking.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Be.Stateless.BizTalk.Activity.Monitoring">
+      <Aliases>Monitoring</Aliases>
+    </Reference>
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Transactions" />
   </ItemGroup>
 
 </Project>
