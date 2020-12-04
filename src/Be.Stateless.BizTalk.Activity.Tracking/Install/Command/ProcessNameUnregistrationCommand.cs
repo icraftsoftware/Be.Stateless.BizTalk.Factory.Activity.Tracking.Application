@@ -30,7 +30,7 @@ namespace Be.Stateless.BizTalk.Install.Command
 		{
 			logAppender?.Invoke("Unregistering process names.");
 			const string cmdText = "DELETE FROM monitoring_ProcessDescriptors WHERE Name=@name";
-			using (var cnx = MgmtDbConnection)
+			using (var cnx = BizTalkFactoryManagementDbConnection)
 			using (var cmd = new SqlCommand(cmdText, cnx))
 			{
 				cmd.Parameters.Add(new SqlParameter("@name", SqlDbType.NVarChar));

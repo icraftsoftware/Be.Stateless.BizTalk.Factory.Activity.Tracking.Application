@@ -27,46 +27,55 @@ namespace Be.Stateless.BizTalk.ContextProperties.Extensions
 	/// cref="TrackingProperties"/> context properties.
 	/// </summary>
 	[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Public API.")]
+	[SuppressMessage("ReSharper", "UnusedMethodReturnValue.Global", Justification = "Public API.")]
 	public static class TrackingPropertiesExtensions
 	{
 		public static IBaseMessage SetProcessName(this IBaseMessage message, string processName)
 		{
-			return message.SetProperty(TrackingProperties.ProcessName, processName);
+			message.SetProperty(TrackingProperties.ProcessName, processName);
+			return message;
 		}
 
 		public static IBaseMessageContext SetProcessName(this IBaseMessageContext context, string processName)
 		{
-			return context.SetProperty(TrackingProperties.ProcessName, processName);
+			context.SetProperty(TrackingProperties.ProcessName, processName);
+			return context;
 		}
 
 		public static IBaseMessage SetValue1(this IBaseMessage message, string value)
 		{
-			return message.SetProperty(TrackingProperties.Value1, value);
+			message.SetProperty(TrackingProperties.Value1, value);
+			return message;
 		}
 
 		public static IBaseMessageContext SetValue1(this IBaseMessageContext context, string value)
 		{
-			return context.SetProperty(TrackingProperties.Value1, value);
+			context.SetProperty(TrackingProperties.Value1, value);
+			return context;
 		}
 
 		public static IBaseMessage SetValue2(this IBaseMessage message, string value)
 		{
-			return message.SetProperty(TrackingProperties.Value2, value);
+			message.SetProperty(TrackingProperties.Value2, value);
+			return message;
 		}
 
 		public static IBaseMessageContext SetValue2(this IBaseMessageContext context, string value)
 		{
-			return context.SetProperty(TrackingProperties.Value2, value);
+			context.SetProperty(TrackingProperties.Value2, value);
+			return context;
 		}
 
 		public static IBaseMessage SetValue3(this IBaseMessage message, string value)
 		{
-			return message.SetProperty(TrackingProperties.Value3, value);
+			message.SetProperty(TrackingProperties.Value3, value);
+			return message;
 		}
 
 		public static IBaseMessageContext SetValue3(this IBaseMessageContext context, string value)
 		{
-			return context.SetProperty(TrackingProperties.Value3, value);
+			context.SetProperty(TrackingProperties.Value3, value);
+			return context;
 		}
 	}
 }

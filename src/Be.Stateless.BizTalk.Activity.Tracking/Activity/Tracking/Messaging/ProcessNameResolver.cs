@@ -17,6 +17,7 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Be.Stateless.BizTalk.ContextProperties;
 using Be.Stateless.BizTalk.Factory.Areas;
 using Be.Stateless.BizTalk.Message.Extensions;
@@ -27,8 +28,9 @@ using Microsoft.BizTalk.Message.Interop;
 namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 {
 	/// <summary>
-	/// Ensure process name resolution while <see cref="ActivityTrackerComponent"/> is tracking.
+	/// Ensure process name resolution while <see cref="Be.Stateless.BizTalk.MicroComponent.ActivityTracker"/> is tracking.
 	/// </summary>
+	[SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Required for unit testing purposes.")]
 	internal class ProcessNameResolver
 	{
 		internal static ProcessNameResolver Create(IBaseMessage message)
@@ -42,6 +44,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 
 		#endregion
 
+		[SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Protected for unit testing purposes.")]
 		protected ProcessNameResolver(IBaseMessage message)
 		{
 			_message = message;

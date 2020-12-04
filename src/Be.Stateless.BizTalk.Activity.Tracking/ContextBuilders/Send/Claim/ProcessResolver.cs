@@ -16,6 +16,7 @@
 
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using Be.Stateless.BizTalk.ContextProperties;
 using Be.Stateless.BizTalk.ContextProperties.Extensions;
 using Be.Stateless.BizTalk.Message.Extensions;
@@ -25,6 +26,7 @@ using Microsoft.BizTalk.Message.Interop;
 
 namespace Be.Stateless.BizTalk.ContextBuilders.Send.Claim
 {
+	[SuppressMessage("ReSharper", "UnusedType.Global", Justification = "Public API.")]
 	public class ProcessResolver : IContextBuilder
 	{
 		#region IContextBuilder Members

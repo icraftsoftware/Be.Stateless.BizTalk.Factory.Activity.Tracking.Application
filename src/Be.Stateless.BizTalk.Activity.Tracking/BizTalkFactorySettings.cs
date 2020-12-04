@@ -16,12 +16,14 @@
 
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using Be.Stateless.BizTalk.Settings;
 
 namespace Be.Stateless.BizTalk
 {
 	/// <summary>
-	/// Single access point for all BizTalk Factory settings coming either from the BizTalkFactoryMgmtDb or SSODB.
+	/// Single access point for all BizTalk Factory settings coming either from the BizTalkFactory Management Database or SSO
+   /// Database.
 	/// </summary>
 	/// <remarks>
 	/// It's purpose is twofold: avoid the dissemination of magic stings all around, on one side, and support mocking and unit
@@ -33,6 +35,7 @@ namespace Be.Stateless.BizTalk
 
 		public static string ClaimStoreCheckOutDirectory => (string) SsoConfigurationReader.Instance.Read(APPLICATION_NAME, CLAIM_STORE_CHECK_OUT_DIRECTORY_PROPERTY_NAME);
 
+		[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Public API.")]
 		public static string TargetEnvironment => (string) SsoConfigurationReader.Instance.Read(APPLICATION_NAME, TARGET_ENVIRONMENT_PROPERTY_NAME);
 
 		internal const string APPLICATION_NAME = "BizTalk.Factory";

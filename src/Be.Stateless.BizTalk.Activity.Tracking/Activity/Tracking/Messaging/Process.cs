@@ -50,6 +50,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		}
 
 		[SuppressMessage("ReSharper", "ConvertToAutoPropertyWithPrivateSetter")]
+		[SuppressMessage("ReSharper", "UnusedMember.Global")]
 		protected EventStream EventStream => _eventStream;
 
 		public virtual void AddStep(MessagingStep messagingStep)

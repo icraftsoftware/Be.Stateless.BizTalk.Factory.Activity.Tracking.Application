@@ -17,6 +17,7 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Caching;
 using Be.Stateless.BizTalk.Activity.Tracking;
 using Be.Stateless.Extensions;
@@ -27,13 +28,16 @@ namespace Be.Stateless.BizTalk.Runtime.Caching
 	/// <summary>
 	/// Runtime memory cache for the <see cref="TrackingContext"/> associated to <see cref="IBaseMessage"/>-derived types.
 	/// </summary>
-	public class TrackingContextCache // TODO : AbsoluteCache<string, TrackingContext>
+	[SuppressMessage("Design", "CA1001:Types that own disposable fields should be disposable", Justification = "TrackingContextCache is a singleton; MemoryCache can wait for its finalizer.")]
+	[SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Required for unit testing purposes.")]
+	public class TrackingContextCache
 	{
 		///// <summary>
 		///// Singleton <see cref="TrackingContextCache"/> instance.
 		///// </summary>
 		public static TrackingContextCache Instance { get; internal set; } = new TrackingContextCache();
 
+		[SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Required for unit testsing purposes.")]
 		protected TrackingContextCache()
 		{
 			_cache = new MemoryCache(nameof(TrackingContextCache));
@@ -52,6 +56,7 @@ namespace Be.Stateless.BizTalk.Runtime.Caching
 		/// <param name="duration">
 		/// The duration, in seconds, after which the <paramref name="trackingContext"/> entry will be removed from the cache.
 		/// </param>
+		[SuppressMessage("Naming", "CA1716:Identifiers should not match keywords")]
 		public virtual void Set(string key, TrackingContext trackingContext, int duration)
 		{
 			if (key.IsNullOrEmpty()) throw new ArgumentNullException(nameof(key));
@@ -78,6 +83,7 @@ namespace Be.Stateless.BizTalk.Runtime.Caching
 		/// <exception cref="InvalidOperationException">
 		/// No entry has been found in cache for the given <paramref name="key"/>.
 		/// </exception>
+		[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Public API.")]
 		public virtual TrackingContext Remove(string key)
 		{
 			if (key.IsNullOrEmpty()) throw new ArgumentNullException(nameof(key));
@@ -105,6 +111,7 @@ namespace Be.Stateless.BizTalk.Runtime.Caching
 		/// No entry has been found in cache for the given <paramref name="key"/>, or the <see cref="TrackingContext"/> is
 		/// invalid.
 		/// </exception>
+		[SuppressMessage("Naming", "CA1716:Identifiers should not match keywords")]
 		public virtual TrackingContext Get(string key)
 		{
 			if (key.IsNullOrEmpty()) throw new ArgumentNullException(nameof(key));

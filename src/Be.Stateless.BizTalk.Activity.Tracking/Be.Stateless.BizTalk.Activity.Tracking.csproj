@@ -37,22 +37,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Be.Stateless.BizTalk.Abstractions" Version="2.0.20265.27074" />
-    <PackageReference Include="Be.Stateless.BizTalk.Messaging" Version="2.0.20224.39655" />
-    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.Components" Version="2.0.20234.29558" />
-    <PackageReference Include="Be.Stateless.BizTalk.Settings" Version="2.0.20223.39046" />
-    <PackageReference Include="Be.Stateless.BizTalk.Stream" Version="2.0.20226.41871" />
-    <PackageReference Include="Be.Stateless.BizTalk.XLang" Version="2.0.20224.39232" />
-    <PackageReference Include="Be.Stateless.Extensions" Version="2.0.20224.33378" />
+    <PackageReference Include="Be.Stateless.BizTalk.Abstractions" Version="2.0.20316.50886" />
+    <PackageReference Include="Be.Stateless.BizTalk.Messaging" Version="2.0.20316.52163" />
+    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.Components" Version="2.0.20316.52527" />
+    <PackageReference Include="Be.Stateless.BizTalk.Settings" Version="2.0.20316.51252" />
+    <PackageReference Include="Be.Stateless.BizTalk.Stream" Version="2.0.20316.51781" />
+    <PackageReference Include="Be.Stateless.BizTalk.XLang" Version="2.0.20316.52102" />
+    <PackageReference Include="Be.Stateless.Extensions" Version="2.0.20316.50535" />
     <PackageReference Include="BizTalk.Server.2020.Build" Version="1.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; compile; build; native; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.3">
+    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -64,6 +64,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Map Include="Maps\ToSql\Procedures\Claim\ClaimToCheckIn.btm">
+      <TypeName>ClaimToCheckIn</TypeName>
+      <Namespace>Be.Stateless.BizTalk.Maps.ToSql.Procedures.Claim</Namespace>
+    </Map>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Schema Include="Schemas\Sql\Procedures\Claim\CheckIn.xsd">
+      <TypeName>CheckIn</TypeName>
+      <Namespace>Be.Stateless.BizTalk.Schemas.Sql.Procedures.Claim</Namespace>
+    </Schema>
     <Schema Include="Schemas\Xml\Claim.xsd">
       <TypeName>Claim</TypeName>
       <Namespace>Be.Stateless.BizTalk.Schemas.Xml</Namespace>

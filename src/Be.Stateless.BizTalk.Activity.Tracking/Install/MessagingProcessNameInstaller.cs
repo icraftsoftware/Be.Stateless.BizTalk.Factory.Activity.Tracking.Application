@@ -28,7 +28,7 @@ namespace Be.Stateless.BizTalk.Install
 		protected override string[] GetProcessNames()
 		{
 			return GetType().Assembly.GetTypes()
-				.Where(type => ProcessNamesExtensions.IsProcessNameClass(type))
+				.Where(type => type.IsProcessNameClass())
 				.SelectMany(type => type.GetProcessNames())
 				.ToArray();
 		}

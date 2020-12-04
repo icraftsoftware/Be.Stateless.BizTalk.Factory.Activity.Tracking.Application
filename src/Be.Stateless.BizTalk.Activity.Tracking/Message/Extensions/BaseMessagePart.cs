@@ -52,7 +52,7 @@ namespace Be.Stateless.BizTalk.Message.Extensions
 			}
 		}
 
-		internal static MessageBodyCaptureDescriptor AsMessageBodyCaptureDescriptor(this XmlReader reader)
+		private static MessageBodyCaptureDescriptor AsMessageBodyCaptureDescriptor(this XmlReader reader)
 		{
 			var document = new XmlDocument();
 			document.Load(reader);

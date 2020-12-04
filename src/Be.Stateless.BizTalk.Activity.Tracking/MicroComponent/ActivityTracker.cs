@@ -17,6 +17,7 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Be.Stateless.BizTalk.Activity.Tracking;
 using Be.Stateless.BizTalk.Activity.Tracking.Extensions;
@@ -56,7 +57,7 @@ namespace Be.Stateless.BizTalk.MicroComponent
 
 			internal ProcessNameResolver ProcessNameResolver { get; }
 
-			internal ActivityTrackingModes TrackingModes { get; set; }
+			internal ActivityTrackingModes TrackingModes { get; }
 		}
 
 		#endregion
@@ -69,7 +70,8 @@ namespace Be.Stateless.BizTalk.MicroComponent
 
 		#region IMicroComponent Members
 
-		public virtual IBaseMessage Execute(IPipelineContext pipelineContext, IBaseMessage message)
+		[SuppressMessage("ReSharper", "InvertIf")]
+		public IBaseMessage Execute(IPipelineContext pipelineContext, IBaseMessage message)
 		{
 			if (TrackingModes != ActivityTrackingModes.None)
 			{
@@ -116,7 +118,9 @@ namespace Be.Stateless.BizTalk.MicroComponent
 		/// </summary>
 		public ActivityTrackingModes TrackingModes { get; set; }
 
-		protected void CacheTrackingContext(IBaseMessage message, int duration)
+		[SuppressMessage("Performance", "CA1822:Mark members as static")]
+		[SuppressMessage("ReSharper", "InvertIf")]
+		private void CacheTrackingContext(IBaseMessage message, int duration)
 		{
 			// if propagation of TrackingContext is not disabled, cache the current TrackingContext
 			if (duration > -1)
@@ -129,7 +133,8 @@ namespace Be.Stateless.BizTalk.MicroComponent
 			}
 		}
 
-		protected void RestoreCachedTrackingContext(IBaseMessage message)
+		[SuppressMessage("ReSharper", "InvertIf")]
+		private void RestoreCachedTrackingContext(IBaseMessage message)
 		{
 			var duration = (int) TrackingContextCacheDuration.TotalSeconds;
 			// if propagation of TrackingContext is not disabled, restore a previously cached TrackingContext

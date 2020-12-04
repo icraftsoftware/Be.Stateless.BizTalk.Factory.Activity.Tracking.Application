@@ -26,7 +26,7 @@ using Be.Stateless.Reflection;
 using FluentAssertions;
 using Microsoft.BizTalk.Streaming;
 using Xunit;
-using static Be.Stateless.DelegateFactory;
+using static Be.Stateless.Unit.DelegateFactory;
 
 namespace Be.Stateless.BizTalk.Stream
 {

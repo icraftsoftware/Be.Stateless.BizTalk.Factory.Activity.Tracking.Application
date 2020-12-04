@@ -54,7 +54,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 
 		#endregion
 
-		protected EventStream GetEventStream()
+		private EventStream GetEventStream()
 		{
 			return _pipelineContext.GetEventStream();
 		}

@@ -16,15 +16,26 @@
 
 #endregion
 
-using System;
+using Be.Stateless.BizTalk.ClaimStore.States;
+using Moq;
+using Xunit;
 
-// ReSharper disable once CheckNamespace
-namespace Be.Stateless
+namespace Be.Stateless.BizTalk.ClaimStore
 {
-	public static class DelegateFactory
+	public class ClaimedMessageBodyFixture
 	{
-		public static Action Action(Action action) => action;
+		[Fact]
+		public void Collect()
+		{
+			var dataFileMock = new Mock<DataFile>("201306158F341A2D6FD7416B87073A0132DD51AE.chk") { CallBase = true };
 
-		public static Func<T> Function<T>(Func<T> function) => function;
+			var sut = new ClaimedMessageBody(dataFileMock.Object);
+			sut.Collect(@"c:\folder");
+
+			dataFileMock.Verify(df => df.Lock(sut), Times.Once);
+			dataFileMock.Verify(df => df.Gather(sut, @"c:\folder"), Times.Once);
+			dataFileMock.Verify(df => df.Release(sut), Times.Once);
+			dataFileMock.Verify(df => df.Unlock(sut), Times.Once);
+		}
 	}
 }

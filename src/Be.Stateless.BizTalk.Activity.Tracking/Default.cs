@@ -44,6 +44,7 @@ namespace Be.Stateless.BizTalk
 			/// appear in the monitoring site.
 			/// </para>
 			/// </remarks>
+			[SuppressMessage("Naming", "CA1716:Identifiers should not match keywords")]
 			[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
 			public class Default : ProcessName<Default>
 			{
@@ -76,6 +77,7 @@ namespace Be.Stateless.BizTalk
 			/// These tokens are of importance for the monitoring web site accompanying BizTalk Factory.
 			/// </para>
 			/// </remarks>
+			[SuppressMessage("Naming", "CA1724:Type names should not match namespaces")]
 			[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
 			public class Claim : ProcessName<Claim>
 			{

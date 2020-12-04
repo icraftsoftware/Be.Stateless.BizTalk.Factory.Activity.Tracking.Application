@@ -17,6 +17,7 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Transactions;
 using Be.Stateless.BizTalk.ContextProperties;
@@ -69,6 +70,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		}
 
 		[Fact(Skip = "Moq needs to be fixed.")]
+		[SuppressMessage("ReSharper", "SuspiciousTypeConversion.Global")]
 		public void CaptureOfInboundMessagePiggiesBackKernelTransaction()
 		{
 			using (new TransactionScope())
@@ -76,7 +78,6 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			{
 				MessageMock.Object.BodyPart.Data = stream;
 
-				// ReSharper disable once SuspiciousTypeConversion.Global
 				var transaction = (IKernelTransaction) TransactionInterop.GetDtcTransaction(Transaction.Current);
 				PipelineContextMock.As<IPipelineContextEx>()
 					.Setup(pc => pc.GetTransaction())
@@ -96,6 +97,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		}
 
 		[Fact]
+		[SuppressMessage("ReSharper", "SuspiciousTypeConversion.Global")]
 		public void CaptureOfOutboundMessageDoesNotPiggyBackKernelTransaction()
 		{
 			MessageMock.Setup(m => m.GetProperty(BtsProperties.OutboundTransportLocation)).Returns("outbound-transport-location");
@@ -108,7 +110,6 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 				var transaction = TransactionInterop.GetDtcTransaction(Transaction.Current);
 				PipelineContextMock.As<IPipelineContextEx>()
 					.Setup(pc => pc.GetTransaction())
-					// ReSharper disable once SuspiciousTypeConversion.Global
 					.Returns((IKernelTransaction) transaction);
 
 				var sut = MessageBodyTracker.Create(new MicroComponent.ActivityTracker.Context(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body));

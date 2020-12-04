@@ -221,7 +221,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		public void FindProcessAndCreateMessagingStepBeforeStreamFirstReadEvent()
 		{
 			var trackingContext = new TrackingContext {
-				ProcessActivityId = ActivityId.NewActivityId(),
+				ProcessActivityId = ActivityId.NewActivityId()
 			};
 
 			using (var stream = new TrackingStream(new StringStream("some-content")))

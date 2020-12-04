@@ -17,6 +17,7 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Be.Stateless.BizTalk.Component.Extensions;
 using Be.Stateless.BizTalk.Message.Extensions;
 using Be.Stateless.BizTalk.Stream;
@@ -25,6 +26,7 @@ using log4net;
 
 namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 {
+	[SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Required for unit testing purposes.")]
 	internal class MessageBodyTracker
 	{
 		internal static MessageBodyTracker Create(MicroComponent.ActivityTracker.Context context)
@@ -38,7 +40,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 
 		#endregion
 
-		// ctor is protected for mocking purposes
+		[SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Protected for mocking purposes.")]
 		protected MessageBodyTracker(MicroComponent.ActivityTracker.Context context)
 		{
 			_context = context;
@@ -86,6 +88,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		/// cref="Schemas.Xml.Claim.CheckIn"/> token message if its content has been assessed to be captured to disk while being tracked.
 		/// Leave the message body's payload stream unaltered otherwise.
 		/// </summary>
+		[SuppressMessage("ReSharper", "InvertIf")]
 		internal virtual void TryCheckInMessageBody()
 		{
 			if (_context.Message.Direction().IsInbound() && _context.TrackingModes.RequiresBodyClaimChecking())
@@ -100,6 +103,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		/// if current payload is either of the <see cref="Schemas.Xml.Claim.Check"/> or <see cref="Schemas.Xml.Claim.CheckOut"/> token message. Leave
 		/// the message body's payload stream unaltered otherwise.
 		/// </summary>
+		[SuppressMessage("ReSharper", "InvertIf")]
 		internal virtual void TryCheckOutMessageBody()
 		{
 			if (_context.Message.Direction().IsOutbound() && _context.TrackingModes.RequiresBodyClaimChecking())

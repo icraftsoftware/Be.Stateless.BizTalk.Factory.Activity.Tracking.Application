@@ -17,6 +17,7 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Be.Stateless.BizTalk.ContextProperties;
 using Be.Stateless.BizTalk.Message.Extensions;
 using Microsoft.BizTalk.Message.Interop;
@@ -24,6 +25,8 @@ using Microsoft.XLANGs.BaseTypes;
 
 namespace Be.Stateless.BizTalk.Activity.Tracking.Extensions
 {
+	[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Public API.")]
+	[SuppressMessage("ReSharper", "UnusedMethodReturnValue.Global", Justification = "Public API.")]
 	public static class TrackingContextExtensions
 	{
 		/// <summary>

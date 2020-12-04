@@ -16,11 +16,14 @@
 
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using Be.Stateless.BizTalk.Schemas.Claim;
 
 namespace Be.Stateless.BizTalk.ContextProperties
 {
-	public class ClaimProperties
+	[SuppressMessage("ReSharper", "UnusedType.Global", Justification = "Public API.")]
+	[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Public API.")]
+	public static class ClaimProperties
 	{
 		public static readonly MessageContextProperty<MessageType, string> MessageType
 			= new MessageContextProperty<MessageType, string>();

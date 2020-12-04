@@ -59,6 +59,6 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			MessageMock.Setup(m => m.GetProperty(BtsProperties.InboundTransportLocation)).Returns("inbound-transport-location");
 		}
 
-		private Unit.Message.Mock<IBaseMessage> MessageMock { get; set; }
+		private Unit.Message.Mock<IBaseMessage> MessageMock { get; }
 	}
 }

@@ -18,6 +18,7 @@
 
 using System;
 using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Be.Stateless.Extensions;
 
@@ -27,9 +28,10 @@ namespace Be.Stateless.BizTalk.Install.Command
 	{
 		public string DataSource { get; set; }
 
+		[SuppressMessage("Performance", "CA1819:Properties should not return arrays")]
 		public string[] ProcessNames { get; set; }
 
-		protected SqlConnection MgmtDbConnection
+		protected SqlConnection BizTalkFactoryManagementDbConnection
 		{
 			get
 			{
@@ -48,7 +50,7 @@ namespace Be.Stateless.BizTalk.Install.Command
 			{
 				logAppender?.Invoke($"Skipping process names un/registration: {nameof(ProcessNames)} collection is empty.");
 			}
-			else if (!MgmtDbExists())
+			else if (!BizTalkFactoryManagementDbExists())
 			{
 				logAppender?.Invoke($"Skipping process names un/registration: '{MANAGEMENT_DATABASE_NAME}' database does not exist.");
 			}
@@ -60,7 +62,7 @@ namespace Be.Stateless.BizTalk.Install.Command
 
 		protected abstract void ExecuteCore(Action<string> logAppender);
 
-		private bool MgmtDbExists()
+		private bool BizTalkFactoryManagementDbExists()
 		{
 			if (DataSource.IsNullOrEmpty()) return false;
 

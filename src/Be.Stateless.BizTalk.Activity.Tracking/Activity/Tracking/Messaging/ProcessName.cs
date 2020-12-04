@@ -29,6 +29,8 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 {
 	public abstract class ProcessName<T> where T : class, new()
 	{
+		[SuppressMessage("Performance", "CA1810:Initialize reference type static fields inline")]
+		[SuppressMessage("Design", "CA1065:Do not raise exceptions in unexpected locations")]
 		static ProcessName()
 		{
 			const BindingFlags bindingFlags = BindingFlags.DeclaredOnly

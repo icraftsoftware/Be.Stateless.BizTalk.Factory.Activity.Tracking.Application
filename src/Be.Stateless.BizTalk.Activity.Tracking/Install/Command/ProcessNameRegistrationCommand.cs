@@ -33,7 +33,7 @@ namespace Be.Stateless.BizTalk.Install.Command
 			const string cmdText = @"MERGE INTO monitoring_ProcessDescriptors PD
 USING (SELECT @name AS Name) NPD ON PD.Name = NPD.Name
 WHEN NOT MATCHED THEN INSERT (Name) VALUES (NPD.Name);";
-			using (var cnx = MgmtDbConnection)
+			using (var cnx = BizTalkFactoryManagementDbConnection)
 			using (var cmd = new SqlCommand(cmdText, cnx))
 			{
 				cmd.Parameters.Add(new SqlParameter("@name", SqlDbType.NVarChar));

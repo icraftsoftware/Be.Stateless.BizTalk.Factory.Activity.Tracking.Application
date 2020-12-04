@@ -17,6 +17,7 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Be.Stateless.BizTalk.Activity.Tracking.Extensions;
 using Be.Stateless.BizTalk.Component.Extensions;
 using Be.Stateless.BizTalk.Message.Extensions;
@@ -27,6 +28,7 @@ using Microsoft.BizTalk.Message.Interop;
 
 namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 {
+	[SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Required for unit testing purposes.")]
 	internal class ActivityTracker
 	{
 		public static ActivityTracker Create(MicroComponent.ActivityTracker.Context context)
@@ -40,7 +42,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 
 		#endregion
 
-		// ctor is protected for mocking purposes
+		[SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Protected for mocking purposes.")]
 		protected ActivityTracker(MicroComponent.ActivityTracker.Context context)
 		{
 			_context = context;
@@ -52,9 +54,9 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			// generate ActivityIds and push them in context ASAP so they get a better chance of being propagated by
 			// pipeline components, and noticeably dis/assembler components
 			Initiate(_context.PipelineContext.GetActivityFactory(), _context.Message, _context.ProcessNameResolver.ResolveProcessName());
-			// capture tracking information ALAP to get as much out of the context as possible. passing trackingStream
-			// to Complete() method is essential, as GetOriginalDataStream() might not provide the right TrackingStream
-			// instance should it have been replaced or wrapped by some other stream(s) along the pipeline
+			// capture tracking information as late as possible to get as much out of the context as possible. passing
+			// trackingStream to Complete() method is essential, as GetOriginalDataStream() might not provide the right
+			// TrackingStream instance should it have been replaced or wrapped by some other stream(s) along the pipeline
 			trackingStream.AfterLastReadEvent += (sender, args) => Complete(_context.TrackingModes, trackingStream);
 		}
 

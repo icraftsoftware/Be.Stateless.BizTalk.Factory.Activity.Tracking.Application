@@ -34,7 +34,7 @@ namespace Be.Stateless.BizTalk.Stream
 	/// tracked, see <see cref="CaptureDescriptor"/>.
 	/// </remarks>
 	/// <seealso cref="ReplicatingReadStream"/>
-	// ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
+	[SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Required for unit testing purposes.")]
 	internal class TrackingStream : EventingReadStream
 	{
 		/// <summary>

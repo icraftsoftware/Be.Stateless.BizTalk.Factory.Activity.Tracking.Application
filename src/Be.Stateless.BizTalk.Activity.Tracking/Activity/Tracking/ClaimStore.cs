@@ -17,6 +17,7 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -44,13 +45,14 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 	/// are written to disk instead of flowing through the database, like the BAM monitoring database or the
 	/// <c>BizTalkMsgBoxDb</c>.
 	/// </summary>
+	[SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Required for unit testing purposes.")]
 	internal class ClaimStore
 	{
 		internal static string CheckInDirectory
 		{
 			get
 			{
-				// TODO ?? sure to want SSO auto cache refresh to be discarded as value is cached as static ??
+				// though SSO cache refreshes automatically every minute, the value is made static and will require a process restart if it changes
 				if (_checkInDirectory != null) return _checkInDirectory;
 				var directory = BizTalkFactorySettings.ClaimStoreCheckInDirectory.TrimEnd('\\');
 				Interlocked.CompareExchange(ref _checkInDirectory, directory, null);
@@ -72,7 +74,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 		{
 			get
 			{
-				// TODO ?? sure to want SSO auto cache refresh to be discarded as value is cached as static ??
+				// though SSO cache refreshes automatically every minute, the value is made static and will require a process restart if it changes
 				if (_checkOutDirectory != null) return _checkOutDirectory;
 				var directory = BizTalkFactorySettings.ClaimStoreCheckOutDirectory.TrimEnd('\\');
 				Interlocked.CompareExchange(ref _checkOutDirectory, directory, null);
@@ -127,6 +129,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 		/// <c>LongReferenceData</c> item of more than 512 KB.
 		/// </para>
 		/// </remarks>
+		[SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "Done by ReplicatingReadStream which is set up by TrackingStream.")]
 		public virtual void SetupMessageBodyCapture(TrackingStream trackingStream, ActivityTrackingModes trackingModes, Func<IKernelTransaction> transactionFactory)
 		{
 			if (trackingStream == null) throw new ArgumentNullException(nameof(trackingStream));
@@ -155,6 +158,9 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 		/// Create a <see cref="Stream"/> to an entry in the claim store that piggies back a kernel transaction if one can be
 		/// factored.
 		/// </summary>
+		/// <param name="url">
+		/// Destination URL of the claimed payload.
+		/// </param>
 		/// <param name="trackingModes">
 		/// The claim store entry.
 		/// </param>
@@ -164,6 +170,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 		/// <returns>
 		/// The <see cref="Stream"/> to the claim store entry.
 		/// </returns>
+		[SuppressMessage("Performance", "CA1822:Mark members as static")]
 		private System.IO.Stream CreateCapturingStream(string url, ActivityTrackingModes trackingModes, Func<IKernelTransaction> transactionFactory)
 		{
 			// RequiresCheckInAndOut entails payloads are first saved locally and moved by ClaimStore.Agent into claim
@@ -198,8 +205,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			else
 			{
 				filePath = Path.Combine(CheckInDirectory, url);
-				// ReSharper disable once AssignNullToNotNullAttribute
-				Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+				Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
 			}
 			return TransactionalFile.Create(filePath, 8192, transactionFactory.IfNotNull(ktf => ktf()));
 		}
@@ -224,6 +230,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 		/// </description></item>
 		/// </list>
 		/// </remarks>
+		[SuppressMessage("Performance", "CA1822:Mark members as static")]
 		private string GenerateClaimStoreEntry()
 		{
 			return Path.Combine(DateTime.Today.ToString("yyyyMMdd", CultureInfo.InvariantCulture), Guid.NewGuid().ToString("N"));
@@ -327,6 +334,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 		/// captured-to-disk body payload, thereby providing an opportunity for the <see cref="MessagingStep"/> to share that
 		/// already captured payload without saving it to disk again.
 		/// </remarks>
+		[SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "Done by BizTalk's ResourceTracker.")]
 		public virtual void Redeem(IBaseMessage message, IResourceTracker resourceTracker)
 		{
 			var messageType = message.GetOrProbeMessageType(resourceTracker);
@@ -349,6 +357,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			}
 		}
 
+		[SuppressMessage("Performance", "CA1822:Mark members as static")]
 		private System.IO.Stream OpenClaim(string url)
 		{
 			// if can't create Uri because url is not absolute, combine it with CheckOutDirectory, otherwise assume it is

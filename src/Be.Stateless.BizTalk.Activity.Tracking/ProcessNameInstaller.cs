@@ -17,6 +17,7 @@
 #endregion
 
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using Be.Stateless.BizTalk.Factory.Areas;
 using Be.Stateless.BizTalk.Install;
 
@@ -25,6 +26,7 @@ namespace Be.Stateless.BizTalk
 	/// <summary>
 	/// Register <see cref="Default"/> process names.
 	/// </summary>
+	[SuppressMessage("ReSharper", "UnusedType.Global", Justification = "InstallUtil's installer.")]
 	[RunInstaller(true)]
 	public class ProcessNameInstaller : MessagingProcessNameInstaller { }
 }

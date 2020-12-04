@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -79,6 +80,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		}
 
 		[Fact]
+		[SuppressMessage("ReSharper", "AccessToModifiedClosure")]
 		public void InboundFailedPropertiesAreTracked()
 		{
 			var message = new MessageMock();
@@ -123,6 +125,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		}
 
 		[Fact]
+		[SuppressMessage("ReSharper", "AccessToModifiedClosure")]
 		public void InboundSuccessfulPropertiesAreTracked()
 		{
 			var message = new MessageMock();
@@ -168,6 +171,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		}
 
 		[Fact]
+		[SuppressMessage("ReSharper", "AccessToModifiedClosure")]
 		public void InboundSuccessfulPropertiesForSolicitResponsePortAreTracked()
 		{
 			var message = new MessageMock();
@@ -284,6 +288,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		}
 
 		[Fact]
+		[SuppressMessage("ReSharper", "AccessToModifiedClosure")]
 		public void OutboundFailedPropertiesAreTracked()
 		{
 			var message = new MessageMock();
@@ -330,6 +335,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		}
 
 		[Fact]
+		[SuppressMessage("ReSharper", "AccessToModifiedClosure")]
 		public void OutboundSuccessfulPropertiesAreTrackedAtStreamExhaustion()
 		{
 			var message = new MessageMock();
@@ -438,6 +444,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			message.Setup(m => m.GetProperty(BtsProperties.OutboundTransportType)).Returns("outbound-transport-type");
 		}
 
+		[SuppressMessage("ReSharper", "SuggestBaseTypeForParameter")]
 		private static Dictionary<string, object> ToDictionary(object[] data)
 		{
 			return Enumerable.Range(0, data.Length / 2)

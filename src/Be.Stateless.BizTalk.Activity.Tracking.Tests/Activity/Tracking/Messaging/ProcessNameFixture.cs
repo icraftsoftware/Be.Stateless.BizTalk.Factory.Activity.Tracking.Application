@@ -20,7 +20,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using Xunit;
-using static Be.Stateless.DelegateFactory;
+using static Be.Stateless.Unit.DelegateFactory;
 
 namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 {
@@ -81,6 +81,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		}
 
 		[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
+		[SuppressMessage("ReSharper", "UnusedMember.Local")]
 		private class SampleArea : ProcessName<SampleArea>
 		{
 			public string ProcessOne { get; private set; }
@@ -104,6 +105,6 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			internal string ProcessFour { get; private set; }
 		}
 
-		const string MESSAGE = "{0} must only declare non-static public string properties.";
+		private const string MESSAGE = "{0} must only declare non-static public string properties.";
 	}
 }
