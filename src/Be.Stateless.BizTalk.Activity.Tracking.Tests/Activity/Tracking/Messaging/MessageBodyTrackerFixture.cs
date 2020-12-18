@@ -69,7 +69,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			MessageMock.Object.BodyPart.Data.Should().BeOfType<TrackingStream>();
 		}
 
-		[Fact(Skip = "Moq needs to be fixed.")]
+		[Fact(Skip = "Broken by Moq.")]
 		[SuppressMessage("ReSharper", "SuspiciousTypeConversion.Global")]
 		public void CaptureOfInboundMessagePiggiesBackKernelTransaction()
 		{

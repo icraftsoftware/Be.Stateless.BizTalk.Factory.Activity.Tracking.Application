@@ -21,9 +21,9 @@ using System.Text;
 using System.Xml;
 using Be.Stateless.BizTalk.Activity.Tracking;
 using Be.Stateless.BizTalk.Activity.Tracking.Messaging;
-using Be.Stateless.BizTalk.Component.Extensions;
 using Be.Stateless.BizTalk.ContextProperties;
 using Be.Stateless.BizTalk.Message.Extensions;
+using Be.Stateless.BizTalk.MicroComponent.Extensions;
 using Be.Stateless.BizTalk.Runtime.Caching;
 using Be.Stateless.BizTalk.Unit.MicroComponent;
 using Be.Stateless.IO;
@@ -45,7 +45,7 @@ namespace Be.Stateless.BizTalk.MicroComponent
 				+ "</mComponent>";
 			using (var reader = XmlReader.Create(new StringStream(xml)))
 			{
-				var microPipelineComponent = reader.DeserializeMicroPipelineComponent();
+				var microPipelineComponent = reader.DeserializeMicroComponent();
 				((ActivityTracker) microPipelineComponent).TrackingContextCacheDuration.Should().Be(TimeSpan.FromMinutes(2));
 				reader.EOF.Should().BeTrue();
 			}

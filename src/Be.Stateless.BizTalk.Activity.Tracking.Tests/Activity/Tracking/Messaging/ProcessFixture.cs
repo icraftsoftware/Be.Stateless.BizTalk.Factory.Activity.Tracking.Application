@@ -45,7 +45,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			var activityId = sut.ActivityId;
 
 			message.Verify(m => m.SetProperty(TrackingProperties.ProcessActivityId, activityId), Times.Once());
-			eventStream.Verify(s => s.BeginActivity(Process.ActivityName, activityId), Times.Once());
+			eventStream.Verify(s => s.BeginActivity(nameof(Process), activityId), Times.Once());
 		}
 
 		[Fact]
@@ -61,9 +61,9 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			var activityId = sut.ActivityId;
 			sut.TrackActivity();
 
-			eventStream.Verify(s => s.UpdateActivity(Process.ActivityName, activityId, It.IsAny<object[]>()), Times.Once());
+			eventStream.Verify(s => s.UpdateActivity(nameof(Process), activityId, It.IsAny<object[]>()), Times.Once());
 			eventStream.Verify(s => s.Flush(), Times.Once());
-			eventStream.Verify(s => s.EndActivity(Process.ActivityName, activityId), Times.Once());
+			eventStream.Verify(s => s.EndActivity(nameof(Process), activityId), Times.Once());
 		}
 
 		[Fact]
@@ -73,10 +73,10 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			var processMessagingStepActivityId = string.Empty;
 			var eventStream = new Mock<EventStream>();
 			eventStream
-				.Setup(e => e.BeginActivity(ProcessMessagingStep.ActivityName, It.IsAny<string>()))
+				.Setup(e => e.BeginActivity(nameof(ProcessMessagingStep), It.IsAny<string>()))
 				.Callback<string, string>((n, i) => processMessagingStepActivityId = i);
 			eventStream
-				.Setup(es => es.UpdateActivity(ProcessMessagingStep.ActivityName, It.Is<string>(id => id == processMessagingStepActivityId), It.IsAny<object[]>()))
+				.Setup(es => es.UpdateActivity(nameof(ProcessMessagingStep), It.Is<string>(id => id == processMessagingStepActivityId), It.IsAny<object[]>()))
 				.Callback<string, string, object[]>((n, id, d) => data = Enumerable.Range(0, d.Length / 2).ToDictionary(i => (string) d[i * 2], i => d[i * 2 + 1]))
 				.Verifiable();
 
@@ -93,16 +93,16 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			sut.AddStep(messagingStep);
 
 			eventStream.Verify();
-			eventStream.Verify(s => s.BeginActivity(ProcessMessagingStep.ActivityName, processMessagingStepActivityId), Times.Once());
-			eventStream.Verify(s => s.UpdateActivity(ProcessMessagingStep.ActivityName, processMessagingStepActivityId, It.IsAny<object[]>()), Times.Once());
+			eventStream.Verify(s => s.BeginActivity(nameof(ProcessMessagingStep), processMessagingStepActivityId), Times.Once());
+			eventStream.Verify(s => s.UpdateActivity(nameof(ProcessMessagingStep), processMessagingStepActivityId, It.IsAny<object[]>()), Times.Once());
 			eventStream.Verify(s => s.Flush(), Times.Once());
-			eventStream.Verify(s => s.EndActivity(ProcessMessagingStep.ActivityName, processMessagingStepActivityId), Times.Once());
+			eventStream.Verify(s => s.EndActivity(nameof(ProcessMessagingStep), processMessagingStepActivityId), Times.Once());
 
 			var expectedData = new Dictionary<string, object> {
-				{ ProcessMessagingStep.MessagingStepActivityIDFieldName, messagingStepActivityId },
+				{ nameof(ProcessMessagingStep.MessagingStepActivityID), messagingStepActivityId },
 				// capture of Status is what distinguishes affiliation of a MessagingStep from affiliation of a MessagingStepReference
-				{ ProcessMessagingStep.MessagingStepStatusFieldName, TrackingStatus.FailedMessage },
-				{ ProcessMessagingStep.ProcessActivityIDFieldName, processActivityId }
+				{ nameof(ProcessMessagingStep.MessagingStepStatus), TrackingStatus.FailedMessage },
+				{ nameof(ProcessMessagingStep.ProcessActivityID), processActivityId }
 			};
 			data.Should().BeEquivalentTo(expectedData);
 		}
@@ -114,10 +114,10 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			var processMessagingStepActivityId = string.Empty;
 			var eventStream = new Mock<EventStream>();
 			eventStream
-				.Setup(e => e.BeginActivity(ProcessMessagingStep.ActivityName, It.IsAny<string>()))
+				.Setup(e => e.BeginActivity(nameof(ProcessMessagingStep), It.IsAny<string>()))
 				.Callback<string, string>((n, i) => processMessagingStepActivityId = i);
 			eventStream
-				.Setup(es => es.UpdateActivity(ProcessMessagingStep.ActivityName, It.Is<string>(id => id == processMessagingStepActivityId), It.IsAny<object[]>()))
+				.Setup(es => es.UpdateActivity(nameof(ProcessMessagingStep), It.Is<string>(id => id == processMessagingStepActivityId), It.IsAny<object[]>()))
 				.Callback<string, string, object[]>((n, id, d) => data = Enumerable.Range(0, d.Length / 2).ToDictionary(i => (string) d[i * 2], i => d[i * 2 + 1]))
 				.Verifiable();
 
@@ -128,14 +128,14 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			sut.AddStep(new MessagingStepReference(messagingStepActivityId, eventStream.Object));
 
 			eventStream.Verify();
-			eventStream.Verify(s => s.BeginActivity(ProcessMessagingStep.ActivityName, processMessagingStepActivityId), Times.Once());
-			eventStream.Verify(s => s.UpdateActivity(ProcessMessagingStep.ActivityName, processMessagingStepActivityId, It.IsAny<object[]>()), Times.Once());
+			eventStream.Verify(s => s.BeginActivity(nameof(ProcessMessagingStep), processMessagingStepActivityId), Times.Once());
+			eventStream.Verify(s => s.UpdateActivity(nameof(ProcessMessagingStep), processMessagingStepActivityId, It.IsAny<object[]>()), Times.Once());
 			eventStream.Verify(s => s.Flush(), Times.Once());
-			eventStream.Verify(s => s.EndActivity(ProcessMessagingStep.ActivityName, processMessagingStepActivityId), Times.Once());
+			eventStream.Verify(s => s.EndActivity(nameof(ProcessMessagingStep), processMessagingStepActivityId), Times.Once());
 
 			var expectedData = new Dictionary<string, object> {
-				{ ProcessMessagingStep.MessagingStepActivityIDFieldName, messagingStepActivityId },
-				{ ProcessMessagingStep.ProcessActivityIDFieldName, processActivityId }
+				{ nameof(ProcessMessagingStep.MessagingStepActivityID), messagingStepActivityId },
+				{ nameof(ProcessMessagingStep.ProcessActivityID), processActivityId }
 			};
 			data.Should().BeEquivalentTo(expectedData);
 		}
@@ -160,7 +160,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 
 			Dictionary<string, object> data = null;
 			eventStream
-				.Setup(es => es.UpdateActivity(Process.ActivityName, It.Is<string>(id => id == sut.ActivityId), It.IsAny<object[]>()))
+				.Setup(es => es.UpdateActivity(nameof(Process), It.Is<string>(id => id == sut.ActivityId), It.IsAny<object[]>()))
 				.Callback<string, string, object[]>((n, id, d) => data = Enumerable.Range(0, d.Length / 2).ToDictionary(i => (string) d[i * 2], i => d[i * 2 + 1]))
 				.Verifiable();
 
@@ -169,14 +169,14 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			eventStream.Verify();
 
 			var expectedData = new Dictionary<string, object> {
-				{ Process.InterchangeIDFieldName, interchangeId.AsNormalizedActivityId() },
-				{ Process.ProcessNameFieldName, "process-name" },
-				{ Process.StatusFieldName, TrackingStatus.Failed },
-				{ Process.Value1FieldName, "value-1" },
-				{ Process.Value2FieldName, "value-2" },
-				{ Process.Value3FieldName, "value-3" },
-				{ Process.BeginTimeFieldName, sut.BeginTime!.Value },
-				{ Process.EndTimeFieldName, sut.EndTime!.Value }
+				{ nameof(Process.InterchangeID), interchangeId.AsNormalizedActivityId() },
+				{ nameof(Process.ProcessName), "process-name" },
+				{ nameof(Process.Status), TrackingStatus.Failed },
+				{ nameof(Process.Value1), "value-1" },
+				{ nameof(Process.Value2), "value-2" },
+				{ nameof(Process.Value3), "value-3" },
+				{ nameof(Process.BeginTime), sut.BeginTime!.Value },
+				{ nameof(Process.EndTime), sut.EndTime!.Value }
 			};
 			data.Should().BeEquivalentTo(expectedData);
 		}

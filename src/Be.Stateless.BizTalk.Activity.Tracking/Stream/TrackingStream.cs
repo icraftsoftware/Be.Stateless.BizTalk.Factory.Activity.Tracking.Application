@@ -30,7 +30,7 @@ namespace Be.Stateless.BizTalk.Stream
 	/// </summary>
 	/// <remarks>
 	/// The capture capability allows the <see cref="TrackingStream"/> to replicate its payload on-the-fly, that is to say while
-	/// being read, for tracking purposes. The tracking capability ensures descriptive information about the capture can be
+	/// being read, for tracking purposes. The tracking capability ensures descriptive information about the payload can be
 	/// tracked, see <see cref="CaptureDescriptor"/>.
 	/// </remarks>
 	/// <seealso cref="ReplicatingReadStream"/>

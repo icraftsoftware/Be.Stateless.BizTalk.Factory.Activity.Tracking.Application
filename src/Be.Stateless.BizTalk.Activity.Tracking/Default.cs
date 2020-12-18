@@ -26,6 +26,33 @@ namespace Be.Stateless.BizTalk
 		namespace Areas
 		{
 			/// <summary>
+			/// BizTalk Factory's process names.
+			/// </summary>
+			/// <remarks>
+			/// <para>
+			/// By convention, the token that precedes the 'Areas' or the 'Orchestrations' token of the CLR namespace 
+			/// denotes the LOB/project to which a process belongs. The area is represented by the token that follows 
+			/// 'Areas' or 'Orchestrations', and the process name itself is the next token.
+			/// For instance <c>Be.Stateless.ECommerce.Areas.Shopping.CustomerRegistration</c>,
+			/// <c>Be.Stateless.ECommerce.Areas.Shopping.Invoicing</c>, and <c>Be.Stateless.ECommerce.Areas.Shopping.Shipping</c>
+			/// cover 3 different business processes (<c>CustomerRegistration</c>, <c>Invoicing</c>, and <c>Shipping</c>) 
+			/// in the <c>Shopping</c> area if the <c>ECommerce</c> LOB/project.
+			/// <seealso cref="Default"/>
+			/// </para>
+			/// <para>
+			/// These tokens are of importance for the monitoring web site accompanying BizTalk Factory.
+			/// </para>
+			/// </remarks>
+			[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
+			public class Claim : ProcessName<Claim>
+			{
+				/// <summary>
+				/// Name of the claim check messaging-only process/flow.
+				/// </summary>
+				public string Check { get; private set; }
+			}
+
+			/// <summary>
 			/// Default names for the messaging-only processes/flows tracked by BizTalk Factory.
 			/// </summary>
 			/// <remarks>
@@ -57,34 +84,6 @@ namespace Be.Stateless.BizTalk
 				/// Default name for unidentified messaging-only flows.
 				/// </summary>
 				public string Unidentified { get; private set; }
-			}
-
-			/// <summary>
-			/// BizTalk Factory's process names.
-			/// </summary>
-			/// <remarks>
-			/// <para>
-			/// By convention, the token that precedes the 'Areas' or the 'Orchestrations' token of the CLR namespace 
-			/// denotes the LOB/project to which a process belongs. The area is represented by the token that follows 
-			/// 'Areas' or 'Orchestrations', and the process name itself is the next token.
-			/// For instance <c>Be.Stateless.ECommerce.Areas.Shopping.CustomerRegistration</c>,
-			/// <c>Be.Stateless.ECommerce.Areas.Shopping.Invoicing</c>, and <c>Be.Stateless.ECommerce.Areas.Shopping.Shipping</c>
-			/// cover 3 different business processes (<c>CustomerRegistration</c>, <c>Invoicing</c>, and <c>Shipping</c>) 
-			/// in the <c>Shopping</c> area if the <c>ECommerce</c> LOB/project.
-			/// <seealso cref="Default"/>
-			/// </para>
-			/// <para>
-			/// These tokens are of importance for the monitoring web site accompanying BizTalk Factory.
-			/// </para>
-			/// </remarks>
-			[SuppressMessage("Naming", "CA1724:Type names should not match namespaces")]
-			[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
-			public class Claim : ProcessName<Claim>
-			{
-				/// <summary>
-				/// Name of the claim check messaging-only process/flow.
-				/// </summary>
-				public string Check { get; private set; }
 			}
 		}
 	}

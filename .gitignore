@@ -314,9 +314,7 @@ __pycache__/
 
 # BizTalk build output
 *.btp.cs
-*.btm.cs
 *.odx.cs
-*.xsd.cs
 
 # OpenCover UI analysis results
 OpenCover/

@@ -36,10 +36,10 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			Dictionary<string, object> data = null;
 			var eventStream = new Mock<EventStream>();
 			eventStream
-				.Setup(e => e.BeginActivity(ProcessMessagingStep.ActivityName, It.IsAny<string>()))
+				.Setup(e => e.BeginActivity(nameof(ProcessMessagingStep), It.IsAny<string>()))
 				.Callback<string, string>((n, i) => processMessagingStepActivityId = i);
 			eventStream
-				.Setup(es => es.UpdateActivity(ProcessMessagingStep.ActivityName, It.Is<string>(id => id == processMessagingStepActivityId), It.IsAny<object[]>()))
+				.Setup(es => es.UpdateActivity(nameof(ProcessMessagingStep), It.Is<string>(id => id == processMessagingStepActivityId), It.IsAny<object[]>()))
 				.Callback<string, string, object[]>((n, id, d) => data = Enumerable.Range(0, d.Length / 2).ToDictionary(i => (string) d[i * 2], i => d[i * 2 + 1]));
 
 			var pipelineContext = new Mock<IPipelineContext>();
@@ -51,14 +51,14 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			var sut = new ProcessReference(processActivityId, eventStream.Object);
 			sut.AddStep(messagingStep);
 
-			eventStream.Verify(s => s.BeginActivity(ProcessMessagingStep.ActivityName, processMessagingStepActivityId), Times.Once());
-			eventStream.Verify(s => s.UpdateActivity(ProcessMessagingStep.ActivityName, processMessagingStepActivityId, It.IsAny<object[]>()), Times.Once());
+			eventStream.Verify(s => s.BeginActivity(nameof(ProcessMessagingStep), processMessagingStepActivityId), Times.Once());
+			eventStream.Verify(s => s.UpdateActivity(nameof(ProcessMessagingStep), processMessagingStepActivityId, It.IsAny<object[]>()), Times.Once());
 			eventStream.Verify(s => s.Flush(), Times.Once());
-			eventStream.Verify(s => s.EndActivity(ProcessMessagingStep.ActivityName, processMessagingStepActivityId), Times.Once());
+			eventStream.Verify(s => s.EndActivity(nameof(ProcessMessagingStep), processMessagingStepActivityId), Times.Once());
 
 			var expectedData = new Dictionary<string, object> {
-				{ ProcessMessagingStep.MessagingStepActivityIDFieldName, messagingStep.ActivityId },
-				{ ProcessMessagingStep.ProcessActivityIDFieldName, processActivityId }
+				{ nameof(ProcessMessagingStep.MessagingStepActivityID), messagingStep.ActivityId },
+				{ nameof(ProcessMessagingStep.ProcessActivityID), processActivityId }
 			};
 			data.Should().BeEquivalentTo(expectedData);
 		}

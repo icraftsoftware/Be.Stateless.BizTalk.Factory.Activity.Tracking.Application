@@ -5,3 +5,5 @@
 [![NuGet Version](https://img.shields.io/nuget/v/Be.Stateless.BizTalk.Activity.Tracking.svg?style=flat)](https://www.nuget.org/packages/Be.Stateless.BizTalk.Activity.Tracking/)
 
 BizTalk.Factory's activity model and tracking API for general purpose BizTalk Server development.
+BizTalk.Factory's claim check application add-on for general purpose BizTalk Server development.
+

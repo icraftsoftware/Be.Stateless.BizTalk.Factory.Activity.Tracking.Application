@@ -53,7 +53,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			var activityId = sut.ActivityId;
 
 			message.Verify(m => m.SetProperty(TrackingProperties.MessagingStepActivityId, activityId), Times.Once());
-			eventStream.Verify(s => s.BeginActivity(MessagingStep.ActivityName, activityId), Times.Once());
+			eventStream.Verify(s => s.BeginActivity(nameof(MessagingStep), activityId), Times.Once());
 		}
 
 		[Fact]
@@ -74,9 +74,9 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 				sut.TrackActivity(ActivityTrackingModes.Step, trackingStream);
 			}
 
-			eventStream.Verify(s => s.UpdateActivity(MessagingStep.ActivityName, sut.ActivityId, It.IsAny<object[]>()), Times.Once());
+			eventStream.Verify(s => s.UpdateActivity(nameof(MessagingStep), sut.ActivityId, It.IsAny<object[]>()), Times.Once());
 			eventStream.Verify(s => s.Flush(), Times.Once());
-			eventStream.Verify(s => s.EndActivity(MessagingStep.ActivityName, sut.ActivityId), Times.Once());
+			eventStream.Verify(s => s.EndActivity(nameof(MessagingStep), sut.ActivityId), Times.Once());
 		}
 
 		[Fact]
@@ -94,7 +94,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			Dictionary<string, object> data = null;
 			var eventStream = new Mock<EventStream>();
 			eventStream
-				.Setup(es => es.UpdateActivity(MessagingStep.ActivityName, It.Is<string>(id => id == activityId), It.IsAny<object[]>()))
+				.Setup(es => es.UpdateActivity(nameof(MessagingStep), It.Is<string>(id => id == activityId), It.IsAny<object[]>()))
 				.Callback<string, string, object[]>((n, id, d) => data = ToDictionary(d))
 				.Verifiable();
 
@@ -113,9 +113,9 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			eventStream.Verify();
 
 			var expectedData = new Dictionary<string, object> {
-					{ MessagingStep.TransportTypeFieldName, "outbound-transport-type" },
-					{ MessagingStep.PortNameFieldName, "failed-receive-port-name" },
-					{ MessagingStep.TransportLocationFieldName, "failed-inbound-transport-location" }
+					{ nameof(MessagingStep.TransportType), "outbound-transport-type" },
+					{ nameof(MessagingStep.PortName), "failed-receive-port-name" },
+					{ nameof(MessagingStep.TransportLocation), "failed-inbound-transport-location" }
 				}
 				.Union(ExpectedCommonFailedData, new LambdaComparer<KeyValuePair<string, object>>((kvp1, kvp2) => kvp1.Key == kvp2.Key))
 				.Union(ExpectedCommonData, new LambdaComparer<KeyValuePair<string, object>>((kvp1, kvp2) => kvp1.Key == kvp2.Key))
@@ -136,7 +136,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			Dictionary<string, object> data = null;
 			var eventStream = new Mock<EventStream>();
 			eventStream
-				.Setup(es => es.UpdateActivity(MessagingStep.ActivityName, It.Is<string>(id => id == activityId), It.IsAny<object[]>()))
+				.Setup(es => es.UpdateActivity(nameof(MessagingStep), It.Is<string>(id => id == activityId), It.IsAny<object[]>()))
 				.Callback<string, string, object[]>((n, id, d) => data = ToDictionary(d))
 				.Verifiable();
 
@@ -155,14 +155,14 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			eventStream.Verify();
 
 			var expectedData = new Dictionary<string, object> {
-					{ MessagingStep.MessageIDFieldName, _messageId.AsNormalizedActivityId() },
-					{ MessagingStep.MessageTypeFieldName, "message-type" },
-					{ MessagingStep.PortNameFieldName, "receive-location-name" },
-					{ MessagingStep.TransportLocationFieldName, "inbound-transport-location" },
-					{ MessagingStep.TransportTypeFieldName, "inbound-transport-type" },
-					{ MessagingStep.StatusFieldName, TrackingStatus.Received },
-					{ MessagingStep.MachineNameFieldName, Environment.MachineName },
-					{ MessagingStep.TimeFieldName, sut.Time }
+					{ nameof(MessagingStep.MessageID), _messageId.AsNormalizedActivityId() },
+					{ nameof(MessagingStep.MessageType), "message-type" },
+					{ nameof(MessagingStep.PortName), "receive-location-name" },
+					{ nameof(MessagingStep.TransportLocation), "inbound-transport-location" },
+					{ nameof(MessagingStep.TransportType), "inbound-transport-type" },
+					{ nameof(MessagingStep.Status), TrackingStatus.Received },
+					{ nameof(MessagingStep.MachineName), Environment.MachineName },
+					{ nameof(MessagingStep.Time), sut.Time }
 				}
 				.Union(ExpectedCommonData, new LambdaComparer<KeyValuePair<string, object>>((kvp1, kvp2) => kvp1.Key == kvp2.Key))
 				.OrderBy(kvp => kvp.Key).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
@@ -185,7 +185,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			Dictionary<string, object> data = null;
 			var eventStream = new Mock<EventStream>();
 			eventStream
-				.Setup(es => es.UpdateActivity(MessagingStep.ActivityName, It.Is<string>(id => id == activityId), It.IsAny<object[]>()))
+				.Setup(es => es.UpdateActivity(nameof(MessagingStep), It.Is<string>(id => id == activityId), It.IsAny<object[]>()))
 				.Callback<string, string, object[]>((n, id, d) => data = ToDictionary(d))
 				.Verifiable();
 
@@ -204,14 +204,14 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			eventStream.Verify();
 
 			var expectedData = new Dictionary<string, object> {
-					{ MessagingStep.MessageIDFieldName, _messageId.AsNormalizedActivityId() },
-					{ MessagingStep.MessageTypeFieldName, "message-type" },
-					{ MessagingStep.PortNameFieldName, "receive-port-name" },
-					{ MessagingStep.TransportLocationFieldName, "inbound-transport-location" },
-					{ MessagingStep.TransportTypeFieldName, "inbound-transport-type" },
-					{ MessagingStep.StatusFieldName, TrackingStatus.Received },
-					{ MessagingStep.MachineNameFieldName, Environment.MachineName },
-					{ MessagingStep.TimeFieldName, sut.Time }
+					{ nameof(MessagingStep.MessageID), _messageId.AsNormalizedActivityId() },
+					{ nameof(MessagingStep.MessageType), "message-type" },
+					{ nameof(MessagingStep.PortName), "receive-port-name" },
+					{ nameof(MessagingStep.TransportLocation), "inbound-transport-location" },
+					{ nameof(MessagingStep.TransportType), "inbound-transport-type" },
+					{ nameof(MessagingStep.Status), TrackingStatus.Received },
+					{ nameof(MessagingStep.MachineName), Environment.MachineName },
+					{ nameof(MessagingStep.Time), sut.Time }
 				}
 				.Union(ExpectedCommonData, new LambdaComparer<KeyValuePair<string, object>>((kvp1, kvp2) => kvp1.Key == kvp2.Key))
 				.OrderBy(kvp => kvp.Key).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
@@ -242,7 +242,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 
 			eventStream.Verify(
 				es => es.AddReference(
-					MessagingStep.ActivityName,
+					nameof(MessagingStep),
 					sut.ActivityId,
 					MessageBodyCaptureMode.Claimed.ToString(),
 					MessagingStep.MESSAGE_BODY_REFERENCE_NAME,
@@ -278,7 +278,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 
 			eventStream.Verify(
 				es => es.AddReference(
-					MessagingStep.ActivityName,
+					nameof(MessagingStep),
 					sut.ActivityId,
 					MessagingStep.MESSAGE_CONTEXT_REFERENCE_TYPE,
 					MessagingStep.MESSAGE_CONTEXT_REFERENCE_NAME,
@@ -303,7 +303,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			Dictionary<string, object> data = null;
 			var eventStream = new Mock<EventStream>();
 			eventStream
-				.Setup(es => es.UpdateActivity(MessagingStep.ActivityName, It.Is<string>(id => id == activityId), It.IsAny<object[]>()))
+				.Setup(es => es.UpdateActivity(nameof(MessagingStep), It.Is<string>(id => id == activityId), It.IsAny<object[]>()))
 				.Callback<string, string, object[]>((n, id, d) => data = ToDictionary(d))
 				.Verifiable();
 
@@ -322,9 +322,9 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			eventStream.Verify();
 
 			var expectedData = new Dictionary<string, object> {
-					{ MessagingStep.TransportTypeFieldName, "outbound-transport-type" },
-					{ MessagingStep.PortNameFieldName, "failed-send-port-name" },
-					{ MessagingStep.TransportLocationFieldName, "failed-outbound-transport-location" }
+					{ nameof(MessagingStep.TransportType), "outbound-transport-type" },
+					{ nameof(MessagingStep.PortName), "failed-send-port-name" },
+					{ nameof(MessagingStep.TransportLocation), "failed-outbound-transport-location" }
 				}
 				.Union(ExpectedCommonFailedData, new LambdaComparer<KeyValuePair<string, object>>((kvp1, kvp2) => kvp1.Key == kvp2.Key))
 				.Union(ExpectedCommonData, new LambdaComparer<KeyValuePair<string, object>>((kvp1, kvp2) => kvp1.Key == kvp2.Key))
@@ -347,7 +347,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			Dictionary<string, object> data = null;
 			var eventStream = new Mock<EventStream>();
 			eventStream
-				.Setup(es => es.UpdateActivity(MessagingStep.ActivityName, It.Is<string>(id => id == activityId), It.IsAny<object[]>()))
+				.Setup(es => es.UpdateActivity(nameof(MessagingStep), It.Is<string>(id => id == activityId), It.IsAny<object[]>()))
 				.Callback<string, string, object[]>((n, id, d) => data = ToDictionary(d))
 				.Verifiable();
 
@@ -366,13 +366,13 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			eventStream.Verify();
 
 			var expectedData = new Dictionary<string, object> {
-					{ MessagingStep.MessageIDFieldName, _messageId.AsNormalizedActivityId() },
-					{ MessagingStep.PortNameFieldName, "send-port-name" },
-					{ MessagingStep.TransportLocationFieldName, "outbound-transport-location" },
-					{ MessagingStep.TransportTypeFieldName, "outbound-transport-type" },
-					{ MessagingStep.StatusFieldName, TrackingStatus.Sent },
-					{ MessagingStep.MachineNameFieldName, Environment.MachineName },
-					{ MessagingStep.TimeFieldName, sut.Time }
+					{ nameof(MessagingStep.MessageID), _messageId.AsNormalizedActivityId() },
+					{ nameof(MessagingStep.PortName), "send-port-name" },
+					{ nameof(MessagingStep.TransportLocation), "outbound-transport-location" },
+					{ nameof(MessagingStep.TransportType), "outbound-transport-type" },
+					{ nameof(MessagingStep.Status), TrackingStatus.Sent },
+					{ nameof(MessagingStep.MachineName), Environment.MachineName },
+					{ nameof(MessagingStep.Time), sut.Time }
 				}
 				.Union(ExpectedCommonData)
 				.OrderBy(kvp => kvp.Key).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
@@ -382,25 +382,25 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		}
 
 		private Dictionary<string, object> ExpectedCommonData => new Dictionary<string, object> {
-			{ MessagingStep.InterchangeIDFieldName, _interchangeId.AsNormalizedActivityId() },
-			{ MessagingStep.MessageIDFieldName, _messageId.AsNormalizedActivityId() },
-			{ MessagingStep.MessageSizeFieldName, _content.Length },
-			{ MessagingStep.MessageTypeFieldName, "message-type" },
-			{ MessagingStep.RetryCountFieldName, 3 },
-			{ MessagingStep.Value1FieldName, "value-1" },
-			{ MessagingStep.Value2FieldName, "value-2" },
-			{ MessagingStep.Value3FieldName, "value-3" }
+			{ nameof(MessagingStep.InterchangeID), _interchangeId.AsNormalizedActivityId() },
+			{ nameof(MessagingStep.MessageID), _messageId.AsNormalizedActivityId() },
+			{ nameof(MessagingStep.MessageSize), _content.Length },
+			{ nameof(MessagingStep.MessageType), "message-type" },
+			{ nameof(MessagingStep.RetryCount), 3 },
+			{ nameof(MessagingStep.Value1), "value-1" },
+			{ nameof(MessagingStep.Value2), "value-2" },
+			{ nameof(MessagingStep.Value3), "value-3" }
 		};
 
 		private Dictionary<string, object> ExpectedCommonFailedData => new Dictionary<string, object> {
-			{ MessagingStep.MessageIDFieldName, _failedMessageId.AsNormalizedActivityId() },
-			{ MessagingStep.MessageTypeFieldName, "failed-message-type" },
-			{ MessagingStep.StatusFieldName, TrackingStatus.FailedMessage },
-			{ MessagingStep.TransportTypeFieldName, "inbound-transport-type" },
-			{ MessagingStep.ErrorCodeFieldName, "failure-code" },
-			{ MessagingStep.ErrorDescriptionFieldName, "failure-description" },
-			{ MessagingStep.MachineNameFieldName, "failing-machine" },
-			{ MessagingStep.TimeFieldName, _failureTime }
+			{ nameof(MessagingStep.MessageID), _failedMessageId.AsNormalizedActivityId() },
+			{ nameof(MessagingStep.MessageType), "failed-message-type" },
+			{ nameof(MessagingStep.Status), TrackingStatus.FailedMessage },
+			{ nameof(MessagingStep.TransportType), "inbound-transport-type" },
+			{ nameof(MessagingStep.ErrorCode), "failure-code" },
+			{ nameof(MessagingStep.ErrorDescription), "failure-description" },
+			{ nameof(MessagingStep.MachineName), "failing-machine" },
+			{ nameof(MessagingStep.Time), _failureTime }
 		};
 
 		private void SetupCommonProperties(Unit.Message.Mock<IBaseMessage> message)
