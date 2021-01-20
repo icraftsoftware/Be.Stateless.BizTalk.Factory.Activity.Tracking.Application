@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net48</TargetFramework>
     <RootNamespace>Be.Stateless.BizTalk</RootNamespace>
-    <AssemblyTitle>Be.Stateless.BizTalk.Claim.Store.Agent</AssemblyTitle>
+    <AssemblyName>Be.Stateless.BizTalk.Claim.Store.Agent</AssemblyName>
     <Description>BizTalk.Factory's claim store service agent.</Description>
   </PropertyGroup>
 
@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DocumentationFile>bin\Release\$(AssemblyTitle).xml</DocumentationFile>
+    <DocumentationFile>bin\Release\$(AssemblyName).xml</DocumentationFile>
     <NoWarn>1701;1702</NoWarn>
   </PropertyGroup>
 
@@ -29,10 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Be.Stateless.Extensions" Version="2.0.20338.1409" />
-    <PackageReference Include="Be.Stateless.Stream" Version="2.0.20338.28746" />
+    <PackageReference Include="Be.Stateless.Extensions" Version="2.0.21005.38790" />
+    <PackageReference Include="Be.Stateless.Stream" Version="2.0.21005.40362" />
     <PackageReference Include="log4net" Version="2.0.12" />
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.1">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

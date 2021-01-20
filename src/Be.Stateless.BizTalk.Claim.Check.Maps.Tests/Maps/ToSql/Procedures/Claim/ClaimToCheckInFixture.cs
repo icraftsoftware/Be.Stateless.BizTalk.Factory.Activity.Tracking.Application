@@ -18,7 +18,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using Be.Stateless.BizTalk.ContextProperties;
+using Be.Stateless.BizTalk.ContextProperties.Subscribable;
 using Be.Stateless.BizTalk.Message.Extensions;
 using Be.Stateless.BizTalk.Schemas.Sql.Procedures.Claim;
 using Be.Stateless.BizTalk.Unit;
@@ -33,7 +33,9 @@ namespace Be.Stateless.BizTalk.Maps.ToSql.Procedures.Claim
 	{
 		[Fact]
 		[SuppressMessage("ReSharper", "AccessToDisposedClosure")]
+		[SuppressMessage("ReSharper", "AccessToStaticMemberViaDerivedType")]
 		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+		[SuppressMessage("Style", "IDE0002:Simplify member access")]
 		public void ValidateTransformClaimTokenWithContext()
 		{
 			var contextMock = new MessageContextMock();
@@ -62,7 +64,9 @@ namespace Be.Stateless.BizTalk.Maps.ToSql.Procedures.Claim
 
 		[Fact]
 		[SuppressMessage("ReSharper", "AccessToDisposedClosure")]
+		[SuppressMessage("ReSharper", "AccessToStaticMemberViaDerivedType")]
 		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+		[SuppressMessage("Style", "IDE0002:Simplify member access")]
 		public void ValidateTransformClaimTokenWithEmbeddedDataAndContext()
 		{
 			var contextMock = new MessageContextMock();

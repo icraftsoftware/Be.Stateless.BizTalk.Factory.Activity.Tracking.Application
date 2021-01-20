@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using Be.Stateless.BizTalk.Factory.Areas;
 using FluentAssertions;
 using Xunit;
 using static Be.Stateless.Unit.DelegateFactory;
@@ -26,6 +27,15 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 {
 	public class ProcessNameFixture
 	{
+		[Theory]
+		//[MemberData(nameof(BatchProcessNames))]
+		[MemberData(nameof(ClaimProcessNames))]
+		[MemberData(nameof(DefaultProcessNames))]
+		public void BizTalkFactoryProcessNames(string actualName, string expectedName)
+		{
+			actualName.Should().Be(expectedName);
+		}
+
 		[Fact]
 		[SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
 		public void CannotDirectlyInstantiateProcessNameDerivedClass()
@@ -106,5 +116,19 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		}
 
 		private const string MESSAGE = "{0} must only declare non-static public string properties.";
+
+		//public static readonly object[] BatchProcessNames = {
+		//	new object[] { Batch.Processes.Aggregate, "Be.Stateless.BizTalk.Factory.Areas.Batch.Aggregate" },
+		//	new object[] { Batch.Processes.Release, "Be.Stateless.BizTalk.Factory.Areas.Batch.Release" },
+		//};
+
+		public static readonly object[] ClaimProcessNames = {
+			new object[] { Claim.Processes.Check, "Be.Stateless.BizTalk.Factory.Areas.Claim.Check" }
+		};
+
+		public static readonly object[] DefaultProcessNames = {
+			new object[] { Default.Processes.Failed, "Be.Stateless.BizTalk.Factory.Areas.Default.Failed" },
+			new object[] { Default.Processes.Unidentified, "Be.Stateless.BizTalk.Factory.Areas.Default.Unidentified" }
+		};
 	}
 }

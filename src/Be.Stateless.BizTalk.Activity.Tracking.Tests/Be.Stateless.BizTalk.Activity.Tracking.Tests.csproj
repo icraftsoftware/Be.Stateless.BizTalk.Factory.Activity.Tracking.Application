@@ -3,16 +3,18 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <RootNamespace>Be.Stateless.BizTalk</RootNamespace>
-    <AssemblyTitle>Be.Stateless.BizTalk.Activity.Tracking.Tests</AssemblyTitle>
+    <AssemblyName>Be.Stateless.BizTalk.Activity.Tracking.Tests</AssemblyName>
     <Description>Unit tests for BizTalk.Factory's activity model and tracking API for general purpose BizTalk Server development.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents.XUnit" Version="2.0.20338.38298" />
-    <PackageReference Include="Be.Stateless.BizTalk.Settings.Unit" Version="2.0.20338.28924" />
-    <PackageReference Include="Be.Stateless.Common.Unit" Version="2.0.20338.28706" />
-    <PackageReference Include="Be.Stateless.Stream.Unit" Version="2.0.20338.28746" />
-    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.4">
+    <PackageReference Include="Be.Stateless.BizTalk.Activity.Monitoring" Version="2.0.21019.43098" />
+    <PackageReference Include="Be.Stateless.BizTalk.Explorer" Version="2.0.21008.23152" />
+    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents.XUnit" Version="2.0.21012.19670" />
+    <PackageReference Include="Be.Stateless.BizTalk.Settings.Unit" Version="2.0.21012.26139" />
+    <PackageReference Include="Be.Stateless.Common.Unit" Version="2.0.21005.39505" />
+    <PackageReference Include="Be.Stateless.Stream.Unit" Version="2.0.21005.40362" />
+    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -28,6 +30,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Xunit.SkippableFact" Version="1.4.13" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +42,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Be.Stateless.BizTalk.Activity.Monitoring">
+      <Aliases>Monitoring</Aliases>
+    </Reference>
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Transactions" />
   </ItemGroup>

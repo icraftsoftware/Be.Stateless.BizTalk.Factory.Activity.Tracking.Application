@@ -22,8 +22,6 @@ using Be.Stateless.BizTalk.Activity.Tracking.Extensions;
 using Be.Stateless.Extensions;
 using Microsoft.XLANGs.BaseTypes;
 
-//using Be.Stateless.BizTalk.Tracking.Extensions;
-
 namespace Be.Stateless.BizTalk.Activity.Tracking
 {
 	/// <summary>

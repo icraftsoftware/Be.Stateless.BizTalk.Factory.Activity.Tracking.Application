@@ -27,7 +27,7 @@ using static Be.Stateless.Unit.DelegateFactory;
 
 namespace Be.Stateless.BizTalk.Message.Extensions
 {
-	public class BaseMessagePartFixture
+	public class BaseMessagePartTrackingExtensionsFixture
 	{
 		[Fact]
 		public void AsMessageBodyCaptureDescriptor()

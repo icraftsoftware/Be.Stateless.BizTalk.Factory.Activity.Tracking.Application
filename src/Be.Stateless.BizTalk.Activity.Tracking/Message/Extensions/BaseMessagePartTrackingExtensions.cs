@@ -29,7 +29,7 @@ using Microsoft.BizTalk.Message.Interop;
 
 namespace Be.Stateless.BizTalk.Message.Extensions
 {
-	public static class BaseMessagePart
+	public static class BaseMessagePartTrackingExtensions
 	{
 		/// <summary>
 		/// Return the content of a claim token message, either <see cref="Claim.Check"/>, <see cref="Claim.CheckIn"/>, or <see

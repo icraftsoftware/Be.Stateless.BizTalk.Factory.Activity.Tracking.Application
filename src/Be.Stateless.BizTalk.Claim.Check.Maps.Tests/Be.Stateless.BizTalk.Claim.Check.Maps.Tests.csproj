@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <RootNamespace>Be.Stateless.BizTalk</RootNamespace>
-    <AssemblyTitle>Be.Stateless.BizTalk.Claim.Check.Maps.Tests</AssemblyTitle>
+    <AssemblyName>Be.Stateless.BizTalk.Claim.Check.Maps.Tests</AssemblyName>
     <Description>Unit tests for BizTalk.Factory's claim check application add-on's BizTalk Server maps for general purpose BizTalk Server development.</Description>
   </PropertyGroup>
 
@@ -20,9 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Be.Stateless.BizTalk.Messaging.Unit" Version="2.0.20338.38034" />
-    <PackageReference Include="Be.Stateless.BizTalk.Transform.Unit" Version="2.0.20345.34557" />
-    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.4">
+    <PackageReference Include="Be.Stateless.BizTalk.Messaging.Unit" Version="2.0.21008.36224" />
+    <PackageReference Include="Be.Stateless.BizTalk.Schemas" Version="2.0.21019.9733" />
+    <PackageReference Include="Be.Stateless.BizTalk.Transform.Unit" Version="2.0.21008.37412" />
+    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

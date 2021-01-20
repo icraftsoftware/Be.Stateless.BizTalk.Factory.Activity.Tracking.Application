@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System;
 using System.IO;
 using System.Net;
 using Be.Stateless.BizTalk.ContextProperties;
+using Be.Stateless.BizTalk.Explorer;
 using Be.Stateless.BizTalk.Message;
 using Be.Stateless.BizTalk.Message.Extensions;
 using Be.Stateless.BizTalk.Schema;
@@ -43,6 +44,27 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 {
 	public class ClaimStoreFixture : IDisposable
 	{
+		#region Setup/Teardown
+
+		public ClaimStoreFixture()
+		{
+			// reset ClaimStore's cached value
+			ClaimStore.CheckInDirectory = null;
+			ClaimStore.CheckOutDirectory = null;
+
+			MessageMock = new Unit.Message.Mock<IBaseMessage> { DefaultValue = DefaultValue.Mock };
+			ResourceTrackerMock = new Mock<IResourceTracker>();
+		}
+
+		public void Dispose()
+		{
+			File.Delete(Path.Combine(Path.GetTempPath(), "cca95baa39ab4e25a3c54971ea170911"));
+			Directory.GetFiles(Path.GetTempPath(), "*.chk").ForEach(File.Delete);
+			Directory.GetFiles(Path.GetTempPath(), "*.trk").ForEach(File.Delete);
+		}
+
+		#endregion
+
 		[Fact]
 		public void CaptureMessageBody()
 		{
@@ -100,9 +122,11 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			}
 		}
 
-		[Fact]
+		[SkippableFact]
 		public void CaptureMessageBodyWillHaveMessageClaimedButSsoApplicationDoesNotExist()
 		{
+			Skip.IfNot(BizTalkServerGroup.IsConfigured);
+
 			var actualSsoConfigurationReader = SsoConfigurationReader.Instance;
 			// setup a mock callback to ensure that, even if the BizTalk.Factory SSO store is deployed, the call will look for an SSO store that does not exist
 			using (var configurationReaderMockInjectionScope = new SsoConfigurationReaderMockInjectionScope())
@@ -334,23 +358,6 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 
 				ClaimStore.RequiresCheckInAndOut.Should().BeTrue();
 			}
-		}
-
-		public ClaimStoreFixture()
-		{
-			// reset ClaimStore's cached value
-			ClaimStore.CheckInDirectory = null;
-			ClaimStore.CheckOutDirectory = null;
-
-			MessageMock = new Unit.Message.Mock<IBaseMessage> { DefaultValue = DefaultValue.Mock };
-			ResourceTrackerMock = new Mock<IResourceTracker>();
-		}
-
-		public void Dispose()
-		{
-			File.Delete(Path.Combine(Path.GetTempPath(), "cca95baa39ab4e25a3c54971ea170911"));
-			Directory.GetFiles(Path.GetTempPath(), "*.chk").ForEach(File.Delete);
-			Directory.GetFiles(Path.GetTempPath(), "*.trk").ForEach(File.Delete);
 		}
 
 		private Unit.Message.Mock<IBaseMessage> MessageMock { get; }
