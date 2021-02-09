@@ -20,7 +20,7 @@
     <PackageId>$(AssemblyName)</PackageId>
     <PackageDescription>$(Description)</PackageDescription>
     <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
-    <PackageTags>library extension utility</PackageTags>
+    <PackageTags>BizTalk library claim check schemas</PackageTags>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
@@ -37,7 +37,7 @@
   <ItemGroup>
     <PackageReference Include="Be.Stateless.BizTalk.Messaging" Version="2.0.21008.36224" />
     <PackageReference Include="Be.Stateless.Extensions" Version="2.0.21005.38790" />
-    <PackageReference Include="BizTalk.Server.2020.Build" Version="1.0.3" Condition="'$(TF_BUILD)' != 'true'">
+    <PackageReference Include="BizTalk.Server.2020.Build" Version="2.0.21033.35202" Condition="'$(TF_BUILD)' != 'true'">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
