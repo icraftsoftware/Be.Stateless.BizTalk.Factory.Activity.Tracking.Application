@@ -20,7 +20,7 @@
     <PackageId>$(AssemblyName)</PackageId>
     <PackageDescription>$(Description)</PackageDescription>
     <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
-    <PackageTags>library extension utility</PackageTags>
+    <PackageTags>BizTalk library activity tracking</PackageTags>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
@@ -36,7 +36,7 @@
 
   <ItemGroup>
     <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents" Version="2.0.21012.19670" />
-    <PackageReference Include="Be.Stateless.BizTalk.Settings" Version="2.0.21012.26139" />
+    <PackageReference Include="Be.Stateless.BizTalk.Settings" Version="2.0.21040.23430" />
     <PackageReference Include="Be.Stateless.BizTalk.Stream" Version="2.0.21008.32614" />
     <PackageReference Include="Be.Stateless.BizTalk.XLang" Version="2.0.21008.34815" />
     <PackageReference Include="Be.Stateless.Extensions" Version="2.0.21005.38790" />
