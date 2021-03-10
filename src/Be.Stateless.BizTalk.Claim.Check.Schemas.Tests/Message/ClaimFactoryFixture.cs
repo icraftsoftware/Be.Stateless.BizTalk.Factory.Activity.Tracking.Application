@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 
 using FluentAssertions;
 using Xunit;
-using static Be.Stateless.Unit.DelegateFactory;
+using static FluentAssertions.FluentActions;
 
 namespace Be.Stateless.BizTalk.Message
 {
@@ -27,31 +27,31 @@ namespace Be.Stateless.BizTalk.Message
 		[Fact]
 		public void CreateCheck()
 		{
-			Function(() => ClaimFactory.CreateCheck("file://server/folder/file.bin")).Should().NotThrow();
+			Invoking(() => ClaimFactory.CreateCheck("file://server/folder/file.bin")).Should().NotThrow();
 		}
 
 		[Fact]
 		public void CreateCheckIn()
 		{
-			Function(() => ClaimFactory.CreateCheckIn("file://server/folder/file.bin")).Should().NotThrow();
+			Invoking(() => ClaimFactory.CreateCheckIn("file://server/folder/file.bin")).Should().NotThrow();
 		}
 
 		[Fact]
 		public void CreateCheckInWithMessageType()
 		{
-			Function(() => ClaimFactory.CreateCheckIn("message-type", "file://server/folder/file.bin")).Should().NotThrow();
+			Invoking(() => ClaimFactory.CreateCheckIn("message-type", "file://server/folder/file.bin")).Should().NotThrow();
 		}
 
 		[Fact]
 		public void CreateCheckOut()
 		{
-			Function(() => ClaimFactory.CreateCheckOut("file://server/folder/file.bin")).Should().NotThrow();
+			Invoking(() => ClaimFactory.CreateCheckOut("file://server/folder/file.bin")).Should().NotThrow();
 		}
 
 		[Fact]
 		public void CreateCheckWithMessageType()
 		{
-			Function(() => ClaimFactory.CreateCheck("message-type", "file://server/folder/file.bin")).Should().NotThrow();
+			Invoking(() => ClaimFactory.CreateCheck("message-type", "file://server/folder/file.bin")).Should().NotThrow();
 		}
 	}
 }

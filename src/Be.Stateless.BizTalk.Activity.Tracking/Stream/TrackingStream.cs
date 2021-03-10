@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ using Microsoft.BizTalk.Streaming;
 namespace Be.Stateless.BizTalk.Stream
 {
 	/// <summary>
-	/// Endows a <see cref="Stream"/> with both capture and tracking support.
+	/// Endows a <see cref="System.IO.Stream"/> with both capture and tracking support.
 	/// </summary>
 	/// <remarks>
 	/// The capture capability allows the <see cref="TrackingStream"/> to replicate its payload on-the-fly, that is to say while
@@ -41,7 +41,7 @@ namespace Be.Stateless.BizTalk.Stream
 		/// Creates a new instance of a <see cref="TrackingStream"/>.
 		/// </summary>
 		/// <param name="stream">
-		/// The <see cref="Stream"/> to endow with tracking and claim support.
+		/// The <see cref="System.IO.Stream"/> to endow with tracking and claim support.
 		/// </param>
 		internal TrackingStream(System.IO.Stream stream) : base(stream) { }
 
@@ -50,7 +50,7 @@ namespace Be.Stateless.BizTalk.Stream
 		/// already been tracked, typically when a claim check token is redeemed.
 		/// </summary>
 		/// <param name="stream">
-		/// The <see cref="Stream"/> to endow with tracking and claim support.
+		/// The <see cref="System.IO.Stream"/> to endow with tracking and claim support.
 		/// </param>
 		/// <param name="captureDescriptor">
 		/// The <see cref="MessageBodyCaptureDescriptor"/> describing the previously captured-to-disk payload stream to reuse.
@@ -137,7 +137,7 @@ namespace Be.Stateless.BizTalk.Stream
 		/// Describes how and where the stream is captured.
 		/// </param>
 		/// <param name="capturingStream">
-		/// The <see cref="Stream"/> to capture, or replicate, its payload to while being read.
+		/// The <see cref="System.IO.Stream"/> to capture, or replicate, its payload to while being read.
 		/// </param>
 		internal virtual void SetupCapture(MessageBodyCaptureDescriptor captureDescriptor, System.IO.Stream capturingStream)
 		{

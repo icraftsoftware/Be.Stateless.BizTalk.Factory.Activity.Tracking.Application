@@ -27,17 +27,17 @@ using Be.Stateless.BizTalk.Schema;
 using Be.Stateless.BizTalk.Schemas.Xml;
 using Be.Stateless.BizTalk.Settings;
 using Be.Stateless.BizTalk.Stream;
-using Be.Stateless.Dummies.IO;
 using Be.Stateless.IO;
 using Be.Stateless.IO.Extensions;
 using Be.Stateless.Linq.Extensions;
+using Be.Stateless.Unit.IO;
 using Be.Stateless.Xml.Extensions;
 using FluentAssertions;
 using Microsoft.BizTalk.Component.Interop;
 using Microsoft.BizTalk.Message.Interop;
 using Moq;
 using Xunit;
-using static Be.Stateless.Unit.DelegateFactory;
+using static FluentAssertions.FluentActions;
 using Path = System.IO.Path;
 
 namespace Be.Stateless.BizTalk.Activity.Tracking
@@ -138,7 +138,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 
 				var trackingStreamMock = new Mock<TrackingStream>(TextStreamDummy.Create(1024 * 1024)) { CallBase = true };
 
-				Action(() => ClaimStore.Instance.SetupMessageBodyCapture(trackingStreamMock.Object, ActivityTrackingModes.Claim, null))
+				Invoking(() => ClaimStore.Instance.SetupMessageBodyCapture(trackingStreamMock.Object, ActivityTrackingModes.Claim, null))
 					.Should().Throw<InvalidOperationException>()
 					.WithMessage("AffiliateApplication 'NONEXISTENT_APPLICATION' does not exist.");
 			}
@@ -292,7 +292,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			using (var tokenStream = ClaimFactory.CreateCheckIn("d59cd2ea045744f4a085b18be678e4f0").AsStream())
 			{
 				MessageMock.Object.BodyPart.Data = tokenStream;
-				Action(() => ClaimStore.Instance.Redeem(MessageMock.Object, ResourceTrackerMock.Object))
+				Invoking(() => ClaimStore.Instance.Redeem(MessageMock.Object, ResourceTrackerMock.Object))
 					.Should().Throw<InvalidOperationException>()
 					.WithMessage("Invalid token message, CheckIn token is not expected to be redeemed.");
 			}
@@ -305,7 +305,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			{
 				MessageMock.Object.BodyPart.Data = tokenStream;
 				// fails, and still, shows that resources can be redeemed from somewhere else than the claim store
-				Action(() => ClaimStore.Instance.Redeem(MessageMock.Object, ResourceTrackerMock.Object))
+				Invoking(() => ClaimStore.Instance.Redeem(MessageMock.Object, ResourceTrackerMock.Object))
 					.Should().Throw<WebException>();
 			}
 		}

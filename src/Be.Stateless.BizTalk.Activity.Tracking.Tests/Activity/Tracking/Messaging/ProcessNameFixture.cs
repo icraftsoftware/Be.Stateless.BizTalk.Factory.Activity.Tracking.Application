@@ -21,7 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using Be.Stateless.BizTalk.Factory.Areas;
 using FluentAssertions;
 using Xunit;
-using static Be.Stateless.Unit.DelegateFactory;
+using static FluentAssertions.FluentActions;
 
 namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 {
@@ -40,12 +40,12 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		[SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
 		public void CannotDirectlyInstantiateProcessNameDerivedClass()
 		{
-			Action(() => new DiscoverableArea())
+			Invoking(() => new DiscoverableArea())
 				.Should().Throw<InvalidOperationException>()
 				.WithMessage(
 					$"Type '{typeof(DiscoverableArea).FullName}' is a singleton meant to be accessed via its Processes member property and is not intended to be instantiated directly.");
 
-			Action(() => new SampleArea())
+			Invoking(() => new SampleArea())
 				.Should().Throw<InvalidOperationException>()
 				.WithMessage(
 					$"Type '{typeof(SampleArea).FullName}' is a singleton meant to be accessed via its Processes member property and is not intended to be instantiated directly.");
@@ -60,7 +60,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		[Fact]
 		public void NonPublicPropertyThrows()
 		{
-			Function(() => UndiscoverableNonPublic.Processes.ProcessFour)
+			Invoking(() => UndiscoverableNonPublic.Processes.ProcessFour)
 				.Should().Throw<TypeInitializationException>()
 				.WithInnerException<ArgumentException>()
 				.WithMessage(string.Format(MESSAGE, typeof(UndiscoverableNonPublic).FullName));
@@ -69,7 +69,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		[Fact]
 		public void NonStringPropertyThrows()
 		{
-			Function(() => UndiscoverableNonString.Processes.ProcessThree)
+			Invoking(() => UndiscoverableNonString.Processes.ProcessThree)
 				.Should().Throw<TypeInitializationException>()
 				.WithInnerException<ArgumentException>()
 				.WithMessage(string.Format(MESSAGE, typeof(UndiscoverableNonString).FullName));
@@ -78,7 +78,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		[Fact]
 		public void StaticPropertyThrows()
 		{
-			Function(() => UndiscoverableStatic.Processes)
+			Invoking(() => UndiscoverableStatic.Processes)
 				.Should().Throw<TypeInitializationException>()
 				.WithInnerException<ArgumentException>()
 				.WithMessage(string.Format(MESSAGE, typeof(UndiscoverableStatic).FullName));

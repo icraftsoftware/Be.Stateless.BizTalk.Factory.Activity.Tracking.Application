@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -155,8 +155,8 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 		}
 
 		/// <summary>
-		/// Create a <see cref="Stream"/> to an entry in the claim store that piggies back a kernel transaction if one can be
-		/// factored.
+		/// Create a <see cref="System.IO.Stream"/> to an entry in the claim store that piggies back a kernel transaction if one
+		/// can be factored.
 		/// </summary>
 		/// <param name="url">
 		/// Destination URL of the claimed payload.
@@ -165,10 +165,10 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 		/// The claim store entry.
 		/// </param>
 		/// <param name="transactionFactory">
-		/// The <see cref="Stream"/> factory.
+		/// The <see cref="System.IO.Stream"/> factory.
 		/// </param>
 		/// <returns>
-		/// The <see cref="Stream"/> to the claim store entry.
+		/// The <see cref="System.IO.Stream"/> to the claim store entry.
 		/// </returns>
 		[SuppressMessage("Performance", "CA1822:Mark members as static")]
 		private System.IO.Stream CreateCapturingStream(string url, ActivityTrackingModes trackingModes, Func<IKernelTransaction> transactionFactory)

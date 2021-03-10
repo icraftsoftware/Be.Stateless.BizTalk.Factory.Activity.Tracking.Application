@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ using Microsoft.BizTalk.Message.Interop;
 using Microsoft.XLANGs.BaseTypes;
 using Moq;
 using Xunit;
-using static Be.Stateless.Unit.DelegateFactory;
+using static FluentAssertions.FluentActions;
 
 namespace Be.Stateless.BizTalk.Activity.Tracking.Extensions
 {
@@ -57,7 +57,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Extensions
 		{
 			var message = new Unit.Message.Mock<IBaseMessage>();
 
-			Action(() => message.Object.GetTrackingContext(true))
+			Invoking(() => message.Object.GetTrackingContext(true))
 				.Should().Throw<InvalidOperationException>()
 				.WithMessage("Invalid TrackingContext: None of its discrete activity Ids are set.");
 		}
@@ -134,15 +134,15 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Extensions
 		[Fact]
 		public void ThrowsWhenOrchestrationMessageIsNull()
 		{
-			Action(() => ((XLANGMessage) null).GetTrackingContext()).Should().Throw<ArgumentNullException>();
-			Action(() => ((XLANGMessage) null).SetTrackingContext(new TrackingContext())).Should().Throw<ArgumentNullException>();
+			Invoking(() => ((XLANGMessage) null).GetTrackingContext()).Should().Throw<ArgumentNullException>();
+			Invoking(() => ((XLANGMessage) null).SetTrackingContext(new TrackingContext())).Should().Throw<ArgumentNullException>();
 		}
 
 		[Fact]
 		public void ThrowsWhenPipelineMessageIsNull()
 		{
-			Action(() => ((IBaseMessage) null).GetTrackingContext()).Should().Throw<ArgumentNullException>();
-			Action(() => ((IBaseMessage) null).SetTrackingContext(new TrackingContext())).Should().Throw<ArgumentNullException>();
+			Invoking(() => ((IBaseMessage) null).GetTrackingContext()).Should().Throw<ArgumentNullException>();
+			Invoking(() => ((IBaseMessage) null).SetTrackingContext(new TrackingContext())).Should().Throw<ArgumentNullException>();
 		}
 
 		private TrackingContext CreateTrackingContext()

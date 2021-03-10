@@ -74,6 +74,7 @@ ApplicationManifest -Name BizTalk.Activity.Tracking -Description 'BizTalk.Factor
    BamIndex -Activity ProcessMessagingStep -Name MessagingStepActivityID, ProcessActivityID
    BamIndex -Activity MessagingStep -Name InterchangeID, Time, Value1, Value2, Value3
    Map -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Claim.Check.Maps)
+   Schema -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Claim.Check.Schemas)
    SqlDeploymentScript -Path (Get-ResourceItem -Extensions .sql -Name TurnOffGlobalTracking, CreateMonitoringObjects) -Server $ManagementServer
    SqlUndeploymentScript -Path (Get-ResourceItem -Extensions .sql -Name DropMonitoringObjects) -Server $ManagementServer
    SqlDeploymentScript -Path (Get-ResourceItem -Extensions .sql -Name CreateClaimCheckObjects) -Server $ProcessingServer
@@ -95,5 +96,4 @@ ApplicationManifest -Name BizTalk.Activity.Tracking -Description 'BizTalk.Factor
       MonitoringDatabaseServer    = $MonitoringServer
    }
    SqlUndeploymentScript -Path (Get-ResourceItem -Extensions .sql -Name DropBamTrackingActivitiesMaintenanceJob) -Server $MonitoringServer
-   Schema -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Claim.Check.Schemas)
 }

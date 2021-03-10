@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 using System;
 using FluentAssertions;
 using Xunit;
-using static Be.Stateless.Unit.DelegateFactory;
+using static FluentAssertions.FluentActions;
 
 namespace Be.Stateless.BizTalk.Claim.Store.States
 {
@@ -83,7 +83,7 @@ namespace Be.Stateless.BizTalk.Claim.Store.States
 		[Fact]
 		public void TokenizeThrowsWhenDataFileNameIsInvalid()
 		{
-			Function(() => "201306158F341A2D6FD7416B87073A0132DD51AE.txt".Tokenize().CaptureDate)
+			Invoking(() => "201306158F341A2D6FD7416B87073A0132DD51AE.txt".Tokenize().CaptureDate)
 				.Should().Throw<ArgumentException>()
 				.WithMessage("Claim Store Agent does not recognize the message body's data file path: '201306158F341A2D6FD7416B87073A0132DD51AE.txt'.*");
 		}

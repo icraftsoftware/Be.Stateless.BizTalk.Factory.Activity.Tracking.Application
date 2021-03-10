@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ using FluentAssertions;
 using Microsoft.BizTalk.Message.Interop;
 using Moq;
 using Xunit;
-using static Be.Stateless.Unit.DelegateFactory;
+using static FluentAssertions.FluentActions;
 
 namespace Be.Stateless.BizTalk.Message.Extensions
 {
@@ -51,7 +51,7 @@ namespace Be.Stateless.BizTalk.Message.Extensions
 			part.Setup(p => p.GetOriginalDataStream())
 				.Returns(originalStream);
 
-			Action(() => part.Object.AsMessageBodyCaptureDescriptor()).Should().Throw<XmlSchemaValidationException>();
+			Invoking(() => part.Object.AsMessageBodyCaptureDescriptor()).Should().Throw<XmlSchemaValidationException>();
 		}
 	}
 }

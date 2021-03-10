@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ using Be.Stateless.Reflection;
 using FluentAssertions;
 using Microsoft.BizTalk.Streaming;
 using Xunit;
-using static Be.Stateless.Unit.DelegateFactory;
+using static FluentAssertions.FluentActions;
 
 namespace Be.Stateless.BizTalk.Stream
 {
@@ -41,7 +41,7 @@ namespace Be.Stateless.BizTalk.Stream
 			{
 				stream.SetupCapture(new MessageBodyCaptureDescriptor("some-data", MessageBodyCaptureMode.Claimed), new MemoryStream());
 				innerStream.Position.Should().Be(0);
-				Action(() => stream.Capture()).Should().NotThrow();
+				Invoking(() => stream.Capture()).Should().NotThrow();
 				innerStream.Position.Should().Be(innerStream.Length);
 			}
 		}
@@ -66,7 +66,7 @@ namespace Be.Stateless.BizTalk.Stream
 			using (var stream = new TrackingStream(new MemoryStream(_content)))
 			{
 				stream.SetupCapture(new MessageBodyCaptureDescriptor("some-data", MessageBodyCaptureMode.Unclaimed));
-				Action(() => stream.Capture()).Should().Throw<InvalidOperationException>()
+				Invoking(() => stream.Capture()).Should().Throw<InvalidOperationException>()
 					.WithMessage("TrackingStream cannot be captured because its Descriptor's CaptureMode has not been set to Claimed but to Unclaimed.");
 			}
 		}
@@ -77,7 +77,7 @@ namespace Be.Stateless.BizTalk.Stream
 		{
 			using (var stream = new TrackingStream(new MemoryStream(_content)))
 			{
-				Action(() => stream.Capture()).Should().Throw<InvalidOperationException>()
+				Invoking(() => stream.Capture()).Should().Throw<InvalidOperationException>()
 					.WithMessage("TrackingStream cannot be captured because its Descriptor is null and has not been initialized for tracking.");
 			}
 		}
@@ -88,7 +88,7 @@ namespace Be.Stateless.BizTalk.Stream
 		{
 			using (var stream = new TrackingStream(new MemoryStream(_content), new MessageBodyCaptureDescriptor("url", MessageBodyCaptureMode.Claimed)))
 			{
-				Action(() => stream.Capture()).Should().Throw<InvalidOperationException>()
+				Invoking(() => stream.Capture()).Should().Throw<InvalidOperationException>()
 					.WithMessage("TrackingStream cannot be captured unless it has been setup with another capturing stream to replicate its payload to.");
 			}
 		}
@@ -99,10 +99,10 @@ namespace Be.Stateless.BizTalk.Stream
 			using (var stream = new TrackingStream(new MemoryStream(_content)))
 			{
 				var edgeEventsCount = 0;
-				stream.AfterLastReadEvent += (sender, args) => ++edgeEventsCount;
-				stream.BeforeFirstReadEvent += (sender, args) => ++edgeEventsCount;
+				stream.AfterLastReadEvent += (_, _) => ++edgeEventsCount;
+				stream.BeforeFirstReadEvent += (_, _) => ++edgeEventsCount;
 				var eventsCount = 0;
-				stream.ReadEvent += (sender, args) => ++eventsCount;
+				stream.ReadEvent += (_, _) => ++eventsCount;
 
 				var markableForwardOnlyEventingReadStream = stream.AsMarkable();
 				edgeEventsCount.Should().Be(0);
@@ -138,7 +138,7 @@ namespace Be.Stateless.BizTalk.Stream
 		[SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
 		public void PayloadIsBeingRedeemed()
 		{
-			Action(() => new TrackingStream(new MemoryStream(), new MessageBodyCaptureDescriptor("url", MessageBodyCaptureMode.Unclaimed)))
+			Invoking(() => new TrackingStream(new MemoryStream(), new MessageBodyCaptureDescriptor("url", MessageBodyCaptureMode.Unclaimed)))
 				.Should().Throw<ArgumentException>()
 				.WithMessage(
 					"A TrackingStream, whose payload is being redeemed, cannot be instantiated with a CaptureDescriptor having a CaptureMode of Unclaimed; the only compliant CaptureMode is Claimed.*");
@@ -172,7 +172,7 @@ namespace Be.Stateless.BizTalk.Stream
 		{
 			using (var stream = new TrackingStream(new MemoryStream(_content)))
 			{
-				Action(() => stream.SetupCapture(new MessageBodyCaptureDescriptor("some-data", MessageBodyCaptureMode.Unclaimed), new MemoryStream()))
+				Invoking(() => stream.SetupCapture(new MessageBodyCaptureDescriptor("some-data", MessageBodyCaptureMode.Unclaimed), new MemoryStream()))
 					.Should().Throw<InvalidOperationException>()
 					.WithMessage("TrackingStream's capture cannot be setup with a CaptureMode of Unclaimed; other CaptureMode than Claimed cannot use a capturing stream.");
 			}
@@ -184,7 +184,7 @@ namespace Be.Stateless.BizTalk.Stream
 		{
 			using (var stream = new TrackingStream(new MemoryStream(_content)))
 			{
-				Action(() => stream.SetupCapture(new MessageBodyCaptureDescriptor("some-data", MessageBodyCaptureMode.Claimed), null))
+				Invoking(() => stream.SetupCapture(new MessageBodyCaptureDescriptor("some-data", MessageBodyCaptureMode.Claimed), null))
 					.Should().Throw<ArgumentNullException>()
 					.Which.ParamName.Should().Be("capturingStream");
 			}
@@ -196,7 +196,7 @@ namespace Be.Stateless.BizTalk.Stream
 		{
 			using (var stream = new TrackingStream(new MemoryStream(_content)))
 			{
-				Action(() => stream.SetupCapture(new MessageBodyCaptureDescriptor("some-data", MessageBodyCaptureMode.Claimed)))
+				Invoking(() => stream.SetupCapture(new MessageBodyCaptureDescriptor("some-data", MessageBodyCaptureMode.Claimed)))
 					.Should().Throw<InvalidOperationException>()
 					.WithMessage("TrackingStream's capture cannot be setup with a CaptureMode of Claimed; other CaptureMode than Unclaimed requires a capturing stream.");
 			}
@@ -208,11 +208,11 @@ namespace Be.Stateless.BizTalk.Stream
 		{
 			using (var stream = new TrackingStream(new MemoryStream(_content), new MessageBodyCaptureDescriptor("some-data", MessageBodyCaptureMode.Claimed)))
 			{
-				Action(() => stream.SetupCapture(new MessageBodyCaptureDescriptor("other-data", MessageBodyCaptureMode.Unclaimed)))
+				Invoking(() => stream.SetupCapture(new MessageBodyCaptureDescriptor("other-data", MessageBodyCaptureMode.Unclaimed)))
 					.Should().Throw<InvalidOperationException>()
 					.WithMessage("TrackingStream's capture has already been setup and cannot be overwritten.");
 
-				Action(() => stream.SetupCapture(new MessageBodyCaptureDescriptor("other-data", MessageBodyCaptureMode.Claimed), new MemoryStream()))
+				Invoking(() => stream.SetupCapture(new MessageBodyCaptureDescriptor("other-data", MessageBodyCaptureMode.Claimed), new MemoryStream()))
 					.Should().Throw<InvalidOperationException>()
 					.WithMessage("TrackingStream's capture has already been setup and cannot be overwritten.");
 			}
