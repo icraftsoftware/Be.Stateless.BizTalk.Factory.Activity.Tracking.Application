@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.Build.NoTargets/2.0.1">
+<Project Sdk="Microsoft.Build.NoTargets/2.0.1">
 
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
@@ -9,16 +9,22 @@
     <ProjectReference Include="..\Be.Stateless.BizTalk.Activity.Tracking\Be.Stateless.BizTalk.Activity.Tracking.csproj" />
     <ProjectReference Include="..\Be.Stateless.BizTalk.Claim.Check.Maps\Be.Stateless.BizTalk.Claim.Check.Maps.csproj" />
     <ProjectReference Include="..\Be.Stateless.BizTalk.Claim.Check.Schemas\Be.Stateless.BizTalk.Claim.Check.Schemas.csproj" />
+    <ProjectReference Include="..\Be.Stateless.BizTalk.Claim.Store.Agent\Be.Stateless.BizTalk.Claim.Store.Agent.csproj" />
+    <ProjectReference Include="..\Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding\Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\Be.Stateless.BizTalk.Activity.Tracking\Activity\Model\ActivityModel.xml" Link="bam\ActivityModel.xml">
+    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.0" ExcludeAssets="runtime" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Be.Stateless.BizTalk.Activity.Tracking\Activity\Model\ActivityModel.xml" Link="Bam\ActivityModel.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Manifest.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sql\scripts\*.sql">
+    <None Update="Sql\Scripts\*.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

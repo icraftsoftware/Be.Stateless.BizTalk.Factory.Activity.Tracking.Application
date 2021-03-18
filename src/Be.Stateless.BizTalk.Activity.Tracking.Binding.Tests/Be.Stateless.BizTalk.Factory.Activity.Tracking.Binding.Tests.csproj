@@ -3,27 +3,22 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <RootNamespace>Be.Stateless.BizTalk</RootNamespace>
-    <AssemblyName>Be.Stateless.BizTalk.Claim.Check.Maps.Tests</AssemblyName>
-    <Description>Unit tests for BizTalk.Factory's claim check application add-on's BizTalk Server maps for general purpose BizTalk Server development.</Description>
+    <AssemblyName>Be.Stateless.BizTalk.Activity.Tracking.Binding.Tests</AssemblyName>
+    <Description>Unit tests for Activity.Tracking's application bindings.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Message\ClaimToken.1.xml" />
-    <None Remove="Resources\Message\ClaimToken.2.xml" />
-    <None Remove="Resources\Message\ClaimToken.3.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Message\ClaimToken.1.xml" />
-    <EmbeddedResource Include="Resources\Message\ClaimToken.2.xml" />
-    <EmbeddedResource Include="Resources\Message\ClaimToken.3.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Be.Stateless.BizTalk.Messaging.Unit" Version="2.0.21077.61705" />
-    <PackageReference Include="Be.Stateless.BizTalk.Schemas" Version="2.0.21073.35244" />
-    <PackageReference Include="Be.Stateless.BizTalk.Transform.Unit" Version="2.0.21071.55824" />
+    <PackageReference Include="Be.Stateless.BizTalk.Dsl.Binding.Unit" Version="2.0.21073.33045" />
+    <PackageReference Include="Be.Stateless.Common.Unit" Version="2.0.21060.31482" />
     <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="BizTalk.Server.2020.Runtime.Adapters" Version="1.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="BizTalk.Server.2020.Utilities" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -39,6 +34,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Xunit.SkippableFact" Version="1.4.13" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Be.Stateless.BizTalk.Claim.Check.Maps\Be.Stateless.BizTalk.Claim.Check.Maps.csproj" />
+    <ProjectReference Include="..\Be.Stateless.BizTalk.Activity.Tracking.Binding\Be.Stateless.BizTalk.Activity.Tracking.Binding.csproj" />
   </ItemGroup>
 
 </Project>
