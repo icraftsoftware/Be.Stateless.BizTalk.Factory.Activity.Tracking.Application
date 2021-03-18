@@ -12,13 +12,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\Be.Stateless.BizTalk.Activity.Tracking\Activity\Model\ActivityModel.xml" Link="bam\ActivityModel.xml">
+    <None Include="..\Be.Stateless.BizTalk.Activity.Tracking\Activity\Model\ActivityModel.xml" Link="Bam\ActivityModel.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Manifest.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sql\scripts\*.sql">
+    <None Update="Sql\Scripts\*.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

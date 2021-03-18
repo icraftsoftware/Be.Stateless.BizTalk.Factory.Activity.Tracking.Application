@@ -69,7 +69,8 @@ Set-StrictMode -Version Latest
 
 ApplicationManifest -Name BizTalk.Activity.Tracking -Description 'BizTalk.Factory''s activity model and tracking API for general purpose BizTalk Server development.' -Build {
    Assembly -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Activity.Tracking)
-   BamActivityModel -Path (Get-ResourceItem -Name ActivityModel -Extension .xml)
+   Binding -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Activity.Tracking.Binding)
+   BamActivityModel -Path (Get-ResourceItem -Name ActivityModel -Extensions .xml)
    BamIndex -Activity Process -Name BeginTime, InterchangeID, ProcessName, Value1, Value2, Value3
    BamIndex -Activity ProcessMessagingStep -Name MessagingStepActivityID, ProcessActivityID
    BamIndex -Activity MessagingStep -Name InterchangeID, Time, Value1, Value2, Value3

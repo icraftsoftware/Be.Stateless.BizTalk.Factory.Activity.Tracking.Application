@@ -24,7 +24,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Stateless.BizTalk.Claim.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Stateless.BizTalk.Claim.Check.Schemas.Tests", "src\Be.Stateless.BizTalk.Claim.Check.Schemas.Tests\Be.Stateless.BizTalk.Claim.Check.Schemas.Tests.csproj", "{8827DF11-5B05-45B4-9B28-3F7F5AE535F4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Stateless.BizTalk.Activity.Tracking.Deployment", "src\Be.Stateless.BizTalk.Activity.Tracking.Deployment\Be.Stateless.BizTalk.Activity.Tracking.Deployment.csproj", "{E0DF8A0F-2AB8-46C4-B77B-093ECF56CC32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Stateless.BizTalk.Activity.Tracking.Binding", "src\Be.Stateless.BizTalk.Activity.Tracking.Binding\Be.Stateless.BizTalk.Activity.Tracking.Binding.csproj", "{2C83A63F-4574-4EE5-9934-DD8781E024B0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Stateless.BizTalk.Activity.Tracking.Binding.Tests", "src\Be.Stateless.BizTalk.Activity.Tracking.Binding.Tests\Be.Stateless.BizTalk.Activity.Tracking.Binding.Tests.csproj", "{F67BDBE3-9B55-45A7-8E89-844438CE60CB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Stateless.BizTalk.Activity.Tracking.Application.Deployment", "src\Be.Stateless.BizTalk.Activity.Tracking.Application.Deployment\Be.Stateless.BizTalk.Activity.Tracking.Application.Deployment.csproj", "{8FD978AE-61AC-4551-8877-B649B8B2537F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,10 +68,18 @@ Global
 		{8827DF11-5B05-45B4-9B28-3F7F5AE535F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8827DF11-5B05-45B4-9B28-3F7F5AE535F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8827DF11-5B05-45B4-9B28-3F7F5AE535F4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E0DF8A0F-2AB8-46C4-B77B-093ECF56CC32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0DF8A0F-2AB8-46C4-B77B-093ECF56CC32}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0DF8A0F-2AB8-46C4-B77B-093ECF56CC32}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0DF8A0F-2AB8-46C4-B77B-093ECF56CC32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C83A63F-4574-4EE5-9934-DD8781E024B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C83A63F-4574-4EE5-9934-DD8781E024B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C83A63F-4574-4EE5-9934-DD8781E024B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C83A63F-4574-4EE5-9934-DD8781E024B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F67BDBE3-9B55-45A7-8E89-844438CE60CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F67BDBE3-9B55-45A7-8E89-844438CE60CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F67BDBE3-9B55-45A7-8E89-844438CE60CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F67BDBE3-9B55-45A7-8E89-844438CE60CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FD978AE-61AC-4551-8877-B649B8B2537F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FD978AE-61AC-4551-8877-B649B8B2537F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FD978AE-61AC-4551-8877-B649B8B2537F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FD978AE-61AC-4551-8877-B649B8B2537F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
