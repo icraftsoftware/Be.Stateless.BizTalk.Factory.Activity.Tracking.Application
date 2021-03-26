@@ -54,7 +54,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			{
 				// though SSO cache refreshes automatically every minute, the value is made static and will require a process restart if it changes
 				if (_checkInDirectory != null) return _checkInDirectory;
-				var directory = BizTalkFactorySettings.ClaimStoreCheckInDirectory.TrimEnd('\\');
+				var directory = ClaimStoreSsoSettings.ClaimStoreCheckInDirectory.TrimEnd('\\');
 				Interlocked.CompareExchange(ref _checkInDirectory, directory, null);
 				return directory;
 			}
@@ -76,7 +76,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			{
 				// though SSO cache refreshes automatically every minute, the value is made static and will require a process restart if it changes
 				if (_checkOutDirectory != null) return _checkOutDirectory;
-				var directory = BizTalkFactorySettings.ClaimStoreCheckOutDirectory.TrimEnd('\\');
+				var directory = ClaimStoreSsoSettings.ClaimStoreCheckOutDirectory.TrimEnd('\\');
 				Interlocked.CompareExchange(ref _checkOutDirectory, directory, null);
 				return directory;
 			}

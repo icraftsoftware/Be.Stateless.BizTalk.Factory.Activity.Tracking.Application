@@ -1,50 +1,50 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-   <PropertyGroup>
-      <TargetFramework>net48</TargetFramework>
-      <RootNamespace>Be.Stateless.BizTalk.Activity.Tracking</RootNamespace>
-      <AssemblyName>Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding</AssemblyName>
-      <Description>BizTalk.Factory's activity tracking application bindings.</Description>
-      <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-   </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <RootNamespace>Be.Stateless.BizTalk</RootNamespace>
+    <AssemblyName>Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding</AssemblyName>
+    <Description>BizTalk.Factory's activity tracking application bindings.</Description>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+  </PropertyGroup>
 
-   <PropertyGroup>
-      <RepositoryType>git</RepositoryType>
-      <RepositoryUrl>https://github.com/icraftsoftware/Be.Stateless.BizTalk.Factory.Activity.Tracking.Application</RepositoryUrl>
-      <PublishRepositoryUrl>true</PublishRepositoryUrl>
-      <EmbedUntrackedSources>true</EmbedUntrackedSources>
-   </PropertyGroup>
+  <PropertyGroup>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/icraftsoftware/Be.Stateless.BizTalk.Factory.Activity.Tracking.Application</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
 
-   <PropertyGroup>
-      <IsPackable>false</IsPackable>
-   </PropertyGroup>
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
 
-   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <DocumentationFile>bin\Release\$(AssemblyName).xml</DocumentationFile>
-      <NoWarn>1701;1702</NoWarn>
-   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\$(AssemblyName).xml</DocumentationFile>
+    <NoWarn>1701;1702</NoWarn>
+  </PropertyGroup>
 
-   <ItemGroup>
-      <None Include="..\..\.settings\.editorconfig" Link=".editorconfig" />
-   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\.settings\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
 
-   <ItemGroup>
-     <PackageReference Include="Be.Stateless.BizTalk.Dsl.Binding.Conventions" Version="2.0.21084.36849" />
-     <PackageReference Include="Be.Stateless.BizTalk.Dsl.Pipeline" Version="2.0.21073.29726" />
-     <PackageReference Include="Be.Stateless.BizTalk.Pipelines" Version="2.0.21084.41469" />
-     <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.0">
-       <PrivateAssets>all</PrivateAssets>
-       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-     </PackageReference>
-     <PackageReference Include="BizTalk.Server.2020.Runtime.Adapters" Version="1.0.1">
-       <PrivateAssets>all</PrivateAssets>
-       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-     </PackageReference>
-   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Be.Stateless.BizTalk.Dsl.Binding.Conventions" Version="2.0.21086.224" />
+    <PackageReference Include="Be.Stateless.BizTalk.Dsl.Pipeline" Version="2.0.21073.29726" />
+    <PackageReference Include="Be.Stateless.BizTalk.Pipelines" Version="2.0.21084.41469" />
+    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="BizTalk.Server.2020.Runtime.Adapters" Version="1.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
-   <ItemGroup>
-     <ProjectReference Include="..\Be.Stateless.BizTalk.Activity.Tracking\Be.Stateless.BizTalk.Activity.Tracking.csproj" />
-     <ProjectReference Include="..\Be.Stateless.BizTalk.Claim.Check.Maps\Be.Stateless.BizTalk.Claim.Check.Maps.csproj" />
-   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Be.Stateless.BizTalk.Activity.Tracking\Be.Stateless.BizTalk.Activity.Tracking.csproj" />
+    <ProjectReference Include="..\Be.Stateless.BizTalk.Claim.Check.Maps\Be.Stateless.BizTalk.Claim.Check.Maps.csproj" />
+  </ItemGroup>
 
 </Project>

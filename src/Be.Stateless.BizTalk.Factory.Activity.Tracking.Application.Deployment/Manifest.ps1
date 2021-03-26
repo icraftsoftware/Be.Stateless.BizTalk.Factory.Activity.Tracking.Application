@@ -32,7 +32,17 @@ param(
    [Parameter(Mandatory = $false)]
    [ValidateNotNullOrEmpty()]
    [string]
-   $BizTalkApplicationUserGroup = 'BizTalk Application Users',
+   $BizTalkAdministratorGroup = "$($env:COMPUTERNAME)\BizTalk Server Administrators",
+
+   [Parameter(Mandatory = $false)]
+   [ValidateNotNullOrEmpty()]
+   [string]
+   $BizTalkApplicationUserGroup = "$($env:COMPUTERNAME)\BizTalk Application Users",
+
+   [Parameter(Mandatory = $false)]
+   [ValidateNotNullOrEmpty()]
+   [string]
+   $BizTalkIsolatedHostUserGroup = "$($env:COMPUTERNAME)\BizTalk Isolated Host Users",
 
    [Parameter(Mandatory = $false)]
    [ValidateNotNullOrEmpty()]
@@ -43,11 +53,6 @@ param(
    [ValidateNotNullOrEmpty()]
    [string]
    $ClaimStoreCheckOutDirectory = "C:\Files\Drops\BizTalk.Factory\CheckOut",
-
-   [Parameter(Mandatory = $false)]
-   [ValidateNotNullOrEmpty()]
-   [string]
-   $Domain = $env:COMPUTERNAME,
 
    [Parameter(Mandatory = $false)]
    [ValidateNotNullOrEmpty()]
@@ -68,6 +73,12 @@ param(
    [ValidateNotNullOrEmpty()]
    [string]
    $ProcessingServer = $env:COMPUTERNAME
+
+   # [Parameter(Mandatory = $false)]
+   # [ValidateNotNullOrEmpty()]
+   # [string[]]
+   # TODO this is a global variable ; it should be bound to some resource
+   # TODO $FileAdapterFolderUsers
 )
 
 Set-StrictMode -Version Latest
@@ -80,16 +91,17 @@ ApplicationManifest -Name BizTalk.Factory.Activity.Tracking -Description 'BizTal
    BamIndex -Activity MessagingStep -Name InterchangeID, Time, Value1, Value2, Value3
    Binding -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding) -EnvironmentSettingOverridesType $EnvironmentSettingOverridesType
    Map -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Claim.Check.Maps)
+   # TODO PocessDescriptor
    Schema -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Claim.Check.Schemas)
    SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name TurnOffGlobalTracking, CreateMonitoringObjects) -Server $ManagementServer
    SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name DropMonitoringObjects) -Server $ManagementServer
    SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name CreateClaimCheckObjects) -Server $ProcessingServer
    SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name DropClaimCheckObjects) -Server $ProcessingServer
    SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name CreateBAMPrimaryImportObjects) -Server $MonitoringServer -Variables @{
-      BizTalkApplicationUserGroup = "$Domain\$BizTalkApplicationUserGroup"
+      BizTalkApplicationUserGroup = $BizTalkApplicationUserGroup
    }
    SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name DropBAMPrimaryImportObjects) -Server $MonitoringServer -Variables @{
-      BizTalkApplicationUserGroup = "$Domain\$BizTalkApplicationUserGroup"
+      BizTalkApplicationUserGroup = $BizTalkApplicationUserGroup
    }
    SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name CreateBizTalkServerOperator) -Server $ManagementServer -Variables @{
       BizTalkServerOperatorEmail = $BizTalkServerOperatorEmail
@@ -102,4 +114,8 @@ ApplicationManifest -Name BizTalk.Factory.Activity.Tracking -Description 'BizTal
       MonitoringDatabaseServer    = $MonitoringServer
    }
    SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name DropBamTrackingActivitiesMaintenanceJob) -Server $MonitoringServer
+   SsoConfigStore -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding) `
+      -AdministratorGroups $BizTalkAdministratorGroup `
+      -UserGroups $BizTalkApplicationUserGroup, $BizTalkIsolatedHostUserGroup `
+      -EnvironmentSettingOverridesType $EnvironmentSettingOverridesType
 }

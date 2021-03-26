@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-    <RootNamespace>Be.Stateless.BizTalk.Activity.Tracking</RootNamespace>
+    <RootNamespace>Be.Stateless.BizTalk</RootNamespace>
     <AssemblyName>Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding.Tests</AssemblyName>
     <Description>Unit tests for BizTalk.Factory's activity tracking application bindings.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Be.Stateless.BizTalk.Dsl.Binding.Unit" Version="2.0.21084.36849" />
+    <PackageReference Include="Be.Stateless.BizTalk.Dsl.Binding.Unit" Version="2.0.21086.224" />
     <PackageReference Include="Be.Stateless.Common.Unit" Version="2.0.21060.31482" />
     <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -43,6 +43,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding\Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Activity\Tracking\Factory\" />
   </ItemGroup>
 
 </Project>

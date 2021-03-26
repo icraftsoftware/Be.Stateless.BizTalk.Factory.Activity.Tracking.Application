@@ -9,7 +9,6 @@
     <ProjectReference Include="..\Be.Stateless.BizTalk.Activity.Tracking\Be.Stateless.BizTalk.Activity.Tracking.csproj" />
     <ProjectReference Include="..\Be.Stateless.BizTalk.Claim.Check.Maps\Be.Stateless.BizTalk.Claim.Check.Maps.csproj" />
     <ProjectReference Include="..\Be.Stateless.BizTalk.Claim.Check.Schemas\Be.Stateless.BizTalk.Claim.Check.Schemas.csproj" />
-    <ProjectReference Include="..\Be.Stateless.BizTalk.Claim.Store.Agent\Be.Stateless.BizTalk.Claim.Store.Agent.csproj" />
     <ProjectReference Include="..\Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding\Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding.csproj" />
   </ItemGroup>
 

@@ -76,10 +76,10 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			using (var configurationReaderMockInjectionScope = new SsoConfigurationReaderMockInjectionScope())
 			{
 				configurationReaderMockInjectionScope.Mock
-					.Setup(ssr => ssr.Read(BizTalkFactorySettings.APPLICATION_NAME, BizTalkFactorySettings.CLAIM_STORE_CHECK_IN_DIRECTORY_PROPERTY_NAME))
+					.Setup(ssr => ssr.Read(ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME, nameof(ClaimStoreSsoSettings.ClaimStoreCheckInDirectory)))
 					.Returns(Path.GetTempPath());
 				configurationReaderMockInjectionScope.Mock
-					.Setup(ssr => ssr.Read(BizTalkFactorySettings.APPLICATION_NAME, BizTalkFactorySettings.CLAIM_STORE_CHECK_OUT_DIRECTORY_PROPERTY_NAME))
+					.Setup(ssr => ssr.Read(ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME, nameof(ClaimStoreSsoSettings.ClaimStoreCheckOutDirectory)))
 					.Returns(@"\\server\share");
 
 				ClaimStore.Instance.SetupMessageBodyCapture(trackingStream, ActivityTrackingModes.Body, null);
@@ -100,10 +100,10 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			using (var configurationReaderMockInjectionScope = new SsoConfigurationReaderMockInjectionScope())
 			{
 				configurationReaderMockInjectionScope.Mock
-					.Setup(ssr => ssr.Read(BizTalkFactorySettings.APPLICATION_NAME, BizTalkFactorySettings.CLAIM_STORE_CHECK_IN_DIRECTORY_PROPERTY_NAME))
+					.Setup(ssr => ssr.Read(ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME, nameof(ClaimStoreSsoSettings.ClaimStoreCheckInDirectory)))
 					.Returns(Path.GetTempPath());
 				configurationReaderMockInjectionScope.Mock
-					.Setup(ssr => ssr.Read(BizTalkFactorySettings.APPLICATION_NAME, BizTalkFactorySettings.CLAIM_STORE_CHECK_OUT_DIRECTORY_PROPERTY_NAME))
+					.Setup(ssr => ssr.Read(ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME, nameof(ClaimStoreSsoSettings.ClaimStoreCheckOutDirectory)))
 					.Returns(@"\\server\share");
 
 				var trackingStreamMock = new Mock<TrackingStream>(TextStreamDummy.Create(1024 * 1024)) { CallBase = true };
@@ -132,8 +132,8 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			using (var configurationReaderMockInjectionScope = new SsoConfigurationReaderMockInjectionScope())
 			{
 				configurationReaderMockInjectionScope.Mock
-					.Setup(ssr => ssr.Read(BizTalkFactorySettings.APPLICATION_NAME, BizTalkFactorySettings.CLAIM_STORE_CHECK_IN_DIRECTORY_PROPERTY_NAME))
-					.Callback(() => actualSsoConfigurationReader.Read("NONEXISTENT_APPLICATION", BizTalkFactorySettings.CLAIM_STORE_CHECK_IN_DIRECTORY_PROPERTY_NAME))
+					.Setup(ssr => ssr.Read(ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME, nameof(ClaimStoreSsoSettings.ClaimStoreCheckInDirectory)))
+					.Callback(() => actualSsoConfigurationReader.Read("NONEXISTENT_APPLICATION", nameof(ClaimStoreSsoSettings.ClaimStoreCheckInDirectory)))
 					.Returns(Path.GetTempPath());
 
 				var trackingStreamMock = new Mock<TrackingStream>(TextStreamDummy.Create(1024 * 1024)) { CallBase = true };
@@ -168,10 +168,10 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			using (var configurationReaderMockInjectionScope = new SsoConfigurationReaderMockInjectionScope())
 			{
 				configurationReaderMockInjectionScope.Mock
-					.Setup(ssr => ssr.Read(BizTalkFactorySettings.APPLICATION_NAME, BizTalkFactorySettings.CLAIM_STORE_CHECK_IN_DIRECTORY_PROPERTY_NAME))
+					.Setup(ssr => ssr.Read(ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME, nameof(ClaimStoreSsoSettings.ClaimStoreCheckInDirectory)))
 					.Returns(Path.GetTempPath());
 				configurationReaderMockInjectionScope.Mock
-					.Setup(ssr => ssr.Read(BizTalkFactorySettings.APPLICATION_NAME, BizTalkFactorySettings.CLAIM_STORE_CHECK_OUT_DIRECTORY_PROPERTY_NAME))
+					.Setup(ssr => ssr.Read(ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME, nameof(ClaimStoreSsoSettings.ClaimStoreCheckOutDirectory)))
 					.Returns(@"\\server\share");
 
 				var trackingStreamMock = new Mock<TrackingStream>(new MemoryStream()) { CallBase = true };
@@ -210,10 +210,10 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			using (var configurationReaderMockInjectionScope = new SsoConfigurationReaderMockInjectionScope())
 			{
 				configurationReaderMockInjectionScope.Mock
-					.Setup(ssr => ssr.Read(BizTalkFactorySettings.APPLICATION_NAME, BizTalkFactorySettings.CLAIM_STORE_CHECK_IN_DIRECTORY_PROPERTY_NAME))
+					.Setup(ssr => ssr.Read(ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME, nameof(ClaimStoreSsoSettings.ClaimStoreCheckInDirectory)))
 					.Returns(Path.GetTempPath());
 				configurationReaderMockInjectionScope.Mock
-					.Setup(ssr => ssr.Read(BizTalkFactorySettings.APPLICATION_NAME, BizTalkFactorySettings.CLAIM_STORE_CHECK_OUT_DIRECTORY_PROPERTY_NAME))
+					.Setup(ssr => ssr.Read(ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME, nameof(ClaimStoreSsoSettings.ClaimStoreCheckOutDirectory)))
 					.Returns(@"\\server\share");
 
 				using (var contentStream = TextStreamDummy.Create(1024 * 1024))
@@ -260,10 +260,10 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			using (var configurationReaderMockInjectionScope = new SsoConfigurationReaderMockInjectionScope())
 			{
 				configurationReaderMockInjectionScope.Mock
-					.Setup(ssr => ssr.Read(BizTalkFactorySettings.APPLICATION_NAME, BizTalkFactorySettings.CLAIM_STORE_CHECK_IN_DIRECTORY_PROPERTY_NAME))
+					.Setup(ssr => ssr.Read(ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME, nameof(ClaimStoreSsoSettings.ClaimStoreCheckInDirectory)))
 					.Returns(Path.GetTempPath());
 				configurationReaderMockInjectionScope.Mock
-					.Setup(ssr => ssr.Read(BizTalkFactorySettings.APPLICATION_NAME, BizTalkFactorySettings.CLAIM_STORE_CHECK_OUT_DIRECTORY_PROPERTY_NAME))
+					.Setup(ssr => ssr.Read(ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME, nameof(ClaimStoreSsoSettings.ClaimStoreCheckOutDirectory)))
 					.Returns(Path.GetTempPath());
 
 				using (var tokenStream = ClaimFactory.CreateCheck(url).AsStream())
@@ -316,10 +316,10 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			using (var configurationReaderMockInjectionScope = new SsoConfigurationReaderMockInjectionScope())
 			{
 				configurationReaderMockInjectionScope.Mock
-					.Setup(ssr => ssr.Read(BizTalkFactorySettings.APPLICATION_NAME, BizTalkFactorySettings.CLAIM_STORE_CHECK_IN_DIRECTORY_PROPERTY_NAME))
+					.Setup(ssr => ssr.Read(ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME, nameof(ClaimStoreSsoSettings.ClaimStoreCheckInDirectory)))
 					.Returns(Path.GetTempPath().ToUpper());
 				configurationReaderMockInjectionScope.Mock
-					.Setup(ssr => ssr.Read(BizTalkFactorySettings.APPLICATION_NAME, BizTalkFactorySettings.CLAIM_STORE_CHECK_OUT_DIRECTORY_PROPERTY_NAME))
+					.Setup(ssr => ssr.Read(ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME, nameof(ClaimStoreSsoSettings.ClaimStoreCheckOutDirectory)))
 					.Returns(Path.GetTempPath().ToLower());
 
 				ClaimStore.RequiresCheckInAndOut.Should().BeFalse();
@@ -332,11 +332,11 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			using (var configurationReaderMockInjectionScope = new SsoConfigurationReaderMockInjectionScope())
 			{
 				configurationReaderMockInjectionScope.Mock
-					.Setup(ssr => ssr.Read(BizTalkFactorySettings.APPLICATION_NAME, BizTalkFactorySettings.CLAIM_STORE_CHECK_IN_DIRECTORY_PROPERTY_NAME))
+					.Setup(ssr => ssr.Read(ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME, nameof(ClaimStoreSsoSettings.ClaimStoreCheckInDirectory)))
 					// makes sure there is one trailing '\'
 					.Returns(Path.GetTempPath().ToUpper().TrimEnd('\\') + '\\');
 				configurationReaderMockInjectionScope.Mock
-					.Setup(ssr => ssr.Read(BizTalkFactorySettings.APPLICATION_NAME, BizTalkFactorySettings.CLAIM_STORE_CHECK_OUT_DIRECTORY_PROPERTY_NAME))
+					.Setup(ssr => ssr.Read(ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME, nameof(ClaimStoreSsoSettings.ClaimStoreCheckOutDirectory)))
 					// makes sure there is no trailing '\'
 					.Returns(Path.GetTempPath().ToLower().TrimEnd('\\'));
 
@@ -350,10 +350,10 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			using (var configurationReaderMockInjectionScope = new SsoConfigurationReaderMockInjectionScope())
 			{
 				configurationReaderMockInjectionScope.Mock
-					.Setup(ssr => ssr.Read(BizTalkFactorySettings.APPLICATION_NAME, BizTalkFactorySettings.CLAIM_STORE_CHECK_IN_DIRECTORY_PROPERTY_NAME))
+					.Setup(ssr => ssr.Read(ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME, nameof(ClaimStoreSsoSettings.ClaimStoreCheckInDirectory)))
 					.Returns(Path.GetTempPath());
 				configurationReaderMockInjectionScope.Mock
-					.Setup(ssr => ssr.Read(BizTalkFactorySettings.APPLICATION_NAME, BizTalkFactorySettings.CLAIM_STORE_CHECK_OUT_DIRECTORY_PROPERTY_NAME))
+					.Setup(ssr => ssr.Read(ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME, nameof(ClaimStoreSsoSettings.ClaimStoreCheckOutDirectory)))
 					.Returns(@"\\server\share");
 
 				ClaimStore.RequiresCheckInAndOut.Should().BeTrue();
