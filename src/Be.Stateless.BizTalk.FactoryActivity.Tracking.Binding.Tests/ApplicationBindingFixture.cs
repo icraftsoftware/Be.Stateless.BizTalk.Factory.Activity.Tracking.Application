@@ -19,14 +19,13 @@
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
-using Be.Stateless.BizTalk.Activity.Tracking;
-using Be.Stateless.BizTalk.Activity.Tracking.Environment.Settings;
 using Be.Stateless.BizTalk.Explorer;
+using Be.Stateless.BizTalk.Factory;
 using FluentAssertions;
 using Xunit;
 using static Be.Stateless.Unit.DelegateFactory;
 
-namespace Be.Stateless.BizTalk
+namespace Be.Stateless.BizTalk.Activity.Tracking
 {
 	public class ApplicationBindingFixture : Dsl.Binding.ApplicationBindingFixture<ApplicationBinding>
 	{

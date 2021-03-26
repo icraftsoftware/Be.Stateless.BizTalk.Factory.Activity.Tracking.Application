@@ -17,9 +17,9 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using Be.Stateless.BizTalk.Activity.Tracking.Environment.Settings;
 using Be.Stateless.BizTalk.Dsl.Binding.Convention;
 using Be.Stateless.BizTalk.Dsl.Binding.Convention.Simple;
+using Be.Stateless.BizTalk.Factory;
 
 namespace Be.Stateless.BizTalk.Activity.Tracking
 {
@@ -27,7 +27,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 	{
 		public ApplicationBinding()
 		{
-			Name = ApplicationName.Is(Platform.Settings.ApplicationName);
+			Name = ApplicationName.Is("BizTalk.Factory.Activity.Tracking");
 			Description = "BizTalk.Factory's activity model and tracking API for general purpose BizTalk Server development.";
 			ReceivePorts.Add(new ClaimReceivePort());
 			SendPorts.Add(

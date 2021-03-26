@@ -72,13 +72,13 @@ param(
 
 Set-StrictMode -Version Latest
 
-ApplicationManifest -Name BizTalk.Activity.Tracking -Description 'BizTalk.Factory''s activity tracking applicatioin add-on for general purpose BizTalk Server development.' -Build {
+ApplicationManifest -Name BizTalk.Factory.Activity.Tracking -Description 'BizTalk.Factory''s activity tracking applicatioin add-on for general purpose BizTalk Server development.' -Reference BizTalk.Factory -Build {
    Assembly -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Activity.Tracking)
    BamActivityModel -Path (Get-ResourceItem -Name ActivityModel -Extension .xml)
    BamIndex -Activity Process -Name BeginTime, InterchangeID, ProcessName, Value1, Value2, Value3
    BamIndex -Activity ProcessMessagingStep -Name MessagingStepActivityID, ProcessActivityID
    BamIndex -Activity MessagingStep -Name InterchangeID, Time, Value1, Value2, Value3
-   Binding -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Factory.Binding) -EnvironmentSettingOverridesType $EnvironmentSettingOverridesType
+   Binding -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding) -EnvironmentSettingOverridesType $EnvironmentSettingOverridesType
    Map -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Claim.Check.Maps)
    Schema -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Claim.Check.Schemas)
    SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name TurnOffGlobalTracking, CreateMonitoringObjects) -Server $ManagementServer

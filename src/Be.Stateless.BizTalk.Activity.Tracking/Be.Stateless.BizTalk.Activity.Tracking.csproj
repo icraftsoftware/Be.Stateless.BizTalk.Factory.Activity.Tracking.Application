@@ -36,7 +36,7 @@
 
   <ItemGroup>
     <PackageReference Include="Be.Stateless.BizTalk.Abstractions" Version="2.0.21007.39752" />
-    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents" Version="2.0.21072.40980" />
+    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents" Version="2.0.21084.31924" />
     <PackageReference Include="Be.Stateless.BizTalk.Settings" Version="2.0.21072.41386" />
     <PackageReference Include="Be.Stateless.BizTalk.Stream" Version="2.0.21071.54649" />
     <PackageReference Include="Be.Stateless.BizTalk.XLang" Version="2.0.21071.55080" />
