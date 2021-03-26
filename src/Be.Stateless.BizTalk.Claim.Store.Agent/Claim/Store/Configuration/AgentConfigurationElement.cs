@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -91,9 +91,9 @@ namespace Be.Stateless.BizTalk.Claim.Store.Configuration
 		private const string FILE_LOCK_TIMEOUT_PROPERTY_NAME = "fileLockTimeout";
 		private const string POLLING_INTERVAL_PROPERTY_NAME = "pollingInterval";
 
-		private static readonly ConfigurationPropertyCollection _properties = new ConfigurationPropertyCollection();
+		private static readonly ConfigurationPropertyCollection _properties = new();
 
-		private static readonly ConfigurationProperty _checkInDirectoryCollectionProperty = new ConfigurationProperty(
+		private static readonly ConfigurationProperty _checkInDirectoryCollectionProperty = new(
 			CHECK_IN_DIRECTORY_COLLECTION_PROPERTY_NAME,
 			typeof(DirectoryConfigurationElementCollection),
 			null,
@@ -101,7 +101,7 @@ namespace Be.Stateless.BizTalk.Claim.Store.Configuration
 			new CollectionValidator(),
 			ConfigurationPropertyOptions.IsDefaultCollection | ConfigurationPropertyOptions.IsRequired);
 
-		private static readonly ConfigurationProperty _checkOutDirectoryProperty = new ConfigurationProperty(
+		private static readonly ConfigurationProperty _checkOutDirectoryProperty = new(
 			CHECK_OUT_DIRECTORY_PROPERTY_NAME,
 			typeof(string),
 			null,
@@ -109,7 +109,7 @@ namespace Be.Stateless.BizTalk.Claim.Store.Configuration
 			new DirectoryValidator(),
 			ConfigurationPropertyOptions.IsRequired);
 
-		private static readonly ConfigurationProperty _fileLockTimeoutProperty = new ConfigurationProperty(
+		private static readonly ConfigurationProperty _fileLockTimeoutProperty = new(
 			FILE_LOCK_TIMEOUT_PROPERTY_NAME,
 			typeof(TimeSpan),
 			TimeSpan.Parse(FILE_LOCK_TIMEOUT_DEFAULT_VALUE, CultureInfo.InvariantCulture),
@@ -117,7 +117,7 @@ namespace Be.Stateless.BizTalk.Claim.Store.Configuration
 			new PositiveTimeSpanValidator(),
 			ConfigurationPropertyOptions.None);
 
-		private static readonly ConfigurationProperty _pollingIntervalProperty = new ConfigurationProperty(
+		private static readonly ConfigurationProperty _pollingIntervalProperty = new(
 			POLLING_INTERVAL_PROPERTY_NAME,
 			typeof(TimeSpan),
 			TimeSpan.Parse(POLLING_INTERVAL_DEFAULT_VALUE, CultureInfo.InvariantCulture),

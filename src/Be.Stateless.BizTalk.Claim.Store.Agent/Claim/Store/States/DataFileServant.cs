@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ namespace Be.Stateless.BizTalk.Claim.Store.States
 	[SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Required for unit testing purposes.")]
 	internal class DataFileServant
 	{
-		public static DataFileServant Instance { get; internal set; } = new DataFileServant();
+		public static DataFileServant Instance { get; internal set; } = new();
 
 		private static readonly ILog _logger = LogManager.GetLogger(typeof(MessageBody));
 

@@ -16,9 +16,7 @@
 
 #endregion
 
-using log4net.Config;
 using Xunit;
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
-[assembly: TestFramework("Be.Stateless.BizTalk.AssemblyFixture", "Be.Stateless.BizTalk.ClaimStore.Agent.Tests")]
 // TODO ?? necessary [assembly: XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]

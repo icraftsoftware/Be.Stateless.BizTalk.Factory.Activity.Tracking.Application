@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			// capture tracking information as late as possible to get as much out of the context as possible. passing
 			// trackingStream to Complete() method is essential, as GetOriginalDataStream() might not provide the right
 			// TrackingStream instance should it have been replaced or wrapped by some other stream(s) along the pipeline
-			trackingStream.AfterLastReadEvent += (sender, args) => Complete(_context.TrackingModes, trackingStream);
+			trackingStream.AfterLastReadEvent += (_, _) => Complete(_context.TrackingModes, trackingStream);
 		}
 
 		private void Initiate(IActivityFactory activityFactory, IBaseMessage message, string processName)

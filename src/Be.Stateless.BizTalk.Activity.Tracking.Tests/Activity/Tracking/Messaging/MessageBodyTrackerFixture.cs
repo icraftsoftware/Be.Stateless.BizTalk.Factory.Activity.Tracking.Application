@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -35,6 +35,33 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 {
 	public class MessageBodyTrackerFixture : IDisposable
 	{
+		#region Setup/Teardown
+
+		public MessageBodyTrackerFixture()
+		{
+			_claimStoreInstance = ClaimStore.Instance;
+			ClaimStoreMock = new Mock<ClaimStore>();
+			ClaimStore.Instance = ClaimStoreMock.Object;
+
+			MessageMock = new MessageMock();
+			MessageMock.Setup(m => m.GetProperty(BtsProperties.InboundTransportLocation)).Returns("inbound-transport-location");
+
+			PipelineContextMock = new Mock<IPipelineContext>();
+			PipelineContextMock.Setup(pc => pc.ResourceTracker).Returns(new Mock<IResourceTracker>().Object);
+
+			_processNameResolverFactory = ProcessNameResolver.Factory;
+			ProcessNameResolverMock = new Mock<ProcessNameResolver>(MessageMock.Object);
+			ProcessNameResolver.Factory = _ => ProcessNameResolverMock.Object;
+		}
+
+		public void Dispose()
+		{
+			ClaimStore.Instance = _claimStoreInstance;
+			ProcessNameResolver.Factory = _processNameResolverFactory;
+		}
+
+		#endregion
+
 		[Fact]
 		public void CaptureIsNotSetupIfTrackingStreamAlreadyHasCaptureDescriptor()
 		{
@@ -182,29 +209,6 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			sut.TryCheckOutMessageBody();
 
 			ClaimStoreMock.Verify(cs => cs.Redeem(MessageMock.Object, It.IsAny<IResourceTracker>()), Times.Never());
-		}
-
-		public MessageBodyTrackerFixture()
-		{
-			_claimStoreInstance = ClaimStore.Instance;
-			ClaimStoreMock = new Mock<ClaimStore>();
-			ClaimStore.Instance = ClaimStoreMock.Object;
-
-			MessageMock = new MessageMock();
-			MessageMock.Setup(m => m.GetProperty(BtsProperties.InboundTransportLocation)).Returns("inbound-transport-location");
-
-			PipelineContextMock = new Mock<IPipelineContext>();
-			PipelineContextMock.Setup(pc => pc.ResourceTracker).Returns(new Mock<IResourceTracker>().Object);
-
-			_processNameResolverFactory = ProcessNameResolver.Factory;
-			ProcessNameResolverMock = new Mock<ProcessNameResolver>(MessageMock.Object);
-			ProcessNameResolver.Factory = message => ProcessNameResolverMock.Object;
-		}
-
-		public void Dispose()
-		{
-			ClaimStore.Instance = _claimStoreInstance;
-			ProcessNameResolver.Factory = _processNameResolverFactory;
 		}
 
 		private Mock<ClaimStore> ClaimStoreMock { get; }

@@ -9,7 +9,7 @@
 
   <PropertyGroup>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/icraftsoftware/Be.Stateless.BizTalk.Activity.Tracking</RepositoryUrl>
+    <RepositoryUrl>https://github.com/icraftsoftware/Be.Stateless.BizTalk.Factory.Activity.Tracking.Application</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BizTalk.Server.2020.Build" Version="2.0.21073.33732"  Condition="'$(TF_BUILD)' != 'true'">
+    <PackageReference Include="BizTalk.Server.2020.Build" Version="2.0.21084.37952" Condition="'$(TF_BUILD)' != 'true'">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

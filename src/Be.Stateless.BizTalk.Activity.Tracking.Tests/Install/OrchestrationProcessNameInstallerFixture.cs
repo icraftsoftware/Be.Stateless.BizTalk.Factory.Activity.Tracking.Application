@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@ namespace Be.Stateless.BizTalk.Install
 				typeof(Orchestration2).Namespace
 			};
 
-			_excludedTypes = () => base.ExcludedTypes.Concat(new List<Type> { typeof(Orchestration1) });
+			_excludedTypes = () => base.ExcludedTypes.Append(typeof(Orchestration1));
 
 			GetProcessNames().Should().BeEquivalentTo(expected);
 		}

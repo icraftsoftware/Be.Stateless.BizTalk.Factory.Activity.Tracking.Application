@@ -83,7 +83,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			set => _checkOutDirectory = value;
 		}
 
-		public static ClaimStore Instance { get; internal set; } = new ClaimStore();
+		public static ClaimStore Instance { get; internal set; } = new();
 
 		// 512 KB of data (512 * 1024), base64 encoding: 3 bytes encoded in 4 chars (3/4), each char takes 2 bytes in UTF-16 (/2)
 		private const int PAYLOAD_SIZE_THRESHOLD = 512 * 1024 * 3 / 4 / 2;

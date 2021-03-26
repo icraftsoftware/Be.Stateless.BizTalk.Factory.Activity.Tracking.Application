@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -36,6 +36,41 @@ namespace Be.Stateless.BizTalk.MicroComponent
 {
 	public class ActivityTrackerFixture : MicroComponentFixture<ActivityTracker>, IDisposable
 	{
+		#region Setup/Teardown
+
+		public ActivityTrackerFixture()
+		{
+			MessageMock.Setup(m => m.GetProperty(BtsProperties.InboundTransportLocation)).Returns("inbound-transport-location");
+
+			var activityTrackerContext = new ActivityTracker.Context(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body);
+
+			_activityTrackerFactory = Activity.Tracking.Messaging.ActivityTracker.Factory;
+			ActivityTrackerMock = new Mock<Activity.Tracking.Messaging.ActivityTracker>(activityTrackerContext);
+			Activity.Tracking.Messaging.ActivityTracker.Factory = _ => ActivityTrackerMock.Object;
+
+			_messageBodyTrackerFactory = MessageBodyTracker.Factory;
+			MessageBodyTrackerMock = new Mock<MessageBodyTracker>(activityTrackerContext);
+			MessageBodyTracker.Factory = _ => MessageBodyTrackerMock.Object;
+
+			_trackingContextCacheInstance = TrackingContextCache.Instance;
+			CacheMock = new Mock<TrackingContextCache>(MockBehavior.Strict);
+			TrackingContextCache.Instance = CacheMock.Object;
+
+			_processNameResolverFactory = ProcessNameResolver.Factory;
+			ProcessNameResolverMock = new Mock<ProcessNameResolver>(MessageMock.Object);
+			ProcessNameResolver.Factory = _ => ProcessNameResolverMock.Object;
+		}
+
+		public void Dispose()
+		{
+			Activity.Tracking.Messaging.ActivityTracker.Factory = _activityTrackerFactory;
+			MessageBodyTracker.Factory = _messageBodyTrackerFactory;
+			TrackingContextCache.Instance = _trackingContextCacheInstance;
+			ProcessNameResolver.Factory = _processNameResolverFactory;
+		}
+
+		#endregion
+
 		[Fact]
 		public void Deserialize()
 		{
@@ -229,37 +264,6 @@ namespace Be.Stateless.BizTalk.MicroComponent
 			MessageBodyTrackerMock.Verify(mbt => mbt.SetupTracking(), Times.Never());
 			MessageBodyTrackerMock.Verify(mbt => mbt.TryCheckInMessageBody(), Times.Never());
 			MessageBodyTrackerMock.Verify(mbt => mbt.TryCheckOutMessageBody(), Times.Never());
-		}
-
-		public ActivityTrackerFixture()
-		{
-			MessageMock.Setup(m => m.GetProperty(BtsProperties.InboundTransportLocation)).Returns("inbound-transport-location");
-
-			var activityTrackerContext = new ActivityTracker.Context(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body);
-
-			_activityTrackerFactory = Activity.Tracking.Messaging.ActivityTracker.Factory;
-			ActivityTrackerMock = new Mock<Activity.Tracking.Messaging.ActivityTracker>(activityTrackerContext);
-			Activity.Tracking.Messaging.ActivityTracker.Factory = context => ActivityTrackerMock.Object;
-
-			_messageBodyTrackerFactory = MessageBodyTracker.Factory;
-			MessageBodyTrackerMock = new Mock<MessageBodyTracker>(activityTrackerContext);
-			MessageBodyTracker.Factory = context => MessageBodyTrackerMock.Object;
-
-			_trackingContextCacheInstance = TrackingContextCache.Instance;
-			CacheMock = new Mock<TrackingContextCache>(MockBehavior.Strict);
-			TrackingContextCache.Instance = CacheMock.Object;
-
-			_processNameResolverFactory = ProcessNameResolver.Factory;
-			ProcessNameResolverMock = new Mock<ProcessNameResolver>(MessageMock.Object);
-			ProcessNameResolver.Factory = message => ProcessNameResolverMock.Object;
-		}
-
-		public void Dispose()
-		{
-			Activity.Tracking.Messaging.ActivityTracker.Factory = _activityTrackerFactory;
-			MessageBodyTracker.Factory = _messageBodyTrackerFactory;
-			TrackingContextCache.Instance = _trackingContextCacheInstance;
-			ProcessNameResolver.Factory = _processNameResolverFactory;
 		}
 
 		private Mock<Activity.Tracking.Messaging.ActivityTracker> ActivityTrackerMock { get; set; }

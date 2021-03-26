@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ namespace Be.Stateless.BizTalk.Claim.Store
 		[Fact]
 		public void EnumerateMessageBodiesFiltersOutInvalidDataFileNames()
 		{
-			DataFile._fileCreationTimeGetter = p => DateTime.UtcNow;
+			DataFile._fileCreationTimeGetter = _ => DateTime.UtcNow;
 			var lockTimestamp = DateTime.UtcNow.AddHours(-1).ToString(DataFileNameTokenizer.LOCK_TIMESTAMP_FORMAT);
 			var files = new[] {
 				"20130615DAB80EE5BAB34B0CA2358098CD6A0AFD.trk",
@@ -56,7 +56,7 @@ namespace Be.Stateless.BizTalk.Claim.Store
 				"invalid.file",
 				"some.other.invalid.file"
 			};
-			MessageBodyEnumerable._fileEnumerator = (p, s) => files;
+			MessageBodyEnumerable._fileEnumerator = (_, _) => files;
 
 			var entries = new[] { Path.GetTempPath() }.EnumerateMessageBodies(TimeSpan.FromMinutes(30));
 
@@ -66,7 +66,7 @@ namespace Be.Stateless.BizTalk.Claim.Store
 		[Fact]
 		public void EnumerateMessageBodiesFiltersOutLockedMessageBodies()
 		{
-			DataFile._fileCreationTimeGetter = p => DateTime.UtcNow;
+			DataFile._fileCreationTimeGetter = _ => DateTime.UtcNow;
 			var expiredLockTimestamp = DateTime.UtcNow.AddHours(-1).ToString(DataFileNameTokenizer.LOCK_TIMESTAMP_FORMAT);
 			var pendingLockTimestamp = DateTime.UtcNow.AddMinutes(-10).ToString(DataFileNameTokenizer.LOCK_TIMESTAMP_FORMAT);
 			var files = new[] {
@@ -75,7 +75,7 @@ namespace Be.Stateless.BizTalk.Claim.Store
 				"201306159B13FB4ED82E4A0D9D7CF3F4F43CE388.trk." + expiredLockTimestamp + "." + GatheredDataFile.STATE_TOKEN,
 				"201306158F341A2D6FD7416B87073A0132DD51AE.chk." + pendingLockTimestamp + "." + ReleasedDataFile.STATE_TOKEN
 			};
-			MessageBodyEnumerable._fileEnumerator = (p, s) => files;
+			MessageBodyEnumerable._fileEnumerator = (_, _) => files;
 
 			var entries = new[] { Path.GetTempPath() }.EnumerateMessageBodies(TimeSpan.FromMinutes(30));
 

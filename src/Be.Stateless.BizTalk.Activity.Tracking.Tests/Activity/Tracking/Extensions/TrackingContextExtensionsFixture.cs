@@ -147,7 +147,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Extensions
 
 		private TrackingContext CreateTrackingContext()
 		{
-			return new TrackingContext {
+			return new() {
 				ProcessActivityId = Guid.NewGuid().ToString(),
 				ProcessingStepActivityId = Guid.NewGuid().ToString(),
 				MessagingStepActivityId = Guid.NewGuid().ToString()

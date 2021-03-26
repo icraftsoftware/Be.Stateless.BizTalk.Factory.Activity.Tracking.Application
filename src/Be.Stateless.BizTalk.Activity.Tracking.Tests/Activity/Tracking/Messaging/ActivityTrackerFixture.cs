@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -33,6 +33,41 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 {
 	public class ActivityTrackerFixture : IDisposable
 	{
+		#region Setup/Teardown
+
+		public ActivityTrackerFixture()
+		{
+			MessageMock = new Unit.Message.Mock<IBaseMessage>();
+			MessageMock.Setup(m => m.GetProperty(BtsProperties.InboundTransportLocation)).Returns("inbound-transport-location");
+
+			PipelineContextMock = new Mock<IPipelineContext>();
+
+			ProcessMock = new Mock<Process>("pseudo-process-activity-id", new Mock<EventStream>().Object);
+			InitiatingMessagingStepMock = new Mock<MessagingStep>("pseudo-initiating-activity-id", new Mock<EventStream>().Object);
+			MessagingStepMock = new Mock<MessagingStep>("pseudo-activity-id", new Mock<EventStream>().Object);
+
+			ActivityFactory = new Mock<IActivityFactory>();
+			ActivityFactory.Setup(af => af.CreateProcess(It.IsAny<IBaseMessage>(), It.IsAny<string>())).Returns(ProcessMock.Object);
+			ActivityFactory.Setup(af => af.FindProcess(It.IsAny<TrackingContext>())).Returns(ProcessMock.Object);
+			ActivityFactory.Setup(af => af.CreateMessagingStep(It.IsAny<IBaseMessage>())).Returns(MessagingStepMock.Object);
+			ActivityFactory.Setup(af => af.FindMessagingStep(It.IsAny<TrackingContext>())).Returns(InitiatingMessagingStepMock.Object);
+
+			_activityFactoryFactory = PipelineContextTrackingExtensions.ActivityFactoryFactory;
+			PipelineContextTrackingExtensions.ActivityFactoryFactory = _ => ActivityFactory.Object;
+
+			_processNameResolverFactory = ProcessNameResolver.Factory;
+			ProcessNameResolverMock = new Mock<ProcessNameResolver>(MessageMock.Object);
+			ProcessNameResolver.Factory = _ => ProcessNameResolverMock.Object;
+		}
+
+		public void Dispose()
+		{
+			PipelineContextTrackingExtensions.ActivityFactoryFactory = _activityFactoryFactory;
+			ProcessNameResolver.Factory = _processNameResolverFactory;
+		}
+
+		#endregion
+
 		[Fact]
 		public void CompleteTrackingOfInboundMessageWithoutProcessAffiliationAfterStreamLastReadEvent()
 		{
@@ -262,37 +297,6 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 
 				ProcessNameResolverMock.Verify(tr => tr.ResolveProcessName(), Times.Once());
 			}
-		}
-
-		public ActivityTrackerFixture()
-		{
-			MessageMock = new Unit.Message.Mock<IBaseMessage>();
-			MessageMock.Setup(m => m.GetProperty(BtsProperties.InboundTransportLocation)).Returns("inbound-transport-location");
-
-			PipelineContextMock = new Mock<IPipelineContext>();
-
-			ProcessMock = new Mock<Process>("pseudo-process-activity-id", new Mock<EventStream>().Object);
-			InitiatingMessagingStepMock = new Mock<MessagingStep>("pseudo-initiating-activity-id", new Mock<EventStream>().Object);
-			MessagingStepMock = new Mock<MessagingStep>("pseudo-activity-id", new Mock<EventStream>().Object);
-
-			ActivityFactory = new Mock<IActivityFactory>();
-			ActivityFactory.Setup(af => af.CreateProcess(It.IsAny<IBaseMessage>(), It.IsAny<string>())).Returns(ProcessMock.Object);
-			ActivityFactory.Setup(af => af.FindProcess(It.IsAny<TrackingContext>())).Returns(ProcessMock.Object);
-			ActivityFactory.Setup(af => af.CreateMessagingStep(It.IsAny<IBaseMessage>())).Returns(MessagingStepMock.Object);
-			ActivityFactory.Setup(af => af.FindMessagingStep(It.IsAny<TrackingContext>())).Returns(InitiatingMessagingStepMock.Object);
-
-			_activityFactoryFactory = PipelineContextTrackingExtensions.ActivityFactoryFactory;
-			PipelineContextTrackingExtensions.ActivityFactoryFactory = pipelineContext => ActivityFactory.Object;
-
-			_processNameResolverFactory = ProcessNameResolver.Factory;
-			ProcessNameResolverMock = new Mock<ProcessNameResolver>(MessageMock.Object);
-			ProcessNameResolver.Factory = message => ProcessNameResolverMock.Object;
-		}
-
-		public void Dispose()
-		{
-			PipelineContextTrackingExtensions.ActivityFactoryFactory = _activityFactoryFactory;
-			ProcessNameResolver.Factory = _processNameResolverFactory;
 		}
 
 		private Mock<IActivityFactory> ActivityFactory { get; }

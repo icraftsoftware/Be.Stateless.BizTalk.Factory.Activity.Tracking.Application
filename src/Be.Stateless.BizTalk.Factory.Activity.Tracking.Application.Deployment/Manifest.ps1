@@ -21,28 +21,18 @@
 param(
    [Parameter(Mandatory = $false)]
    [ValidateNotNullOrEmpty()]
+   [int]
+   $BamArchiveWindowTimeLength = 30,
+
+   [Parameter(Mandatory = $false)]
+   [ValidateNotNullOrEmpty()]
+   [int]
+   $BamOnlineWindowTimeLength = 15,
+
+   [Parameter(Mandatory = $false)]
+   [ValidateNotNullOrEmpty()]
    [string]
    $BizTalkApplicationUserGroup = 'BizTalk Application Users',
-
-   [Parameter(Mandatory = $false)]
-   [ValidateNotNullOrEmpty()]
-   [string]
-   $Domain = $env:COMPUTERNAME,
-
-   [Parameter(Mandatory = $false)]
-   [ValidateNotNullOrEmpty()]
-   [string]
-   $ManagementServer = $env:COMPUTERNAME,
-
-   [Parameter(Mandatory = $false)]
-   [ValidateNotNullOrEmpty()]
-   [string]
-   $ProcessingServer = $env:COMPUTERNAME,
-
-   [Parameter(Mandatory = $false)]
-   [ValidateNotNullOrEmpty()]
-   [string]
-   $MonitoringServer = $env:COMPUTERNAME,
 
    [Parameter(Mandatory = $false)]
    [ValidateNotNullOrEmpty()]
@@ -56,44 +46,60 @@ param(
 
    [Parameter(Mandatory = $false)]
    [ValidateNotNullOrEmpty()]
-   [int]
-   $BamArchiveWindowTimeLength = 30,
+   [string]
+   $Domain = $env:COMPUTERNAME,
 
    [Parameter(Mandatory = $false)]
    [ValidateNotNullOrEmpty()]
-   [int]
-   $BamOnlineWindowTimeLength = 15
+   [string]
+   $EnvironmentSettingOverridesType,
+
+   [Parameter(Mandatory = $false)]
+   [ValidateNotNullOrEmpty()]
+   [string]
+   $ManagementServer = $env:COMPUTERNAME,
+
+   [Parameter(Mandatory = $false)]
+   [ValidateNotNullOrEmpty()]
+   [string]
+   $MonitoringServer = $env:COMPUTERNAME,
+
+   [Parameter(Mandatory = $false)]
+   [ValidateNotNullOrEmpty()]
+   [string]
+   $ProcessingServer = $env:COMPUTERNAME
 )
 
 Set-StrictMode -Version Latest
 
-ApplicationManifest -Name BizTalk.Activity.Tracking -Description 'BizTalk.Factory''s activity model and tracking API for general purpose BizTalk Server development.' -Build {
+ApplicationManifest -Name BizTalk.Factory.Activity.Tracking -Description 'BizTalk.Factory''s activity tracking applicatioin add-on for general purpose BizTalk Server development.' -Reference BizTalk.Factory -Build {
    Assembly -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Activity.Tracking)
-   BamActivityModel -Path (Get-ResourceItem -Name ActivityModel -Extensions .xml)
+   BamActivityModel -Path (Get-ResourceItem -Name ActivityModel -Extension .xml)
    BamIndex -Activity Process -Name BeginTime, InterchangeID, ProcessName, Value1, Value2, Value3
    BamIndex -Activity ProcessMessagingStep -Name MessagingStepActivityID, ProcessActivityID
    BamIndex -Activity MessagingStep -Name InterchangeID, Time, Value1, Value2, Value3
+   Binding -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding) -EnvironmentSettingOverridesType $EnvironmentSettingOverridesType
    Map -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Claim.Check.Maps)
    Schema -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Claim.Check.Schemas)
-   SqlDeploymentScript -Path (Get-ResourceItem -Extensions .sql -Name TurnOffGlobalTracking, CreateMonitoringObjects) -Server $ManagementServer
-   SqlUndeploymentScript -Path (Get-ResourceItem -Extensions .sql -Name DropMonitoringObjects) -Server $ManagementServer
-   SqlDeploymentScript -Path (Get-ResourceItem -Extensions .sql -Name CreateClaimCheckObjects) -Server $ProcessingServer
-   SqlUndeploymentScript -Path (Get-ResourceItem -Extensions .sql -Name DropClaimCheckObjects) -Server $ProcessingServer
-   SqlDeploymentScript -Path (Get-ResourceItem -Extensions .sql -Name CreateBAMPrimaryImportObjects) -Server $MonitoringServer -Variables @{
+   SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name TurnOffGlobalTracking, CreateMonitoringObjects) -Server $ManagementServer
+   SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name DropMonitoringObjects) -Server $ManagementServer
+   SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name CreateClaimCheckObjects) -Server $ProcessingServer
+   SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name DropClaimCheckObjects) -Server $ProcessingServer
+   SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name CreateBAMPrimaryImportObjects) -Server $MonitoringServer -Variables @{
       BizTalkApplicationUserGroup = "$Domain\$BizTalkApplicationUserGroup"
    }
-   SqlUndeploymentScript -Path (Get-ResourceItem -Extensions .sql -Name DropBAMPrimaryImportObjects) -Server $MonitoringServer -Variables @{
+   SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name DropBAMPrimaryImportObjects) -Server $MonitoringServer -Variables @{
       BizTalkApplicationUserGroup = "$Domain\$BizTalkApplicationUserGroup"
    }
-   SqlDeploymentScript -Path (Get-ResourceItem -Extensions .sql -Name CreateBizTalkServerOperator) -Server $ManagementServer -Variables @{
+   SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name CreateBizTalkServerOperator) -Server $ManagementServer -Variables @{
       BizTalkServerOperatorEmail = $BizTalkServerOperatorEmail
    }
-   SqlUndeploymentScript -Path (Get-ResourceItem -Extensions .sql -Name DropBizTalkServerOperator) -Server $ManagementServer
-   SqlDeploymentScript -Path (Get-ResourceItem -Extensions .sql -Name CreateBamTrackingActivitiesMaintenanceJob) -Server $MonitoringServer -Variables @{
+   SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name DropBizTalkServerOperator) -Server $ManagementServer
+   SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name CreateBamTrackingActivitiesMaintenanceJob) -Server $MonitoringServer -Variables @{
       BamArchiveWindowTimeLength  = $BamArchiveWindowTimeLength
       BamOnlineWindowTimeLength   = $BamOnlineWindowTimeLength
       ClaimStoreCheckOutDirectory = $ClaimStoreCheckOutDirectory
       MonitoringDatabaseServer    = $MonitoringServer
    }
-   SqlUndeploymentScript -Path (Get-ResourceItem -Extensions .sql -Name DropBamTrackingActivitiesMaintenanceJob) -Server $MonitoringServer
+   SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name DropBamTrackingActivitiesMaintenanceJob) -Server $MonitoringServer
 }

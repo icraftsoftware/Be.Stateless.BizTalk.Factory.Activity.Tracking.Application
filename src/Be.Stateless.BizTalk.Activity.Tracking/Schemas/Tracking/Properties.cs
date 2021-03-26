@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ namespace Be.Stateless.BizTalk.Schemas.Tracking
 		#endregion
 
 		[NonSerialized]
-		private static readonly XmlQualifiedName _qualifiedName = new XmlQualifiedName(nameof(ProcessName), PropertySchema.NAMESPACE);
+		private static readonly XmlQualifiedName _qualifiedName = new(nameof(ProcessName), PropertySchema.NAMESPACE);
 	}
 
 	[Serializable]
@@ -53,7 +53,7 @@ namespace Be.Stateless.BizTalk.Schemas.Tracking
 		#endregion
 
 		[NonSerialized]
-		private static readonly XmlQualifiedName _qualifiedName = new XmlQualifiedName(nameof(ProcessActivityId), PropertySchema.NAMESPACE);
+		private static readonly XmlQualifiedName _qualifiedName = new(nameof(ProcessActivityId), PropertySchema.NAMESPACE);
 	}
 
 	[Serializable]
@@ -70,7 +70,7 @@ namespace Be.Stateless.BizTalk.Schemas.Tracking
 		#endregion
 
 		[NonSerialized]
-		private static readonly XmlQualifiedName _qualifiedName = new XmlQualifiedName(nameof(ProcessingStepActivityId), PropertySchema.NAMESPACE);
+		private static readonly XmlQualifiedName _qualifiedName = new(nameof(ProcessingStepActivityId), PropertySchema.NAMESPACE);
 	}
 
 	[Serializable]
@@ -87,7 +87,7 @@ namespace Be.Stateless.BizTalk.Schemas.Tracking
 		#endregion
 
 		[NonSerialized]
-		private static readonly XmlQualifiedName _qualifiedName = new XmlQualifiedName(nameof(MessagingStepActivityId), PropertySchema.NAMESPACE);
+		private static readonly XmlQualifiedName _qualifiedName = new(nameof(MessagingStepActivityId), PropertySchema.NAMESPACE);
 	}
 
 	/// <summary>
@@ -107,7 +107,7 @@ namespace Be.Stateless.BizTalk.Schemas.Tracking
 		#endregion
 
 		[NonSerialized]
-		private static readonly XmlQualifiedName _qualifiedName = new XmlQualifiedName(nameof(Value1), PropertySchema.NAMESPACE);
+		private static readonly XmlQualifiedName _qualifiedName = new(nameof(Value1), PropertySchema.NAMESPACE);
 	}
 
 	/// <summary>
@@ -127,7 +127,7 @@ namespace Be.Stateless.BizTalk.Schemas.Tracking
 		#endregion
 
 		[NonSerialized]
-		private static readonly XmlQualifiedName _qualifiedName = new XmlQualifiedName(nameof(Value2), PropertySchema.NAMESPACE);
+		private static readonly XmlQualifiedName _qualifiedName = new(nameof(Value2), PropertySchema.NAMESPACE);
 	}
 
 	/// <summary>
@@ -147,7 +147,7 @@ namespace Be.Stateless.BizTalk.Schemas.Tracking
 		#endregion
 
 		[NonSerialized]
-		private static readonly XmlQualifiedName _qualifiedName = new XmlQualifiedName(nameof(Value3), PropertySchema.NAMESPACE);
+		private static readonly XmlQualifiedName _qualifiedName = new(nameof(Value3), PropertySchema.NAMESPACE);
 	}
 
 	internal static class PropertySchema

@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -95,7 +95,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			var eventStream = new Mock<EventStream>();
 			eventStream
 				.Setup(es => es.UpdateActivity(nameof(MessagingStep), It.Is<string>(id => id == activityId), It.IsAny<object[]>()))
-				.Callback<string, string, object[]>((n, id, d) => data = ToDictionary(d))
+				.Callback<string, string, object[]>((_, _, d) => data = ToDictionary(d))
 				.Verifiable();
 
 			var pipelineContext = new Mock<IPipelineContext> { DefaultValue = DefaultValue.Mock };
@@ -137,7 +137,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			var eventStream = new Mock<EventStream>();
 			eventStream
 				.Setup(es => es.UpdateActivity(nameof(MessagingStep), It.Is<string>(id => id == activityId), It.IsAny<object[]>()))
-				.Callback<string, string, object[]>((n, id, d) => data = ToDictionary(d))
+				.Callback<string, string, object[]>((_, _, d) => data = ToDictionary(d))
 				.Verifiable();
 
 			var pipelineContext = new Mock<IPipelineContext> { DefaultValue = DefaultValue.Mock };
@@ -186,7 +186,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			var eventStream = new Mock<EventStream>();
 			eventStream
 				.Setup(es => es.UpdateActivity(nameof(MessagingStep), It.Is<string>(id => id == activityId), It.IsAny<object[]>()))
-				.Callback<string, string, object[]>((n, id, d) => data = ToDictionary(d))
+				.Callback<string, string, object[]>((_, _, d) => data = ToDictionary(d))
 				.Verifiable();
 
 			var pipelineContext = new Mock<IPipelineContext> { DefaultValue = DefaultValue.Mock };
@@ -304,7 +304,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			var eventStream = new Mock<EventStream>();
 			eventStream
 				.Setup(es => es.UpdateActivity(nameof(MessagingStep), It.Is<string>(id => id == activityId), It.IsAny<object[]>()))
-				.Callback<string, string, object[]>((n, id, d) => data = ToDictionary(d))
+				.Callback<string, string, object[]>((_, _, d) => data = ToDictionary(d))
 				.Verifiable();
 
 			var pipelineContext = new Mock<IPipelineContext> { DefaultValue = DefaultValue.Mock };
@@ -348,7 +348,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			var eventStream = new Mock<EventStream>();
 			eventStream
 				.Setup(es => es.UpdateActivity(nameof(MessagingStep), It.Is<string>(id => id == activityId), It.IsAny<object[]>()))
-				.Callback<string, string, object[]>((n, id, d) => data = ToDictionary(d))
+				.Callback<string, string, object[]>((_, _, d) => data = ToDictionary(d))
 				.Verifiable();
 
 			var pipelineContext = new Mock<IPipelineContext> { DefaultValue = DefaultValue.Mock };
@@ -381,7 +381,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			sut.MessageType.Should().Be("message-type");
 		}
 
-		private Dictionary<string, object> ExpectedCommonData => new Dictionary<string, object> {
+		private Dictionary<string, object> ExpectedCommonData => new() {
 			{ nameof(MessagingStep.InterchangeID), _interchangeId.AsNormalizedActivityId() },
 			{ nameof(MessagingStep.MessageID), _messageId.AsNormalizedActivityId() },
 			{ nameof(MessagingStep.MessageSize), _content.Length },
@@ -392,7 +392,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			{ nameof(MessagingStep.Value3), "value-3" }
 		};
 
-		private Dictionary<string, object> ExpectedCommonFailedData => new Dictionary<string, object> {
+		private Dictionary<string, object> ExpectedCommonFailedData => new() {
 			{ nameof(MessagingStep.MessageID), _failedMessageId.AsNormalizedActivityId() },
 			{ nameof(MessagingStep.MessageType), "failed-message-type" },
 			{ nameof(MessagingStep.Status), TrackingStatus.FailedMessage },

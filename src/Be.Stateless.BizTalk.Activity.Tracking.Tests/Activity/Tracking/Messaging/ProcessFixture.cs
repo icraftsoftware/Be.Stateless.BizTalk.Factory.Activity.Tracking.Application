@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -74,10 +74,10 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			var eventStream = new Mock<EventStream>();
 			eventStream
 				.Setup(e => e.BeginActivity(nameof(ProcessMessagingStep), It.IsAny<string>()))
-				.Callback<string, string>((n, i) => processMessagingStepActivityId = i);
+				.Callback<string, string>((_, i) => processMessagingStepActivityId = i);
 			eventStream
 				.Setup(es => es.UpdateActivity(nameof(ProcessMessagingStep), It.Is<string>(id => id == processMessagingStepActivityId), It.IsAny<object[]>()))
-				.Callback<string, string, object[]>((n, id, d) => data = Enumerable.Range(0, d.Length / 2).ToDictionary(i => (string) d[i * 2], i => d[i * 2 + 1]))
+				.Callback<string, string, object[]>((_, _, d) => data = Enumerable.Range(0, d.Length / 2).ToDictionary(i => (string) d[i * 2], i => d[i * 2 + 1]))
 				.Verifiable();
 
 			var pipelineContext = new Mock<IPipelineContext>();
@@ -115,10 +115,10 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			var eventStream = new Mock<EventStream>();
 			eventStream
 				.Setup(e => e.BeginActivity(nameof(ProcessMessagingStep), It.IsAny<string>()))
-				.Callback<string, string>((n, i) => processMessagingStepActivityId = i);
+				.Callback<string, string>((_, i) => processMessagingStepActivityId = i);
 			eventStream
 				.Setup(es => es.UpdateActivity(nameof(ProcessMessagingStep), It.Is<string>(id => id == processMessagingStepActivityId), It.IsAny<object[]>()))
-				.Callback<string, string, object[]>((n, id, d) => data = Enumerable.Range(0, d.Length / 2).ToDictionary(i => (string) d[i * 2], i => d[i * 2 + 1]))
+				.Callback<string, string, object[]>((_, _, d) => data = Enumerable.Range(0, d.Length / 2).ToDictionary(i => (string) d[i * 2], i => d[i * 2 + 1]))
 				.Verifiable();
 
 			var processActivityId = ActivityId.NewActivityId();
@@ -161,7 +161,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			Dictionary<string, object> data = null;
 			eventStream
 				.Setup(es => es.UpdateActivity(nameof(Process), It.Is<string>(id => id == sut.ActivityId), It.IsAny<object[]>()))
-				.Callback<string, string, object[]>((n, id, d) => data = Enumerable.Range(0, d.Length / 2).ToDictionary(i => (string) d[i * 2], i => d[i * 2 + 1]))
+				.Callback<string, string, object[]>((_, _, d) => data = Enumerable.Range(0, d.Length / 2).ToDictionary(i => (string) d[i * 2], i => d[i * 2 + 1]))
 				.Verifiable();
 
 			sut.TrackActivity();

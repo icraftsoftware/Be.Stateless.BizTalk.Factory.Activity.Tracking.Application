@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -28,14 +28,13 @@ namespace Be.Stateless.BizTalk.Runtime.Caching
 	/// <summary>
 	/// Runtime memory cache for the <see cref="TrackingContext"/> associated to <see cref="IBaseMessage"/>-derived types.
 	/// </summary>
-	[SuppressMessage("Design", "CA1001:Types that own disposable fields should be disposable", Justification = "TrackingContextCache is a singleton; MemoryCache can wait for its finalizer.")]
 	[SuppressMessage("ReSharper", "ClassWithVirtualMembersNeverInherited.Global", Justification = "Required for unit testing purposes.")]
 	public class TrackingContextCache
 	{
 		///// <summary>
 		///// Singleton <see cref="TrackingContextCache"/> instance.
 		///// </summary>
-		public static TrackingContextCache Instance { get; internal set; } = new TrackingContextCache();
+		public static TrackingContextCache Instance { get; internal set; } = new();
 
 		[SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Required for unit testsing purposes.")]
 		protected TrackingContextCache()

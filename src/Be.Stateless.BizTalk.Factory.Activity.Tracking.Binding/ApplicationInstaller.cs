@@ -16,15 +16,13 @@
 
 #endregion
 
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using Be.Stateless.BizTalk.Schemas.Claim;
+using Be.Stateless.BizTalk.Install;
 
-namespace Be.Stateless.BizTalk.ContextProperties
+namespace Be.Stateless.BizTalk.Activity.Tracking
 {
-	[SuppressMessage("ReSharper", "UnusedType.Global", Justification = "Public API.")]
-	[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Public API.")]
-	public static class ClaimProperties
-	{
-		public static readonly MessageContextProperty<MessageType, string> MessageType = new();
-	}
+	[RunInstaller(true)]
+	[SuppressMessage("ReSharper", "UnusedType.Global", Justification = "Installer class.")]
+	public class ApplicationInstaller : ApplicationBindingInstaller<ApplicationBinding> { }
 }

@@ -16,15 +16,17 @@
 
 #endregion
 
-using System.Diagnostics.CodeAnalysis;
-using Be.Stateless.BizTalk.Schemas.Claim;
+using Be.Stateless.BizTalk.Dsl.Binding.Convention;
+using Be.Stateless.BizTalk.Dsl.Binding.Convention.Simple;
 
-namespace Be.Stateless.BizTalk.ContextProperties
+namespace Be.Stateless.BizTalk.Activity.Tracking
 {
-	[SuppressMessage("ReSharper", "UnusedType.Global", Justification = "Public API.")]
-	[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Public API.")]
-	public static class ClaimProperties
+	internal class OneWayReceivePortStub : ReceivePort<NamingConvention>
 	{
-		public static readonly MessageContextProperty<MessageType, string> MessageType = new();
+		public OneWayReceivePortStub()
+		{
+			Name = ReceivePortName.Offwards("Stub");
+			ReceiveLocations.Add(new OneWayReceiveLocationStub());
+		}
 	}
 }

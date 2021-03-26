@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,25 +22,18 @@ namespace Be.Stateless.BizTalk.ContextProperties
 {
 	public static class TrackingProperties
 	{
-		public static readonly MessageContextProperty<MessagingStepActivityId, string> MessagingStepActivityId
-			= new MessageContextProperty<MessagingStepActivityId, string>();
+		public static readonly MessageContextProperty<MessagingStepActivityId, string> MessagingStepActivityId = new();
 
-		public static readonly MessageContextProperty<ProcessActivityId, string> ProcessActivityId
-			= new MessageContextProperty<ProcessActivityId, string>();
+		public static readonly MessageContextProperty<ProcessActivityId, string> ProcessActivityId = new();
 
-		public static readonly MessageContextProperty<ProcessingStepActivityId, string> ProcessingStepActivityId
-			= new MessageContextProperty<ProcessingStepActivityId, string>();
+		public static readonly MessageContextProperty<ProcessingStepActivityId, string> ProcessingStepActivityId = new();
 
-		public static readonly MessageContextProperty<ProcessName, string> ProcessName
-			= new MessageContextProperty<ProcessName, string>();
+		public static readonly MessageContextProperty<ProcessName, string> ProcessName = new();
 
-		public static readonly MessageContextProperty<Value1, string> Value1
-			= new MessageContextProperty<Value1, string>();
+		public static readonly MessageContextProperty<Value1, string> Value1 = new();
 
-		public static readonly MessageContextProperty<Value2, string> Value2
-			= new MessageContextProperty<Value2, string>();
+		public static readonly MessageContextProperty<Value2, string> Value2 = new();
 
-		public static readonly MessageContextProperty<Value3, string> Value3
-			= new MessageContextProperty<Value3, string>();
+		public static readonly MessageContextProperty<Value3, string> Value3 = new();
 	}
 }
