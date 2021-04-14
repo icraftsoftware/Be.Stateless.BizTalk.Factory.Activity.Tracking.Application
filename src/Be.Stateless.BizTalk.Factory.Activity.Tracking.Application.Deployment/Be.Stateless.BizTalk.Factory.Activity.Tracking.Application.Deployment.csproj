@@ -5,6 +5,10 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Be.Stateless.BizTalk.Activity.Tracking\Be.Stateless.BizTalk.Activity.Tracking.csproj" />
     <ProjectReference Include="..\Be.Stateless.BizTalk.Claim.Check.Maps\Be.Stateless.BizTalk.Claim.Check.Maps.csproj" />
