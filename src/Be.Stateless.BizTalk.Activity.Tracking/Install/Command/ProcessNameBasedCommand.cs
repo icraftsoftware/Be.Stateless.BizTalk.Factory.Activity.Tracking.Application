@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@
 
 using System;
 using System.Data.SqlClient;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Be.Stateless.Extensions;
 
@@ -28,7 +27,6 @@ namespace Be.Stateless.BizTalk.Install.Command
 	{
 		public string DataSource { get; set; }
 
-		[SuppressMessage("Performance", "CA1819:Properties should not return arrays")]
 		public string[] ProcessNames { get; set; }
 
 		protected SqlConnection BizTalkFactoryManagementDbConnection
@@ -53,6 +51,10 @@ namespace Be.Stateless.BizTalk.Install.Command
 			else if (!BizTalkFactoryManagementDbExists())
 			{
 				logAppender?.Invoke($"Skipping process names un/registration: '{MANAGEMENT_DATABASE_NAME}' database does not exist.");
+			}
+			else if (!ProcessDescriptorsTableExists())
+			{
+				logAppender?.Invoke($"Skipping process names un/registration: '{PROCESS_DESCRIPTORS_TABLE_NAME}' table does not exist.");
 			}
 			else
 			{
@@ -79,6 +81,17 @@ namespace Be.Stateless.BizTalk.Install.Command
 			}
 		}
 
+		private bool ProcessDescriptorsTableExists()
+		{
+			using (var cnx = BizTalkFactoryManagementDbConnection)
+			using (var cmd = new SqlCommand($"SELECT OBJECT_ID('{PROCESS_DESCRIPTORS_TABLE_NAME}')", cnx))
+			{
+				cnx.Open();
+				return cmd.ExecuteScalar() != DBNull.Value;
+			}
+		}
+
+		protected const string PROCESS_DESCRIPTORS_TABLE_NAME = "monitoring_ProcessDescriptors";
 		private const string MANAGEMENT_DATABASE_NAME = "BizTalkFactoryMgmtDb";
 	}
 }

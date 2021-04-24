@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -29,8 +29,6 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 {
 	public abstract class ProcessName<T> where T : class, new()
 	{
-		[SuppressMessage("Performance", "CA1810:Initialize reference type static fields inline")]
-		[SuppressMessage("Design", "CA1065:Do not raise exceptions in unexpected locations")]
 		static ProcessName()
 		{
 			const BindingFlags bindingFlags = BindingFlags.DeclaredOnly
@@ -61,7 +59,6 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			properties.ForEach(p => Reflector.SetProperty(Processes, p.Name, prefix + p.Name));
 		}
 
-		[SuppressMessage("Design", "CA1000:Do not declare static members on generic types")]
 		public static T Processes { get; }
 
 		protected ProcessName()

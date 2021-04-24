@@ -30,6 +30,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Stateless.BizTalk.Factor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding.Tests", "src\Be.Stateless.BizTalk.FactoryActivity.Tracking.Binding.Tests\Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding.Tests.csproj", "{F525C7B8-D3B1-40D3-B163-5C750D58ED6A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Stateless.BizTalk.Claim.Store.Agent.Deployment", "src\Be.Stateless.BizTalk.Claim.Store.Agent.Deployment\Be.Stateless.BizTalk.Claim.Store.Agent.Deployment.csproj", "{5D3E6069-328D-406E-B13F-749C88B50361}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{F525C7B8-D3B1-40D3-B163-5C750D58ED6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F525C7B8-D3B1-40D3-B163-5C750D58ED6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F525C7B8-D3B1-40D3-B163-5C750D58ED6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D3E6069-328D-406E-B13F-749C88B50361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D3E6069-328D-406E-B13F-749C88B50361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D3E6069-328D-406E-B13F-749C88B50361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D3E6069-328D-406E-B13F-749C88B50361}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

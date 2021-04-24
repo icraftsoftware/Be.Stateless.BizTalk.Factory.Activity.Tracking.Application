@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 #endregion
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using Be.Stateless.BizTalk.Activity.Tracking.Extensions;
 using Be.Stateless.Extensions;
 using Microsoft.XLANGs.BaseTypes;
@@ -29,7 +28,6 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 	/// step, and messaging step levels.
 	/// </summary>
 	[Serializable]
-	[SuppressMessage("Performance", "CA1815:Override equals and operator equals on value types")]
 	public struct TrackingContext
 	{
 		/// <summary>

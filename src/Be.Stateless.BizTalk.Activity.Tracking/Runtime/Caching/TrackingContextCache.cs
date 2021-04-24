@@ -55,7 +55,6 @@ namespace Be.Stateless.BizTalk.Runtime.Caching
 		/// <param name="duration">
 		/// The duration, in seconds, after which the <paramref name="trackingContext"/> entry will be removed from the cache.
 		/// </param>
-		[SuppressMessage("Naming", "CA1716:Identifiers should not match keywords")]
 		public virtual void Set(string key, TrackingContext trackingContext, int duration)
 		{
 			if (key.IsNullOrEmpty()) throw new ArgumentNullException(nameof(key));
@@ -110,7 +109,6 @@ namespace Be.Stateless.BizTalk.Runtime.Caching
 		/// No entry has been found in cache for the given <paramref name="key"/>, or the <see cref="TrackingContext"/> is
 		/// invalid.
 		/// </exception>
-		[SuppressMessage("Naming", "CA1716:Identifiers should not match keywords")]
 		public virtual TrackingContext Get(string key)
 		{
 			if (key.IsNullOrEmpty()) throw new ArgumentNullException(nameof(key));

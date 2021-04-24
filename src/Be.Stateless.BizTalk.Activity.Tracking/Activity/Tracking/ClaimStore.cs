@@ -129,7 +129,6 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 		/// <c>LongReferenceData</c> item of more than 512 KB.
 		/// </para>
 		/// </remarks>
-		[SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "Done by ReplicatingReadStream which is set up by TrackingStream.")]
 		public virtual void SetupMessageBodyCapture(TrackingStream trackingStream, ActivityTrackingModes trackingModes, Func<IKernelTransaction> transactionFactory)
 		{
 			if (trackingStream == null) throw new ArgumentNullException(nameof(trackingStream));
@@ -170,7 +169,6 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 		/// <returns>
 		/// The <see cref="System.IO.Stream"/> to the claim store entry.
 		/// </returns>
-		[SuppressMessage("Performance", "CA1822:Mark members as static")]
 		private System.IO.Stream CreateCapturingStream(string url, ActivityTrackingModes trackingModes, Func<IKernelTransaction> transactionFactory)
 		{
 			// RequiresCheckInAndOut entails payloads are first saved locally and moved by ClaimStore.Agent into claim
@@ -230,7 +228,6 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 		/// </description></item>
 		/// </list>
 		/// </remarks>
-		[SuppressMessage("Performance", "CA1822:Mark members as static")]
 		private string GenerateClaimStoreEntry()
 		{
 			return Path.Combine(DateTime.Today.ToString("yyyyMMdd", CultureInfo.InvariantCulture), Guid.NewGuid().ToString("N"));
@@ -334,7 +331,6 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 		/// captured-to-disk body payload, thereby providing an opportunity for the <see cref="MessagingStep"/> to share that
 		/// already captured payload without saving it to disk again.
 		/// </remarks>
-		[SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "Done by BizTalk's ResourceTracker.")]
 		public virtual void Redeem(IBaseMessage message, IResourceTracker resourceTracker)
 		{
 			var messageType = message.GetOrProbeMessageType(resourceTracker);
@@ -357,7 +353,6 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			}
 		}
 
-		[SuppressMessage("Performance", "CA1822:Mark members as static")]
 		private System.IO.Stream OpenClaim(string url)
 		{
 			// if can't create Uri because url is not absolute, combine it with CheckOutDirectory, otherwise assume it is

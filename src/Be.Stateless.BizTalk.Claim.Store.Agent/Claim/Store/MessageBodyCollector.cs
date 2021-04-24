@@ -17,7 +17,6 @@
 #endregion
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using Be.Stateless.BizTalk.Claim.Store.Configuration;
@@ -29,7 +28,6 @@ namespace Be.Stateless.BizTalk.Claim.Store
 	/// <summary>
 	/// Bring claimed and tracked message bodies into the central claim store.
 	/// </summary>
-	[SuppressMessage("Design", "CA1001:Types that own disposable fields should be disposable", Justification = "Stop() will dispose of _pollingTimer.")]
 	public class MessageBodyCollector
 	{
 		public void Start()
@@ -64,7 +62,6 @@ namespace Be.Stateless.BizTalk.Claim.Store
 			ScheduleNextCollection();
 		}
 
-		[SuppressMessage("Performance", "CA1822:Mark members as static")]
 		private void Collect()
 		{
 			try

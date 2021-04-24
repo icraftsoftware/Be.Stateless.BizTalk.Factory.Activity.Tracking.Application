@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.Build.NoTargets/2.0.1">
+﻿<Project Sdk="Microsoft.Build.NoTargets/3.0.4">
 
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.0" ExcludeAssets="runtime" />
+    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.1" ExcludeAssets="runtime" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,5 +31,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <Target Name="BeforePrepareForBuild" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <PublishDir>$(PublishDir)\$(FileVersion)\</PublishDir>
+    </PropertyGroup>
+  </Target>
 
 </Project>

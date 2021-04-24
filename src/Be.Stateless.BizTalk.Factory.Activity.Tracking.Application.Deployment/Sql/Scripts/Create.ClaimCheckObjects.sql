@@ -60,7 +60,7 @@ CREATE TABLE [dbo].[claim_Tokens](
    [SenderName] [nvarchar](256) NULL,
    [Any] [xml] NULL,
    [Timestamp] [datetime2](7) NOT NULL,
- CONSTRAINT [PK_claim_Tokens] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_claim_Tokens] PRIMARY KEY CLUSTERED
 (
    [Url] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
@@ -121,7 +121,7 @@ GO
 -- Create date: 12/04/2017
 -- Description: Check in a new claim token.
 -- =================================================================================================
-CREATE PROCEDURE [dbo].[usp_claim_CheckIn] 
+CREATE PROCEDURE [dbo].[usp_claim_CheckIn]
    @correlationToken nvarchar(256) = NULL,
    @environmentTag nvarchar(256) = NULL,
    @messageType nvarchar(256) = NULL,
@@ -156,7 +156,7 @@ GO
 -- Create date: 22/04/2013
 -- Description: Makes a claim token available for check out.
 -- =================================================================================================
-CREATE PROCEDURE [dbo].[usp_claim_Release] 
+CREATE PROCEDURE [dbo].[usp_claim_Release]
    @url nvarchar(50)
 AS
 BEGIN
@@ -209,7 +209,7 @@ GO
 --                </clm:CheckOut>
 --              </env:Envelope>
 -- =================================================================================================
-CREATE PROCEDURE [dbo].[usp_claim_CheckOut] 
+CREATE PROCEDURE [dbo].[usp_claim_CheckOut]
 AS
 BEGIN
    -- SET NOCOUNT ON added to prevent extra result sets from interfering with SELECT statements.

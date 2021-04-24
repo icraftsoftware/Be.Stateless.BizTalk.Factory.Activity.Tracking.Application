@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ namespace Be.Stateless.BizTalk.Install.Command
 		protected override void ExecuteCore(Action<string> logAppender)
 		{
 			logAppender?.Invoke("Unregistering process names.");
-			const string cmdText = "DELETE FROM monitoring_ProcessDescriptors WHERE Name=@name";
+			var cmdText = $"DELETE FROM {PROCESS_DESCRIPTORS_TABLE_NAME} WHERE Name=@name";
 			using (var cnx = BizTalkFactoryManagementDbConnection)
 			using (var cmd = new SqlCommand(cmdText, cnx))
 			{

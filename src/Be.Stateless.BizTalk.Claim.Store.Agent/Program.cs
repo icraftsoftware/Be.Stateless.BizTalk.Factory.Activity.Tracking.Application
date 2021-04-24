@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.ServiceProcess;
 using Be.Stateless.BizTalk.Claim.Store;
+using log4net.Config;
 using ServiceController = Be.Stateless.BizTalk.Claim.Store.Agent.ServiceController;
 
 namespace Be.Stateless.BizTalk
@@ -30,11 +31,10 @@ namespace Be.Stateless.BizTalk
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
-		[SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters")]
-		[SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "ServiceBase will call Dispose")]
 		[SuppressMessage("ReSharper", "LocalizableElement")]
 		private static void Main()
 		{
+			XmlConfigurator.Configure();
 			// avoid running as a service when debugging
 			if (Debugger.IsAttached)
 			{

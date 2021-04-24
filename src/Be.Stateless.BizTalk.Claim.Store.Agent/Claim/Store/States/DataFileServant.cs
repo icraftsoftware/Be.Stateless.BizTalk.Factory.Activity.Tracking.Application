@@ -81,7 +81,6 @@ namespace Be.Stateless.BizTalk.Claim.Store.States
 				$"Failed to transactionally move file from '{sourceFilePath}' to '{targetFilePath}'.");
 		}
 
-		[SuppressMessage("Performance", "CA1822:Mark members as static")]
 		private bool TryIoOperation(Action operation, string message)
 		{
 			// resilient to IOException and UnauthorizedAccessException but not to any other exception
@@ -124,7 +123,6 @@ namespace Be.Stateless.BizTalk.Claim.Store.States
 				$"Failed to release claim check token '{token}'.");
 		}
 
-		[SuppressMessage("Performance", "CA1822:Mark members as static")]
 		private bool TrySqlOperation(Func<bool> operation, string message)
 		{
 			// tolerant to SqlException but let through any other exception

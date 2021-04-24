@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 #endregion
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml;
 using Be.Stateless.BizTalk.Schema;
 using Be.Stateless.BizTalk.Schemas.Xml;
@@ -25,7 +24,6 @@ using Be.Stateless.Extensions;
 
 namespace Be.Stateless.BizTalk.Message
 {
-	[SuppressMessage("Design", "CA1054:URI-like parameters should not be strings")]
 	public static class ClaimFactory
 	{
 		/// <summary>

@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@ using System.ServiceProcess;
 namespace Be.Stateless.BizTalk.Claim.Store.Agent
 {
 	[RunInstaller(true)]
-	[SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters")]
 	[SuppressMessage("ReSharper", "LocalizableElement")]
 	public partial class Installer : System.Configuration.Install.Installer
 	{
@@ -76,7 +75,6 @@ namespace Be.Stateless.BizTalk.Claim.Store.Agent
 
 		#endregion
 
-		[SuppressMessage("Globalization", "CA1308:Normalize strings to uppercase")]
 		private void SetupInstaller(object sender, InstallEventArgs installEventArgs)
 		{
 			_serviceProcessInstaller.Account = ServiceAccount.User;
@@ -91,7 +89,6 @@ namespace Be.Stateless.BizTalk.Claim.Store.Agent
 			};
 		}
 
-		[SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
 		[SuppressMessage("ReSharper", "ConvertIfStatementToSwitchStatement")]
 		private void StartService(object sender, InstallEventArgs installEventArgs)
 		{
@@ -112,7 +109,6 @@ namespace Be.Stateless.BizTalk.Claim.Store.Agent
 			}
 		}
 
-		[SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
 		private void StopService(object sender, InstallEventArgs installEventArgs)
 		{
 			try

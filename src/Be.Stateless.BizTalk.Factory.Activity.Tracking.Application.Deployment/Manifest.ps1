@@ -91,29 +91,29 @@ ApplicationManifest -Name BizTalk.Factory.Activity.Tracking -Description 'BizTal
    BamIndex -Activity MessagingStep -Name InterchangeID, Time, Value1, Value2, Value3
    Binding -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding) -EnvironmentSettingOverridesType $EnvironmentSettingOverridesType
    Map -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Claim.Check.Maps)
-   # TODO PocessDescriptor
+   ProcessDescriptor -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Activity.Tracking) -DatabaseServer $ManagementServer
    Schema -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Claim.Check.Schemas)
-   SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name TurnOffGlobalTracking, CreateMonitoringObjects) -Server $ManagementServer
-   SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name DropMonitoringObjects) -Server $ManagementServer
-   SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name CreateClaimCheckObjects) -Server $ProcessingServer
-   SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name DropClaimCheckObjects) -Server $ProcessingServer
-   SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name CreateBAMPrimaryImportObjects) -Server $MonitoringServer -Variables @{
+   SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name TurnOffGlobalTracking, Create.MonitoringObjects) -Server $ManagementServer
+   SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name Drop.MonitoringObjects) -Server $ManagementServer
+   SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name Create.ClaimCheckObjects) -Server $ProcessingServer
+   SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name Drop.ClaimCheckObjects) -Server $ProcessingServer
+   SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name Create.BAMPrimaryImportObjects) -Server $MonitoringServer -Variables @{
       BizTalkApplicationUserGroup = $BizTalkApplicationUserGroup
    }
-   SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name DropBAMPrimaryImportObjects) -Server $MonitoringServer -Variables @{
+   SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name Drop.BAMPrimaryImportObjects) -Server $MonitoringServer -Variables @{
       BizTalkApplicationUserGroup = $BizTalkApplicationUserGroup
    }
-   SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name CreateBizTalkServerOperator) -Server $ManagementServer -Variables @{
+   SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name Create.BizTalkServerOperator) -Server $ManagementServer -Variables @{
       BizTalkServerOperatorEmail = $BizTalkServerOperatorEmail
    }
-   SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name DropBizTalkServerOperator) -Server $ManagementServer
-   SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name CreateBamTrackingActivitiesMaintenanceJob) -Server $MonitoringServer -Variables @{
+   SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name Drop.BizTalkServerOperator) -Server $ManagementServer
+   SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name Create.BamTrackingActivitiesMaintenanceJob) -Server $MonitoringServer -Variables @{
       BamArchiveWindowTimeLength  = $BamArchiveWindowTimeLength
       BamOnlineWindowTimeLength   = $BamOnlineWindowTimeLength
       ClaimStoreCheckOutDirectory = $ClaimStoreCheckOutDirectory
       MonitoringDatabaseServer    = $MonitoringServer
    }
-   SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name DropBamTrackingActivitiesMaintenanceJob) -Server $MonitoringServer
+   SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name Drop.BamTrackingActivitiesMaintenanceJob) -Server $MonitoringServer
    SsoConfigStore -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding) `
       -AdministratorGroups $BizTalkAdministratorGroup `
       -UserGroups $BizTalkApplicationUserGroup, $BizTalkIsolatedHostUserGroup `

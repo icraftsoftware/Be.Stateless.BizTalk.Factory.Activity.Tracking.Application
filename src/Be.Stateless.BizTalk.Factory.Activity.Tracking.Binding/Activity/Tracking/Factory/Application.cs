@@ -25,15 +25,15 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Factory
 	{
 		#region IClaimStoreSsoSettings Members
 
-		public string ClaimStoreCheckInDirectory { get; } = @"C:\Files\Drops\BizTalk.Factory\CheckIn";
+		public string ClaimStoreCheckInDirectory => GetOverriddenOrDefaultValue(@"C:\Files\Drops\BizTalk.Factory\CheckIn");
 
-		public string ClaimStoreCheckOutDirectory { get; } = @"C:\Files\Drops\BizTalk.Factory\CheckOut";
+		public string ClaimStoreCheckOutDirectory => GetOverriddenOrDefaultValue(@"C:\Files\Drops\BizTalk.Factory\CheckOut");
 
 		#endregion
 
 		#region IEnvironmentSettings Members
 
-		public string ApplicationName { get; } = ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME;
+		public string ApplicationName => ClaimStoreSsoSettings.AFFILIATE_APPLICATION_NAME;
 
 		#endregion
 	}

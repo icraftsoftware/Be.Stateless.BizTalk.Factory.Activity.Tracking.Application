@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -35,7 +35,6 @@ namespace Be.Stateless.BizTalk.Maps.ToSql.Procedures.Claim
 		[SuppressMessage("ReSharper", "AccessToDisposedClosure")]
 		[SuppressMessage("ReSharper", "AccessToStaticMemberViaDerivedType")]
 		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-		[SuppressMessage("Style", "IDE0002:Simplify member access")]
 		public void ValidateTransformClaimTokenWithContext()
 		{
 			var contextMock = new MessageContextMock();
@@ -66,7 +65,6 @@ namespace Be.Stateless.BizTalk.Maps.ToSql.Procedures.Claim
 		[SuppressMessage("ReSharper", "AccessToDisposedClosure")]
 		[SuppressMessage("ReSharper", "AccessToStaticMemberViaDerivedType")]
 		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-		[SuppressMessage("Style", "IDE0002:Simplify member access")]
 		public void ValidateTransformClaimTokenWithEmbeddedDataAndContext()
 		{
 			var contextMock = new MessageContextMock();

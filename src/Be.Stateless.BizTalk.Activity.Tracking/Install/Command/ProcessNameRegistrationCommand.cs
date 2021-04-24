@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ namespace Be.Stateless.BizTalk.Install.Command
 		{
 			logAppender?.Invoke("Registering process names.");
 			// insert or update should the process name not have been previously deleted
-			const string cmdText = @"MERGE INTO monitoring_ProcessDescriptors PD
+			var cmdText = $@"MERGE INTO {PROCESS_DESCRIPTORS_TABLE_NAME} PD
 USING (SELECT @name AS Name) NPD ON PD.Name = NPD.Name
 WHEN NOT MATCHED THEN INSERT (Name) VALUES (NPD.Name);";
 			using (var cnx = BizTalkFactoryManagementDbConnection)
