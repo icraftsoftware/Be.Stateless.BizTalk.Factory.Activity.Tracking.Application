@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -90,6 +90,7 @@ namespace Be.Stateless.BizTalk.Claim.Store.States
 		private const string TRACKING_MODE_TOKEN = "TrackingMode";
 		private const string UNLOCKED_FILE_PATH_TOKEN = "UnlockedFilePath";
 
+		// ReSharper disable once CommentTypo
 		// file name is made of either 2 or 4 tokens: yyyyMMdd<GUID>.(chk|trk) or yyyyMMdd<GUID>.(chk|trk).yyyyMMddHHmmss.(gathered|locked|released)
 		private static readonly string _pattern = string.Format(
 			CultureInfo.InvariantCulture,

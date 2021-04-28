@@ -14,15 +14,6 @@
  limitations under the License.
  */
 
-USE [BAMPrimaryImport]
-GO
-
-UPDATE dbo.bam_Metadata_Activities
-SET OnlineWindowTimeUnit = 'DAY',
-OnlineWindowTimeLength = $(BamOnlineWindowTimeLength)
-WHERE ActivityName IN ('Process', 'ProcessingStep', 'ProcessMessagingStep', 'MessagingStep')
-GO
-
 USE [msdb]
 GO
 
@@ -105,7 +96,8 @@ EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge Ca
       @retry_attempts=0,
       @retry_interval=0,
       @os_run_priority=0, @subsystem=N'PowerShell',
-      @command=N'$Deadline = [datetime]::Now.AddDays(-$(BamArchiveWindowTimeLength))
+      @command=N'#NOSQLPS --start up on FileSystem PSDrive instead of SqlServer one, see https://docs.microsoft.com/en-us/sql/powershell/run-windows-powershell-steps-in-sql-server-agent
+$Deadline = [datetime]::Now.AddDays(-$(BamArchiveWindowTimeLength))
 Get-ChildItem -Path "$(ClaimStoreCheckOutDirectory)" -Directory | Where-Object CreationTime -lt $Deadline | Remove-Item -Recurse -Force -Confirm:$false',
       @database_name=N'master',
       @flags=0
@@ -151,7 +143,7 @@ EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Perform 
       @retry_attempts=0,
       @retry_interval=0,
       @os_run_priority=0, @subsystem=N'SSIS',
-      @command=N'/SQL "\BAM_DM_Process" /SERVER "$(MonitoringDatabaseServer)" /WARNASERROR  /CHECKPOINTING OFF /LOGGER "{1E4F606D-382A-4812-8E08-C5D5A04FFE98}";3 /REPORTING E',
+      @command=N'/ISSERVER "\"\SSISDB\BizTalk Server\BAM_DM_Process\BAM_DM_Process.dtsx\"" /SERVER "$(MonitoringDatabaseServer)" /Par "\"$ServerOption::LOGGING_LEVEL(Int16)\"";1 /Par "\"$ServerOption::SYNCHRONIZED(Boolean)\"";True /CALLERINFO SQLAGENT /REPORTING E',
       @database_name=N'master',
       @flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
@@ -167,7 +159,7 @@ EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Perform 
       @retry_attempts=0,
       @retry_interval=0,
       @os_run_priority=0, @subsystem=N'SSIS',
-      @command=N'/SQL "\BAM_DM_ProcessingStep" /SERVER "$(MonitoringDatabaseServer)" /CHECKPOINTING OFF /LOGGER "{1E4F606D-382A-4812-8E08-C5D5A04FFE98}";3 /REPORTING E',
+      @command=N'/ISSERVER "\"\SSISDB\BizTalk Server\BAM_DM_ProcessingStep\BAM_DM_ProcessingStep.dtsx\"" /SERVER "$(MonitoringDatabaseServer)" /Par "\"$ServerOption::LOGGING_LEVEL(Int16)\"";1 /Par "\"$ServerOption::SYNCHRONIZED(Boolean)\"";True /CALLERINFO SQLAGENT /REPORTING E',
       @database_name=N'master',
       @flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
@@ -183,7 +175,7 @@ EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Perform 
       @retry_attempts=0,
       @retry_interval=0,
       @os_run_priority=0, @subsystem=N'SSIS',
-      @command=N'/SQL "\BAM_DM_ProcessMessagingStep" /SERVER "$(MonitoringDatabaseServer)" /CHECKPOINTING OFF /LOGGER "{1E4F606D-382A-4812-8E08-C5D5A04FFE98}";3 /REPORTING E',
+      @command=N'/ISSERVER "\"\SSISDB\BizTalk Server\BAM_DM_ProcessMessagingStep\BAM_DM_ProcessMessagingStep.dtsx\"" /SERVER "$(MonitoringDatabaseServer)" /Par "\"$ServerOption::LOGGING_LEVEL(Int16)\"";1 /Par "\"$ServerOption::SYNCHRONIZED(Boolean)\"";True /CALLERINFO SQLAGENT /REPORTING E',
       @database_name=N'master',
       @flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
@@ -199,7 +191,7 @@ EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Perform 
       @retry_attempts=0,
       @retry_interval=0,
       @os_run_priority=0, @subsystem=N'SSIS',
-      @command=N'/SQL "\BAM_DM_MessagingStep" /SERVER "$(MonitoringDatabaseServer)" /CHECKPOINTING OFF /LOGGER "{1E4F606D-382A-4812-8E08-C5D5A04FFE98}";3 /REPORTING E',
+      @command=N'/ISSERVER "\"\SSISDB\BizTalk Server\BAM_DM_MessagingStep\BAM_DM_MessagingStep.dtsx\"" /SERVER "$(MonitoringDatabaseServer)" /Par "\"$ServerOption::LOGGING_LEVEL(Int16)\"";1 /Par "\"$ServerOption::SYNCHRONIZED(Boolean)\"";True /CALLERINFO SQLAGENT /REPORTING E',
       @database_name=N'master',
       @flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback

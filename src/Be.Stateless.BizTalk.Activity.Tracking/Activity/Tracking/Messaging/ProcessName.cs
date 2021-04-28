@@ -84,7 +84,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 
 		public static bool IsProcessNameClass(this Type type)
 		{
-			return type.BaseType != null && type.BaseType.IsGenericType && type.BaseType.GetGenericTypeDefinition() == typeof(ProcessName<>);
+			return type.BaseType is { IsGenericType: true } && type.BaseType.GetGenericTypeDefinition() == typeof(ProcessName<>);
 		}
 	}
 }

@@ -16,3 +16,5 @@ BizTalk.Factory's activity model and tracking API combined with a claim check ap
 ## Deployment Package
 
 [![Deployment Package](https://img.shields.io/github/v/release/icraftsoftware/Be.Stateless.BizTalk.Factory.Activity.Tracking.Application?label=Be.Stateless.BizTalk.Factory.Activity.Tracking.Application.Deployment.zip&style=flat)](https://github.com/icraftsoftware/Be.Stateless.BizTalk.Factory.Activity.Tracking.Application/releases/latest/download/Be.Stateless.BizTalk.Factory.Activity.Tracking.Application.Deployment.zip)
+
+[![Deployment Package](https://img.shields.io/github/v/release/icraftsoftware/Be.Stateless.BizTalk.Factory.Activity.Tracking.Application?label=Be.Stateless.BizTalk.Claim.Store.Agent.Deployment.zip&style=flat)](https://github.com/icraftsoftware/Be.Stateless.BizTalk.Factory.Activity.Tracking.Application/releases/latest/download/Be.Stateless.BizTalk.Claim.Store.Agent.Deployment.zip)

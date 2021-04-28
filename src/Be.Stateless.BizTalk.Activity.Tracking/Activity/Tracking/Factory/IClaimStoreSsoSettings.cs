@@ -17,17 +17,14 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using Be.Stateless.BizTalk.Dsl.Environment.Settings;
 
 namespace Be.Stateless.BizTalk.Activity.Tracking.Factory
 {
 	[SuppressMessage("ReSharper", "UnusedMemberInSuper.Global", Justification = "Overridable Settings.")]
 	public interface IClaimStoreSsoSettings
 	{
-		[SsoSetting]
 		public string ClaimStoreCheckInDirectory { get; }
 
-		[SsoSetting]
 		public string ClaimStoreCheckOutDirectory { get; }
 	}
 }

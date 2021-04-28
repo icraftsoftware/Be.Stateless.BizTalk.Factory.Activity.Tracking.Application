@@ -17,6 +17,12 @@
 USE [BAMPrimaryImport]
 GO
 
+UPDATE dbo.bam_Metadata_Activities
+SET OnlineWindowTimeUnit = 'DAY',
+    OnlineWindowTimeLength = $(BamOnlineWindowTimeLength)
+WHERE ActivityName IN ('Process', 'ProcessingStep', 'ProcessMessagingStep', 'MessagingStep')
+GO
+
 /****** Object:  View [dbo].[vw_MessagingStepContexts] ******/
 IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[vw_MessagingStepContexts]'))
    DROP VIEW [dbo].[vw_MessagingStepContexts]

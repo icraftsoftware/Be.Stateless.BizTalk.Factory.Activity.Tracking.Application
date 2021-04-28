@@ -32,7 +32,7 @@ namespace Be.Stateless.BizTalk.Claim.Store.Configuration
 		{
 			var claimStoreConfigurationSection = (ClaimStoreConfigurationSection) ConfigurationManager.GetSection("be.stateless.test/biztalk/claimStore");
 			claimStoreConfigurationSection.Should().NotBeNull();
-			claimStoreConfigurationSection.Agent.Should().NotBeNull();
+			claimStoreConfigurationSection!.Agent.Should().NotBeNull();
 			claimStoreConfigurationSection.Agent.PollingInterval.Should().Be(TimeSpan.Parse("00:03:33"));
 			claimStoreConfigurationSection.Agent.CheckInDirectories.Should().NotBeNull();
 			claimStoreConfigurationSection.Agent.CheckInDirectories.Should().BeEquivalentTo(@"c:\windows", @"c:\windows\temp");
@@ -42,14 +42,14 @@ namespace Be.Stateless.BizTalk.Claim.Store.Configuration
 		public void DefaultFileLockTimeout()
 		{
 			var claimStoreConfigurationSection = (ClaimStoreConfigurationSection) ConfigurationManager.GetSection("be.stateless.test/biztalk/claimStoreWithoutPollingInterval");
-			claimStoreConfigurationSection.Agent.FileLockTimeout.Should().Be(TimeSpan.Parse(AgentConfigurationElement.FILE_LOCK_TIMEOUT_DEFAULT_VALUE));
+			claimStoreConfigurationSection!.Agent.FileLockTimeout.Should().Be(TimeSpan.Parse(AgentConfigurationElement.FILE_LOCK_TIMEOUT_DEFAULT_VALUE));
 		}
 
 		[Fact]
 		public void DefaultPollingInterval()
 		{
 			var claimStoreConfigurationSection = (ClaimStoreConfigurationSection) ConfigurationManager.GetSection("be.stateless.test/biztalk/claimStoreWithoutPollingInterval");
-			claimStoreConfigurationSection.Agent.PollingInterval.Should().Be(TimeSpan.Parse(AgentConfigurationElement.POLLING_INTERVAL_DEFAULT_VALUE));
+			claimStoreConfigurationSection!.Agent.PollingInterval.Should().Be(TimeSpan.Parse(AgentConfigurationElement.POLLING_INTERVAL_DEFAULT_VALUE));
 		}
 
 		[Fact]

@@ -99,6 +99,7 @@ ApplicationManifest -Name BizTalk.Factory.Activity.Tracking -Description 'BizTal
    SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name Drop.ClaimCheckObjects) -Server $ProcessingServer
    SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name Create.BAMPrimaryImportObjects) -Server $MonitoringServer -Variables @{
       BizTalkApplicationUserGroup = $BizTalkApplicationUserGroup
+      BamOnlineWindowTimeLength   = $BamOnlineWindowTimeLength
    }
    SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name Drop.BAMPrimaryImportObjects) -Server $MonitoringServer -Variables @{
       BizTalkApplicationUserGroup = $BizTalkApplicationUserGroup
@@ -109,7 +110,6 @@ ApplicationManifest -Name BizTalk.Factory.Activity.Tracking -Description 'BizTal
    SqlUndeploymentScript -Path (Get-ResourceItem -Extension .sql -Name Drop.BizTalkServerOperator) -Server $ManagementServer
    SqlDeploymentScript -Path (Get-ResourceItem -Extension .sql -Name Create.BamTrackingActivitiesMaintenanceJob) -Server $MonitoringServer -Variables @{
       BamArchiveWindowTimeLength  = $BamArchiveWindowTimeLength
-      BamOnlineWindowTimeLength   = $BamOnlineWindowTimeLength
       ClaimStoreCheckOutDirectory = $ClaimStoreCheckOutDirectory
       MonitoringDatabaseServer    = $MonitoringServer
    }

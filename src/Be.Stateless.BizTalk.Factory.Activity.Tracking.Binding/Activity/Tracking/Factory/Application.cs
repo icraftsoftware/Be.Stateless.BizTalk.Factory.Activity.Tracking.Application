@@ -25,8 +25,10 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Factory
 	{
 		#region IClaimStoreSsoSettings Members
 
+		[SsoSetting]
 		public string ClaimStoreCheckInDirectory => GetOverriddenOrDefaultValue(@"C:\Files\Drops\BizTalk.Factory\CheckIn");
 
+		[SsoSetting]
 		public string ClaimStoreCheckOutDirectory => GetOverriddenOrDefaultValue(@"C:\Files\Drops\BizTalk.Factory\CheckOut");
 
 		#endregion
