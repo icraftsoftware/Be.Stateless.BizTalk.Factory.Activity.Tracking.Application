@@ -27,6 +27,7 @@ using Be.Stateless.BizTalk.Schema;
 using Be.Stateless.BizTalk.Schemas.Xml;
 using Be.Stateless.BizTalk.Settings;
 using Be.Stateless.BizTalk.Stream;
+using Be.Stateless.BizTalk.Unit.Settings;
 using Be.Stateless.IO;
 using Be.Stateless.IO.Extensions;
 using Be.Stateless.Linq.Extensions;

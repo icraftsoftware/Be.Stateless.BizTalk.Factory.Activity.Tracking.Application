@@ -27,7 +27,7 @@ using static Be.Stateless.Unit.DelegateFactory;
 
 namespace Be.Stateless.BizTalk.Activity.Tracking
 {
-	public class ApplicationBindingFixture : Dsl.Binding.ApplicationBindingFixture<ApplicationBinding>
+	public class ApplicationBindingFixture : Unit.Dsl.Binding.ApplicationBindingFixture<ApplicationBinding>
 	{
 		[SkippableTheory]
 		[InlineData("DEV")]
@@ -54,4 +54,9 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			return Path.GetFullPath(Path.Combine(Path.GetDirectoryName(sourceFilePath)!, @"..\..\"));
 		}
 	}
+}
+
+namespace Be.Stateless.BizTalk.Dsl.Binding
+{
+	public class ApplicationBindingFixture<T> { }
 }
