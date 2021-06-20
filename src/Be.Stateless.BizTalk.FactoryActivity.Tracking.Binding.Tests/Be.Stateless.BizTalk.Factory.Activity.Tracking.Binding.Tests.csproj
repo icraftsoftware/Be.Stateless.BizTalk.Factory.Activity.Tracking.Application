@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Be.Stateless.BizTalk.Dsl.Binding.Unit" Version="2.0.21161.28536" />
+    <PackageReference Include="Be.Stateless.BizTalk.Dsl.Binding.Unit" Version="2.0.21173.36101" />
     <PackageReference Include="Be.Stateless.Common.Unit" Version="2.0.21060.31482" />
     <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.1">
       <PrivateAssets>all</PrivateAssets>

@@ -20,9 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Be.Stateless.BizTalk.Messaging.Unit" Version="2.0.21104.45537" />
-    <PackageReference Include="Be.Stateless.BizTalk.Schemas" Version="2.0.21146.24032" />
-    <PackageReference Include="Be.Stateless.BizTalk.Transform.Unit" Version="2.0.21104.46364" />
+    <PackageReference Include="Be.Stateless.BizTalk.Messaging.Unit" Version="2.0.21171.58430" />
+    <PackageReference Include="Be.Stateless.BizTalk.Schemas" Version="2.0.21173.39237" />
+    <PackageReference Include="Be.Stateless.BizTalk.Transform.Unit" Version="2.0.21171.58785" />
     <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

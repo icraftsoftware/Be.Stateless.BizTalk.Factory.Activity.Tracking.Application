@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -110,16 +110,22 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Processing
 		/// <param name="activatingMessage">
 		/// The message that activates the orchestration instance.
 		/// </param>
-		/// <remarks>The name used for the process instance is the containing namespace of the calling orchestration.</remarks>
 		/// <returns>
 		/// The <see cref="TrackingContext"/> that contains the BAM tracking activities identifiers for the current process.
-		/// Notice that <see cref="TrackingContext.MessagingStepActivityId"/> will be filled with the tracking activity
-		/// identifier of <paramref name="activatingMessage"/> if it exists.
+		/// Notice that <see cref="TrackingContext.MessagingStepActivityId">TrackingContext.MessagingStepActivityId</see> will be
+		/// filled with the tracking activity identifier of <paramref name="activatingMessage"/> if it exists.
 		/// </returns>
+		/// <remarks>
+		/// The name used for the process instance is automatically determined by the ambient message context property <see
+		/// cref="TrackingProperties.ProcessName">TrackingProperties.ProcessName</see> should it be non null nor empty, or the
+		/// containing namespace of the calling orchestration otherwise.
+		/// </remarks>
 		public static TrackingContext Initiate(XLANGMessage activatingMessage)
 		{
 			if (activatingMessage == null) throw new ArgumentNullException(nameof(activatingMessage));
-			return Initiate(activatingMessage, Service.RootService.GetType().Namespace);
+			var processName = activatingMessage.GetProperty(TrackingProperties.ProcessName).IfNotNullOrWhiteSpace(p => p)
+				?? Service.RootService.GetType().Namespace;
+			return Initiate(activatingMessage, processName);
 		}
 
 		/// <summary>

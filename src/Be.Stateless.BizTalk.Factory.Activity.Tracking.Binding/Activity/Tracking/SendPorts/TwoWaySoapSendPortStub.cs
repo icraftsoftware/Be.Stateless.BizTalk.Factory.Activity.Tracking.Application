@@ -36,7 +36,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			SendPipeline = new SendPipeline<XmlTransmit>();
 			ReceivePipeline = new ReceivePipeline<XmlReceive>();
 			Transport.Adapter = new WcfBasicHttpAdapter.Outbound(a => { a.Address = new EndpointAddress("http://localhost:8000/soap-stub"); });
-			Transport.Host = Platform.Settings.TransmittingHost;
+			Transport.Host = Platform.Settings.HostResolutionPolicy;
 			Transport.RetryPolicy = RetryPolicy.RealTime;
 		}
 	}

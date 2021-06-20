@@ -8,10 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Be.Stateless.BizTalk.Activity.Monitoring" Version="2.0.21104.49854" />
-    <PackageReference Include="Be.Stateless.BizTalk.Explorer" Version="2.0.21073.36728" />
-    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents.XUnit" Version="2.0.21115.31121" />
-    <PackageReference Include="Be.Stateless.BizTalk.Settings.Unit" Version="2.0.21151.35729" />
+    <PackageReference Include="Be.Stateless.BizTalk.Activity.Monitoring" Version="2.0.21173.34497" />
+    <PackageReference Include="Be.Stateless.BizTalk.Explorer" Version="2.0.21163.28366" />
+    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents.XUnit" Version="2.0.21172.20897" />
+    <PackageReference Include="Be.Stateless.BizTalk.Settings.Unit" Version="2.0.21172.21079" />
     <PackageReference Include="Be.Stateless.Stream.Unit" Version="2.0.21104.42258" />
     <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.1">
       <PrivateAssets>all</PrivateAssets>

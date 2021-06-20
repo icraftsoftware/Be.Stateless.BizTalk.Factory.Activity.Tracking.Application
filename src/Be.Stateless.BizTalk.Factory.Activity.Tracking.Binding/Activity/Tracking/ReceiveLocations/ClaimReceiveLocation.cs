@@ -73,7 +73,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 						}
 					};
 				});
-			Transport.Host = Platform.Settings.ReceivingHost;
+			Transport.Host = Platform.Settings.HostResolutionPolicy;
 		}
 	}
 }

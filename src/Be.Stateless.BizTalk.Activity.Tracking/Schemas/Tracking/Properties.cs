@@ -17,6 +17,7 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml;
 using Microsoft.XLANGs.BaseTypes;
 
@@ -27,6 +28,9 @@ namespace Be.Stateless.BizTalk.Schemas.Tracking
 	[PropertyGuid("1636fd4e-0d55-40ff-b6ef-54602e177df6")]
 	public sealed class ProcessName : MessageContextPropertyBase
 	{
+		[SuppressMessage("ReSharper", "UnusedMember.Local", Justification = "To be able to use the property in an XLang expression.")]
+		private static string PropertyValueType => throw new NotSupportedException();
+
 		#region Base Class Member Overrides
 
 		public override XmlQualifiedName Name => _qualifiedName;
@@ -44,6 +48,9 @@ namespace Be.Stateless.BizTalk.Schemas.Tracking
 	[PropertyGuid("f784b644-d4b5-4842-8112-ee67974c49e4")]
 	public sealed class ProcessActivityId : MessageContextPropertyBase
 	{
+		[SuppressMessage("ReSharper", "UnusedMember.Local", Justification = "To be able to use the property in an XLang expression.")]
+		private static string PropertyValueType => throw new NotSupportedException();
+
 		#region Base Class Member Overrides
 
 		public override XmlQualifiedName Name => _qualifiedName;
@@ -61,6 +68,9 @@ namespace Be.Stateless.BizTalk.Schemas.Tracking
 	[PropertyGuid("140f64b4-7a8a-45a0-ac82-21b03fcc12c6")]
 	public sealed class ProcessingStepActivityId : MessageContextPropertyBase
 	{
+		[SuppressMessage("ReSharper", "UnusedMember.Local", Justification = "To be able to use the property in an XLang expression.")]
+		private static string PropertyValueType => throw new NotSupportedException();
+
 		#region Base Class Member Overrides
 
 		public override XmlQualifiedName Name => _qualifiedName;
@@ -78,6 +88,9 @@ namespace Be.Stateless.BizTalk.Schemas.Tracking
 	[PropertyGuid("3730292c-05c1-418d-83ea-7aba201fb7f0")]
 	public sealed class MessagingStepActivityId : MessageContextPropertyBase
 	{
+		[SuppressMessage("ReSharper", "UnusedMember.Local", Justification = "To be able to use the property in an XLang expression.")]
+		private static string PropertyValueType => throw new NotSupportedException();
+
 		#region Base Class Member Overrides
 
 		public override XmlQualifiedName Name => _qualifiedName;
@@ -98,6 +111,9 @@ namespace Be.Stateless.BizTalk.Schemas.Tracking
 	[PropertyGuid("d9ad6c9f-c626-4d45-9080-09394d87a1c9")]
 	public sealed class Value1 : MessageContextPropertyBase
 	{
+		[SuppressMessage("ReSharper", "UnusedMember.Local", Justification = "To be able to use the property in an XLang expression.")]
+		private static string PropertyValueType => throw new NotSupportedException();
+
 		#region Base Class Member Overrides
 
 		public override XmlQualifiedName Name => _qualifiedName;
@@ -118,6 +134,9 @@ namespace Be.Stateless.BizTalk.Schemas.Tracking
 	[PropertyGuid("e472767a-2c62-4d91-8939-7e0578877348")]
 	public sealed class Value2 : MessageContextPropertyBase
 	{
+		[SuppressMessage("ReSharper", "UnusedMember.Local", Justification = "To be able to use the property in an XLang expression.")]
+		private static string PropertyValueType => throw new NotSupportedException();
+
 		#region Base Class Member Overrides
 
 		public override XmlQualifiedName Name => _qualifiedName;
@@ -138,6 +157,9 @@ namespace Be.Stateless.BizTalk.Schemas.Tracking
 	[PropertyGuid("d077de25-55bf-4eb9-a776-ea851f8e1592")]
 	public sealed class Value3 : MessageContextPropertyBase
 	{
+		[SuppressMessage("ReSharper", "UnusedMember.Local", Justification = "To be able to use the property in an XLang expression.")]
+		private static string PropertyValueType => throw new NotSupportedException();
+
 		#region Base Class Member Overrides
 
 		public override XmlQualifiedName Name => _qualifiedName;

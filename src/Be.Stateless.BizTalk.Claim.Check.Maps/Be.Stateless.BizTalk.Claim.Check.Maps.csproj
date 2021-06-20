@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BizTalk.Server.2020.Build" Version="2.0.21161.29567" Condition="'$(TF_BUILD)' != 'true'">
+    <PackageReference Include="BizTalk.Server.2020.Build" Version="2.0.21173.38661" Condition="'$(TF_BUILD)' != 'true'">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

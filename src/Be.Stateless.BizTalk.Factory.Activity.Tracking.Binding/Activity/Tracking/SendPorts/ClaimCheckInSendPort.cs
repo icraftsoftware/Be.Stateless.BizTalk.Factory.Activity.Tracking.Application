@@ -63,7 +63,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 					a.IsolationLevel = IsolationLevel.ReadCommitted;
 					a.StaticAction = "TypedProcedure/dbo/usp_claim_CheckIn";
 				});
-			Transport.Host = Platform.Settings.TransmittingHost;
+			Transport.Host = Platform.Settings.HostResolutionPolicy;
 			Transport.RetryPolicy = RetryPolicy.ShortRunning;
 			Filter = new Filter(() => BtsProperties.MessageType == Schema<Claim.CheckIn>.MessageType);
 		}

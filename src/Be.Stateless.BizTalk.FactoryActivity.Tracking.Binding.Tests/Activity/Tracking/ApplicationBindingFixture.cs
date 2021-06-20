@@ -20,7 +20,6 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Be.Stateless.BizTalk.Explorer;
-using Be.Stateless.BizTalk.Factory;
 using FluentAssertions;
 using Xunit;
 using static Be.Stateless.Unit.DelegateFactory;
@@ -44,7 +43,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 		{
 			var path = Path.Combine(
 				GetRepoRootPath(),
-				$"{Platform.Settings.ApplicationName}.{targetEnvironment}.bindings.xml"
+				$"BizTalk.Factory.Activity.Tracking.{targetEnvironment}.bindings.xml"
 			);
 			File.WriteAllText(path, GenerateApplicationBindingForTargetEnvironment(targetEnvironment), Encoding.Unicode);
 		}
@@ -54,9 +53,4 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			return Path.GetFullPath(Path.Combine(Path.GetDirectoryName(sourceFilePath)!, @"..\..\"));
 		}
 	}
-}
-
-namespace Be.Stateless.BizTalk.Dsl.Binding
-{
-	public class ApplicationBindingFixture<T> { }
 }
