@@ -16,42 +16,28 @@
 
 #endregion
 
-using Be.Stateless.BizTalk.Component;
-using Be.Stateless.BizTalk.ContextBuilders.Send;
-using Be.Stateless.BizTalk.ContextProperties;
+using System.ServiceModel;
 using Be.Stateless.BizTalk.Dsl.Binding;
 using Be.Stateless.BizTalk.Dsl.Binding.Adapter;
 using Be.Stateless.BizTalk.Dsl.Binding.Convention;
 using Be.Stateless.BizTalk.Dsl.Binding.Convention.Simple;
-using Be.Stateless.BizTalk.Dsl.Binding.Subscription;
 using Be.Stateless.BizTalk.Factory;
-using Be.Stateless.BizTalk.MicroComponent;
 using Be.Stateless.BizTalk.MicroPipelines;
 using RetryPolicy = Be.Stateless.BizTalk.Dsl.Binding.Convention.RetryPolicy;
 
-namespace Be.Stateless.BizTalk.Activity.Tracking
+namespace Be.Stateless.BizTalk
 {
-	public class FailedMessageSinkPort : SendPort<NamingConvention>
+	internal class TwoWaySoapSendPortStub : SendPort<NamingConvention>
 	{
-		public FailedMessageSinkPort()
+		public TwoWaySoapSendPortStub()
 		{
-			Name = SendPortName.Towards("Sink").About("FailedMessages").FormattedAs.None;
+			Name = SendPortName.Towards("Stub").About("Message").FormattedAs.Xml;
 			State = ServiceState.Started;
-			SendPipeline = new SendPipeline<PassThruTransmit>(
-				pipeline => {
-					pipeline.PreAssembler<MicroPipelineComponent>(
-						pc => {
-							pc.Components = new IMicroComponent[] {
-								new ContextBuilder { BuilderType = typeof(FailedProcessResolver) },
-								new ActivityTracker(),
-								new MessageConsumer()
-							};
-						});
-				});
-			Transport.Adapter = new FileAdapter.Outbound(a => { a.DestinationFolder = @"C:\Files\Drops\BizTalk.Factory\Failures"; });
+			SendPipeline = new SendPipeline<XmlTransmit>();
+			ReceivePipeline = new ReceivePipeline<XmlReceive>();
+			Transport.Adapter = new WcfBasicHttpAdapter.Outbound(a => { a.Address = new EndpointAddress("http://localhost:8000/soap-stub"); });
 			Transport.Host = Platform.Settings.HostResolutionPolicy;
 			Transport.RetryPolicy = RetryPolicy.RealTime;
-			Filter = new Filter(() => ErrorReportProperties.ErrorType == "FailedMessage");
 		}
 	}
 }

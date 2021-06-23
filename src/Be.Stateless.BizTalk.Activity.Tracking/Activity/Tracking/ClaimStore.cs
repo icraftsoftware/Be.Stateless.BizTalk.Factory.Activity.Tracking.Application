@@ -277,7 +277,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 		/// </remarks>
 		public virtual void Claim(IBaseMessage message, IResourceTracker resourceTracker)
 		{
-			if (!(message.BodyPart.GetOriginalDataStream() is TrackingStream trackingStream))
+			if (message.BodyPart.GetOriginalDataStream() is not TrackingStream trackingStream)
 			{
 				if (_logger.IsDebugEnabled) _logger.Debug("Skipping claim of message body stream's payload; BodyPart's OriginalDataStream is not a TrackingStream.");
 			}

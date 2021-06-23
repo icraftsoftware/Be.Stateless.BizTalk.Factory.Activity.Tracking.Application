@@ -30,7 +30,7 @@ using Be.Stateless.BizTalk.MicroPipelines;
 using Microsoft.Adapters.Sql;
 using Microsoft.BizTalk.Adapter.Wcf.Config;
 
-namespace Be.Stateless.BizTalk.Activity.Tracking
+namespace Be.Stateless.BizTalk
 {
 	public class ClaimReceiveLocation : ReceiveLocation<NamingConvention>
 	{

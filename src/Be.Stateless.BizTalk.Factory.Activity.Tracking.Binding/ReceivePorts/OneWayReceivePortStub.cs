@@ -19,7 +19,7 @@
 using Be.Stateless.BizTalk.Dsl.Binding.Convention;
 using Be.Stateless.BizTalk.Dsl.Binding.Convention.Simple;
 
-namespace Be.Stateless.BizTalk.Activity.Tracking
+namespace Be.Stateless.BizTalk
 {
 	internal class OneWayReceivePortStub : ReceivePort<NamingConvention>
 	{

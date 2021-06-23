@@ -17,34 +17,41 @@
 #endregion
 
 using Be.Stateless.BizTalk.Component;
+using Be.Stateless.BizTalk.ContextBuilders.Send;
+using Be.Stateless.BizTalk.ContextProperties;
 using Be.Stateless.BizTalk.Dsl.Binding;
 using Be.Stateless.BizTalk.Dsl.Binding.Adapter;
 using Be.Stateless.BizTalk.Dsl.Binding.Convention;
 using Be.Stateless.BizTalk.Dsl.Binding.Convention.Simple;
+using Be.Stateless.BizTalk.Dsl.Binding.Subscription;
 using Be.Stateless.BizTalk.Factory;
 using Be.Stateless.BizTalk.MicroComponent;
 using Be.Stateless.BizTalk.MicroPipelines;
+using RetryPolicy = Be.Stateless.BizTalk.Dsl.Binding.Convention.RetryPolicy;
 
-namespace Be.Stateless.BizTalk.Activity.Tracking
+namespace Be.Stateless.BizTalk
 {
-	internal class OneWayReceiveLocationStub : ReceiveLocation<NamingConvention>
+	public class FailedMessageSinkPort : SendPort<NamingConvention>
 	{
-		public OneWayReceiveLocationStub()
+		public FailedMessageSinkPort()
 		{
-			Name = ReceiveLocationName.About("Message").FormattedAs.Xml;
-			Enabled = true;
-			ReceivePipeline = new ReceivePipeline<XmlReceive>(
+			Name = SendPortName.Towards("Sink").About("FailedMessages").FormattedAs.None;
+			State = ServiceState.Started;
+			SendPipeline = new SendPipeline<PassThruTransmit>(
 				pipeline => {
-					pipeline.Validator<MicroPipelineComponent>(
+					pipeline.PreAssembler<MicroPipelineComponent>(
 						pc => {
 							pc.Components = new IMicroComponent[] {
-								new ContextPropertyExtractor(),
-								new ActivityTracker()
+								new ContextBuilder { BuilderType = typeof(FailedProcessResolver) },
+								new ActivityTracker(),
+								new MessageConsumer()
 							};
 						});
 				});
-			Transport.Adapter = new FileAdapter.Inbound(a => { a.ReceiveFolder = @"C:\Files\Drops\BizTalk.Factory\In"; });
+			Transport.Adapter = new FileAdapter.Outbound(a => { a.DestinationFolder = @"C:\Files\Drops\BizTalk.Factory\Failures"; });
 			Transport.Host = Platform.Settings.HostResolutionPolicy;
+			Transport.RetryPolicy = RetryPolicy.RealTime;
+			Filter = new Filter(() => ErrorReportProperties.ErrorType == "FailedMessage");
 		}
 	}
 }

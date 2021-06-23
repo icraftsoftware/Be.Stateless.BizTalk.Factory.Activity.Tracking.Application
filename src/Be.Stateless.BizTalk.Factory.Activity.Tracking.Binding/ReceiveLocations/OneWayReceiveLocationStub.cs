@@ -16,28 +16,35 @@
 
 #endregion
 
-using System.ServiceModel;
+using Be.Stateless.BizTalk.Component;
 using Be.Stateless.BizTalk.Dsl.Binding;
 using Be.Stateless.BizTalk.Dsl.Binding.Adapter;
 using Be.Stateless.BizTalk.Dsl.Binding.Convention;
 using Be.Stateless.BizTalk.Dsl.Binding.Convention.Simple;
 using Be.Stateless.BizTalk.Factory;
+using Be.Stateless.BizTalk.MicroComponent;
 using Be.Stateless.BizTalk.MicroPipelines;
-using RetryPolicy = Be.Stateless.BizTalk.Dsl.Binding.Convention.RetryPolicy;
 
-namespace Be.Stateless.BizTalk.Activity.Tracking
+namespace Be.Stateless.BizTalk
 {
-	internal class TwoWaySoapSendPortStub : SendPort<NamingConvention>
+	internal class OneWayReceiveLocationStub : ReceiveLocation<NamingConvention>
 	{
-		public TwoWaySoapSendPortStub()
+		public OneWayReceiveLocationStub()
 		{
-			Name = SendPortName.Towards("Stub").About("Message").FormattedAs.Xml;
-			State = ServiceState.Started;
-			SendPipeline = new SendPipeline<XmlTransmit>();
-			ReceivePipeline = new ReceivePipeline<XmlReceive>();
-			Transport.Adapter = new WcfBasicHttpAdapter.Outbound(a => { a.Address = new EndpointAddress("http://localhost:8000/soap-stub"); });
+			Name = ReceiveLocationName.About("Message").FormattedAs.Xml;
+			Enabled = true;
+			ReceivePipeline = new ReceivePipeline<XmlReceive>(
+				pipeline => {
+					pipeline.Validator<MicroPipelineComponent>(
+						pc => {
+							pc.Components = new IMicroComponent[] {
+								new ContextPropertyExtractor(),
+								new ActivityTracker()
+							};
+						});
+				});
+			Transport.Adapter = new FileAdapter.Inbound(a => { a.ReceiveFolder = @"C:\Files\Drops\BizTalk.Factory\In"; });
 			Transport.Host = Platform.Settings.HostResolutionPolicy;
-			Transport.RetryPolicy = RetryPolicy.RealTime;
 		}
 	}
 }

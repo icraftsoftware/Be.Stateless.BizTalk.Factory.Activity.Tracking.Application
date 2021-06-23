@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <PackageReference Include="Be.Stateless.BizTalk.Dsl.Binding.Unit" Version="2.0.21173.36101" />
-    <PackageReference Include="Be.Stateless.Common.Unit" Version="2.0.21060.31482" />
     <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -43,10 +42,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding\Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Activity\Tracking\Factory\" />
   </ItemGroup>
 
 </Project>

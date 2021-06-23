@@ -73,7 +73,7 @@ namespace Be.Stateless.BizTalk.Stream
 		/// <summary>
 		/// <c>true</c> for an outbound claim-checked message whose payload is being redeemed.
 		/// </summary>
-		internal bool IsRedeemed => CaptureDescriptor.IfNotNull(cd => cd.CaptureMode == MessageBodyCaptureMode.Claimed) && !(InnerStream is ReplicatingReadStream);
+		internal bool IsRedeemed => CaptureDescriptor.IfNotNull(cd => cd.CaptureMode == MessageBodyCaptureMode.Claimed) && InnerStream is not ReplicatingReadStream;
 
 		/// <summary>
 		/// Drains the stream thereby forcing its payload to be captured.
@@ -85,7 +85,7 @@ namespace Be.Stateless.BizTalk.Stream
 			if (CaptureDescriptor.CaptureMode != MessageBodyCaptureMode.Claimed)
 				throw new InvalidOperationException(
 					$"{nameof(TrackingStream)} cannot be captured because its Descriptor's CaptureMode has not been set to {MessageBodyCaptureMode.Claimed} but to {CaptureDescriptor.CaptureMode}.");
-			if (!(InnerStream is ReplicatingReadStream))
+			if (InnerStream is not ReplicatingReadStream)
 				throw new InvalidOperationException(
 					$"{nameof(TrackingStream)} cannot be captured unless it has been setup with another capturing stream to replicate its payload to.");
 			ThrowIfDisposed();

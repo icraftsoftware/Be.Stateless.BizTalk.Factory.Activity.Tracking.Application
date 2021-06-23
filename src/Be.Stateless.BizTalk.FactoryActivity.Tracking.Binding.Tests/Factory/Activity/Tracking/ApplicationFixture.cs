@@ -16,13 +16,22 @@
 
 #endregion
 
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using Be.Stateless.BizTalk.Install;
+using System.Collections.Generic;
+using FluentAssertions;
+using Xunit;
 
-namespace Be.Stateless.BizTalk.Activity.Tracking
+namespace Be.Stateless.BizTalk.Factory.Activity.Tracking
 {
-	[RunInstaller(true)]
-	[SuppressMessage("ReSharper", "UnusedType.Global", Justification = "Installer class.")]
-	public class ApplicationInstaller : ApplicationBindingInstaller<ApplicationBinding> { }
+	public class ApplicationFixture
+	{
+		[Fact]
+		public void SsoSettings()
+		{
+			Application.Settings.SsoSettings.Should().BeEquivalentTo(
+				new Dictionary<string, object> {
+					{ nameof(ClaimStoreSsoSettings.ClaimStoreCheckInDirectory), Application.Settings.ClaimStoreCheckInDirectory },
+					{ nameof(ClaimStoreSsoSettings.ClaimStoreCheckOutDirectory), Application.Settings.ClaimStoreCheckOutDirectory }
+				});
+		}
+	}
 }

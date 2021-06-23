@@ -16,17 +16,13 @@
 
 #endregion
 
-using Be.Stateless.BizTalk.Dsl.Binding.Convention;
-using Be.Stateless.BizTalk.Dsl.Binding.Convention.Simple;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using Be.Stateless.BizTalk.Install;
 
-namespace Be.Stateless.BizTalk.Activity.Tracking
+namespace Be.Stateless.BizTalk
 {
-	public class ClaimReceivePort : ReceivePort<NamingConvention>
-	{
-		public ClaimReceivePort()
-		{
-			Name = ReceivePortName.Offwards("Claim");
-			ReceiveLocations.Add(new ClaimReceiveLocation());
-		}
-	}
+	[RunInstaller(true)]
+	[SuppressMessage("ReSharper", "UnusedType.Global", Justification = "Installer class.")]
+	public class ApplicationInstaller : ApplicationBindingInstaller<ApplicationBinding> { }
 }

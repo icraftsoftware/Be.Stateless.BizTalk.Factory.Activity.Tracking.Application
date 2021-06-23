@@ -16,22 +16,17 @@
 
 #endregion
 
-using System.Collections.Generic;
-using FluentAssertions;
-using Xunit;
+using Be.Stateless.BizTalk.Dsl.Binding.Convention;
+using Be.Stateless.BizTalk.Dsl.Binding.Convention.Simple;
 
-namespace Be.Stateless.BizTalk.Activity.Tracking.Factory
+namespace Be.Stateless.BizTalk
 {
-	public class ApplicationFixture
+	public class ClaimReceivePort : ReceivePort<NamingConvention>
 	{
-		[Fact]
-		public void SsoSettings()
+		public ClaimReceivePort()
 		{
-			Application.Settings.SsoSettings.Should().BeEquivalentTo(
-				new Dictionary<string, object> {
-					{ nameof(ClaimStoreSsoSettings.ClaimStoreCheckInDirectory), Application.Settings.ClaimStoreCheckInDirectory },
-					{ nameof(ClaimStoreSsoSettings.ClaimStoreCheckOutDirectory), Application.Settings.ClaimStoreCheckOutDirectory }
-				});
+			Name = ReceivePortName.Offwards("Claim");
+			ReceiveLocations.Add(new ClaimReceiveLocation());
 		}
 	}
 }

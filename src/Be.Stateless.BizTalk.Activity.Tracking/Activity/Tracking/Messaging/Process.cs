@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			// process will only occur when we are tracking the outbound message of this messaging-only flow; it's
 			// therefore too late to capture the initiating message status since the only message context at hand is the
 			// one of the outgoing message.
-			if (!(messagingStep is MessagingStepReference))
+			if (messagingStep is not MessagingStepReference)
 			{
 				// don't bother to duplicate status other than failure
 				processMessagingStep.MessagingStepStatus = messagingStep.Message.GetProperty(ErrorReportProperties.ErrorType);

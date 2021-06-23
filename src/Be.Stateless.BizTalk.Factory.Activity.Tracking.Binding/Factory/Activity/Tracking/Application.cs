@@ -16,10 +16,11 @@
 
 #endregion
 
+using Be.Stateless.BizTalk.Activity.Tracking.Factory;
 using Be.Stateless.BizTalk.Dsl.Environment.Settings;
 using Be.Stateless.BizTalk.Dsl.Environment.Settings.Convention;
 
-namespace Be.Stateless.BizTalk.Activity.Tracking.Factory
+namespace Be.Stateless.BizTalk.Factory.Activity.Tracking
 {
 	public class Application : CompositeEnvironmentSettings<Application, IClaimStoreSsoSettings>, IClaimStoreSsoSettings, IEnvironmentSettings
 	{

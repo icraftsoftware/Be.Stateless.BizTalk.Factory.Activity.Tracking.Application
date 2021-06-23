@@ -97,8 +97,7 @@ namespace Be.Stateless.BizTalk.Claim.Store.Agent
 				if (_serviceInstaller.StartType != ServiceStartMode.Automatic) return;
 				using (var serviceController = new System.ServiceProcess.ServiceController(_serviceInstaller.ServiceName))
 				{
-					if (serviceController.Status == ServiceControllerStatus.Running) return;
-					if (serviceController.Status == ServiceControllerStatus.StartPending) return;
+					if (serviceController.Status is ServiceControllerStatus.Running or ServiceControllerStatus.StartPending) return;
 					serviceController.Start();
 				}
 			}

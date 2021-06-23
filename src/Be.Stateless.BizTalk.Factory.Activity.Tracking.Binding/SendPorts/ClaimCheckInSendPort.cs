@@ -34,7 +34,7 @@ using Be.Stateless.BizTalk.Schemas.Xml;
 using Microsoft.Adapters.Sql;
 using RetryPolicy = Be.Stateless.BizTalk.Dsl.Binding.Convention.RetryPolicy;
 
-namespace Be.Stateless.BizTalk.Activity.Tracking
+namespace Be.Stateless.BizTalk
 {
 	public class ClaimCheckInSendPort : SendPort<NamingConvention>
 	{
