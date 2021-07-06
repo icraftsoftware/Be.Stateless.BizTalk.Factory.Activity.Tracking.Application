@@ -39,19 +39,21 @@ namespace Be.Stateless.BizTalk
 			State = ServiceState.Started;
 			SendPipeline = new SendPipeline<PassThruTransmit>(
 				pipeline => {
-					pipeline.PreAssembler<MicroPipelineComponent>(
-						pc => {
-							pc.Components = new IMicroComponent[] {
-								new ContextBuilder { BuilderType = typeof(FailedProcessResolver) },
-								new ActivityTracker(),
-								new MessageConsumer()
-							};
-						});
+					pipeline
+						.PreAssembler<FailedMessageRoutingEnablerComponent>(pc => { pc.SuppressRoutingFailureReport = false; })
+						.PreAssembler<MicroPipelineComponent>(
+							pc => {
+								pc.Components = new IMicroComponent[] {
+									new ContextBuilder { BuilderType = typeof(FailedProcessResolver) },
+									new ActivityTracker(),
+									new MessageConsumer()
+								};
+							});
 				});
 			Transport.Adapter = new FileAdapter.Outbound(a => { a.DestinationFolder = @"C:\Files\Drops\BizTalk.Factory\Failures"; });
 			Transport.Host = Platform.Settings.HostResolutionPolicy;
 			Transport.RetryPolicy = RetryPolicy.RealTime;
-			Filter = new Filter(() => ErrorReportProperties.ErrorType == "FailedMessage");
+			Filter = new Filter(() => ErrorReportProperties.ErrorType == "FailedMessage" && BtsProperties.SendPortName != Name);
 		}
 	}
 }
