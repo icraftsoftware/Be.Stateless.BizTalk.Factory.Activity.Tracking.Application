@@ -40,7 +40,6 @@ namespace Be.Stateless.BizTalk
 			SendPipeline = new SendPipeline<PassThruTransmit>(
 				pipeline => {
 					pipeline
-						.PreAssembler<FailedMessageRoutingEnablerComponent>(pc => { pc.SuppressRoutingFailureReport = false; })
 						.PreAssembler<MicroPipelineComponent>(
 							pc => {
 								pc.Components = new IMicroComponent[] {
@@ -53,7 +52,7 @@ namespace Be.Stateless.BizTalk
 			Transport.Adapter = new FileAdapter.Outbound(a => { a.DestinationFolder = @"C:\Files\Drops\BizTalk.Factory\Failures"; });
 			Transport.Host = Platform.Settings.HostResolutionPolicy;
 			Transport.RetryPolicy = RetryPolicy.RealTime;
-			Filter = new Filter(() => ErrorReportProperties.ErrorType == "FailedMessage" && BtsProperties.SendPortName != Name);
+			Filter = new Filter(() => ErrorReportProperties.ErrorType == "FailedMessage");
 		}
 	}
 }
