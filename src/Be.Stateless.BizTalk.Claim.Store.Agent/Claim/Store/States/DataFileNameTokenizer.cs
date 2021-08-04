@@ -79,7 +79,7 @@ namespace Be.Stateless.BizTalk.Claim.Store.States
 			if (filePath.IsNullOrEmpty()) throw new ArgumentNullException(nameof(filePath));
 			var match = Regex.Match(filePath, _pattern);
 			if (!match.Success) throw new ArgumentException($"Claim Store Agent does not recognize the message body's data file path: '{filePath}'.", nameof(filePath));
-			return new Tokens(match.Groups);
+			return new(match.Groups);
 		}
 
 		internal const string LOCK_TIMESTAMP_FORMAT = "yyyyMMddHHmmss";

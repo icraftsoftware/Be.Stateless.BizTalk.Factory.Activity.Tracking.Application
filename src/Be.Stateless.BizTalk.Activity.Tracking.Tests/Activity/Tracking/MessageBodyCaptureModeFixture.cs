@@ -35,13 +35,13 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 		[Fact]
 		public void Claimed()
 		{
-			MessageBodyCaptureMode.Claimed.Should().Be(MonitoringMessageBodyCaptureMode.Claimed);
+			((int) MessageBodyCaptureMode.Claimed).Should().Be((int) MonitoringMessageBodyCaptureMode.Claimed);
 		}
 
 		[Fact]
 		public void Unclaimed()
 		{
-			MessageBodyCaptureMode.Unclaimed.Should().Be(MonitoringMessageBodyCaptureMode.Unclaimed);
+			((int) MessageBodyCaptureMode.Unclaimed).Should().Be((int) MonitoringMessageBodyCaptureMode.Unclaimed);
 		}
 	}
 }

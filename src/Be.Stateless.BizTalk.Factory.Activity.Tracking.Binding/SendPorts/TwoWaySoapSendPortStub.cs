@@ -16,7 +16,6 @@
 
 #endregion
 
-using System.ServiceModel;
 using Be.Stateless.BizTalk.Dsl.Binding;
 using Be.Stateless.BizTalk.Dsl.Binding.Adapter;
 using Be.Stateless.BizTalk.Dsl.Binding.Convention;
@@ -35,7 +34,7 @@ namespace Be.Stateless.BizTalk
 			State = ServiceState.Started;
 			SendPipeline = new SendPipeline<XmlTransmit>();
 			ReceivePipeline = new ReceivePipeline<XmlReceive>();
-			Transport.Adapter = new WcfBasicHttpAdapter.Outbound(a => { a.Address = new EndpointAddress("http://localhost:8000/soap-stub"); });
+			Transport.Adapter = new WcfBasicHttpAdapter.Outbound(a => { a.Address = new("http://localhost:8000/soap-stub"); });
 			Transport.Host = Platform.Settings.HostResolutionPolicy;
 			Transport.RetryPolicy = RetryPolicy.RealTime;
 		}

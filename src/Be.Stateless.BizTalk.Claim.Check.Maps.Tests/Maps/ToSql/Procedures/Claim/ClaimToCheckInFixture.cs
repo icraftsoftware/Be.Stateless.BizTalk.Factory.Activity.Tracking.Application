@@ -17,6 +17,7 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Reflection;
 using Be.Stateless.BizTalk.ContextProperties.Subscribable;
 using Be.Stateless.BizTalk.Message.Extensions;
@@ -31,10 +32,10 @@ namespace Be.Stateless.BizTalk.Maps.ToSql.Procedures.Claim
 {
 	public class ClaimToCheckInFixture : TransformFixture<ClaimToCheckIn>
 	{
-		[Fact]
 		[SuppressMessage("ReSharper", "AccessToDisposedClosure")]
 		[SuppressMessage("ReSharper", "AccessToStaticMemberViaDerivedType")]
 		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+		[Fact]
 		public void ValidateTransformClaimTokenWithContext()
 		{
 			var contextMock = new MessageContextMock();
@@ -54,17 +55,17 @@ namespace Be.Stateless.BizTalk.Maps.ToSql.Procedures.Claim
 					.Transform
 					.OutputsXml(output => output.ConformingTo<CheckIn>().WithStrictConformanceLevel());
 				var result = setup.Validate();
-				result.Select("//usp:url/text()").Should().HaveCount(1);
+				result.Select("//usp:url/text()").Cast<object>().Should().HaveCount(1);
 				result.SelectSingleNode("//usp:messageType/text()").Value.Should().Be("context-claimed-message-type");
 				result.SelectSingleNode("//usp:correlationId/text()").Value.Should().Be("context-correlation-token");
 				result.SelectSingleNode("//usp:environmentTag/text()").Value.Should().Be("context-environment-tag");
 			}
 		}
 
-		[Fact]
 		[SuppressMessage("ReSharper", "AccessToDisposedClosure")]
 		[SuppressMessage("ReSharper", "AccessToStaticMemberViaDerivedType")]
 		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+		[Fact]
 		public void ValidateTransformClaimTokenWithEmbeddedDataAndContext()
 		{
 			var contextMock = new MessageContextMock();
@@ -87,7 +88,7 @@ namespace Be.Stateless.BizTalk.Maps.ToSql.Procedures.Claim
 					.Transform
 					.OutputsXml(output => output.ConformingTo<CheckIn>().WithStrictConformanceLevel());
 				var result = setup.Validate();
-				result.Select("//usp:url/text()").Should().HaveCount(1);
+				result.Select("//usp:url/text()").Cast<object>().Should().HaveCount(1);
 				result.SelectSingleNode("//usp:correlationId/text()").Value.Should().Be("embedded-correlation-token");
 				result.SelectSingleNode("//usp:environmentTag/text()").Value.Should().Be("embedded-environment-tag");
 				result.SelectSingleNode("//usp:messageType/text()").Value.Should().Be("embedded-claimed-message-type");
@@ -98,9 +99,9 @@ namespace Be.Stateless.BizTalk.Maps.ToSql.Procedures.Claim
 			}
 		}
 
-		[Fact]
 		[SuppressMessage("ReSharper", "AccessToDisposedClosure")]
 		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+		[Fact]
 		public void ValidateTransformComplexClaimToken()
 		{
 			using (var stream = ResourceManager.Load(Assembly.GetExecutingAssembly(), "Be.Stateless.BizTalk.Resources.Message.ClaimToken.2.xml"))
@@ -109,15 +110,15 @@ namespace Be.Stateless.BizTalk.Maps.ToSql.Procedures.Claim
 					.Transform
 					.OutputsXml(output => output.ConformingTo<CheckIn>().WithStrictConformanceLevel());
 				var result = setup.Validate();
-				result.Select("//usp:url/text()").Should().HaveCount(1);
-				result.Select("//usp:any").Should().HaveCount(1);
+				result.Select("//usp:url/text()").Cast<object>().Should().HaveCount(1);
+				result.Select("//usp:any").Cast<object>().Should().HaveCount(1);
 				result.SelectSingleNode("//usp:any/text()").Value
 					.Should().Be("<parent><child>one</child><child>two</child></parent><parent><child>six</child><child>ten</child></parent>");
 			}
 		}
 
-		[Fact]
 		[SuppressMessage("ReSharper", "AccessToDisposedClosure")]
+		[Fact]
 		public void ValidateTransformSimpleClaimToken()
 		{
 			using (var stream = ResourceManager.Load(Assembly.GetExecutingAssembly(), "Be.Stateless.BizTalk.Resources.Message.ClaimToken.1.xml"))
@@ -126,8 +127,8 @@ namespace Be.Stateless.BizTalk.Maps.ToSql.Procedures.Claim
 					.Transform
 					.OutputsXml(output => output.ConformingTo<CheckIn>().WithStrictConformanceLevel());
 				var result = setup.Validate();
-				result.Select("//usp:url/text()").Should().HaveCount(1);
-				result.Select("//usp:any").Should().HaveCount(0);
+				result.Select("//usp:url/text()").Cast<object>().Should().HaveCount(1);
+				result.Select("//usp:any").Cast<object>().Should().HaveCount(0);
 			}
 		}
 	}

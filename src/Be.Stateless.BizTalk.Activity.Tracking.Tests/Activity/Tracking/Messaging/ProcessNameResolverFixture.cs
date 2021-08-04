@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -28,6 +28,16 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 {
 	public class ProcessNameResolverFixture
 	{
+		#region Setup/Teardown
+
+		public ProcessNameResolverFixture()
+		{
+			MessageMock = new();
+			MessageMock.Setup(m => m.GetProperty(BtsProperties.InboundTransportLocation)).Returns("inbound-transport-location");
+		}
+
+		#endregion
+
 		[Fact]
 		public void ResolveProcessNameToUnidentified()
 		{
@@ -51,12 +61,6 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			processName.Should().Be(name);
 
 			MessageMock.Verify(m => m.SetProperty(TrackingProperties.ProcessName, name), Times.Never());
-		}
-
-		public ProcessNameResolverFixture()
-		{
-			MessageMock = new Unit.Message.Mock<IBaseMessage>();
-			MessageMock.Setup(m => m.GetProperty(BtsProperties.InboundTransportLocation)).Returns("inbound-transport-location");
 		}
 
 		private Unit.Message.Mock<IBaseMessage> MessageMock { get; }

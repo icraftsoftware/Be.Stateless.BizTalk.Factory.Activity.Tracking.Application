@@ -40,17 +40,17 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		public MessageBodyTrackerFixture()
 		{
 			_claimStoreInstance = ClaimStore.Instance;
-			ClaimStoreMock = new Mock<ClaimStore>();
+			ClaimStoreMock = new();
 			ClaimStore.Instance = ClaimStoreMock.Object;
 
-			MessageMock = new MessageMock();
+			MessageMock = new();
 			MessageMock.Setup(m => m.GetProperty(BtsProperties.InboundTransportLocation)).Returns("inbound-transport-location");
 
-			PipelineContextMock = new Mock<IPipelineContext>();
+			PipelineContextMock = new();
 			PipelineContextMock.Setup(pc => pc.ResourceTracker).Returns(new Mock<IResourceTracker>().Object);
 
 			_processNameResolverFactory = ProcessNameResolver.Factory;
-			ProcessNameResolverMock = new Mock<ProcessNameResolver>(MessageMock.Object);
+			ProcessNameResolverMock = new(MessageMock.Object);
 			ProcessNameResolver.Factory = _ => ProcessNameResolverMock.Object;
 		}
 
@@ -65,11 +65,11 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		[Fact]
 		public void CaptureIsNotSetupIfTrackingStreamAlreadyHasCaptureDescriptor()
 		{
-			using (var trackingStream = new TrackingStream(new MemoryStream(), new MessageBodyCaptureDescriptor("url", MessageBodyCaptureMode.Claimed)))
+			using (var trackingStream = new TrackingStream(new MemoryStream(), new("url", MessageBodyCaptureMode.Claimed)))
 			{
 				MessageMock.Object.BodyPart.Data = trackingStream;
 
-				var sut = MessageBodyTracker.Create(new MicroComponent.ActivityTracker.Context(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body));
+				var sut = MessageBodyTracker.Create(new(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body));
 				sut.SetupTracking();
 			}
 
@@ -85,7 +85,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			{
 				MessageMock.Object.BodyPart.Data = stream;
 
-				var sut = MessageBodyTracker.Create(new MicroComponent.ActivityTracker.Context(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body));
+				var sut = MessageBodyTracker.Create(new(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body));
 				sut.SetupTracking();
 			}
 
@@ -110,7 +110,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 					.Setup(pc => pc.GetTransaction())
 					.Returns(transaction);
 
-				var sut = MessageBodyTracker.Create(new MicroComponent.ActivityTracker.Context(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body));
+				var sut = MessageBodyTracker.Create(new(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body));
 				sut.SetupTracking();
 
 				// TODO upgrade Moq
@@ -139,7 +139,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 					.Setup(pc => pc.GetTransaction())
 					.Returns((IKernelTransaction) transaction);
 
-				var sut = MessageBodyTracker.Create(new MicroComponent.ActivityTracker.Context(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body));
+				var sut = MessageBodyTracker.Create(new(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body));
 				sut.SetupTracking();
 
 				ClaimStoreMock.Verify(
@@ -160,7 +160,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			{
 				MessageMock.Object.BodyPart.Data = stream;
 
-				var sut = MessageBodyTracker.Create(new MicroComponent.ActivityTracker.Context(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body));
+				var sut = MessageBodyTracker.Create(new(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body));
 				sut.SetupTracking();
 			}
 
@@ -174,7 +174,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		[Fact]
 		public void InboundMessageBodyIsCheckedIn()
 		{
-			var sut = MessageBodyTracker.Create(new MicroComponent.ActivityTracker.Context(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Claim));
+			var sut = MessageBodyTracker.Create(new(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Claim));
 			sut.TryCheckInMessageBody();
 
 			ClaimStoreMock.Verify(cs => cs.Claim(MessageMock.Object, It.IsAny<IResourceTracker>()), Times.Once());
@@ -183,7 +183,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		[Fact]
 		public void InboundMessageBodyIsNotCheckedIn()
 		{
-			var sut = MessageBodyTracker.Create(new MicroComponent.ActivityTracker.Context(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body));
+			var sut = MessageBodyTracker.Create(new(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body));
 			sut.TryCheckInMessageBody();
 
 			ClaimStoreMock.Verify(cs => cs.Claim(MessageMock.Object, It.IsAny<IResourceTracker>()), Times.Never());
@@ -194,7 +194,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		{
 			MessageMock.Setup(m => m.GetProperty(BtsProperties.OutboundTransportLocation)).Returns("outbound-transport-location");
 
-			var sut = MessageBodyTracker.Create(new MicroComponent.ActivityTracker.Context(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Claim));
+			var sut = MessageBodyTracker.Create(new(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Claim));
 			sut.TryCheckOutMessageBody();
 
 			ClaimStoreMock.Verify(cs => cs.Redeem(MessageMock.Object, It.IsAny<IResourceTracker>()), Times.Once());
@@ -205,7 +205,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		{
 			MessageMock.Setup(m => m.GetProperty(BtsProperties.OutboundTransportLocation)).Returns("outbound-transport-location");
 
-			var sut = MessageBodyTracker.Create(new MicroComponent.ActivityTracker.Context(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body));
+			var sut = MessageBodyTracker.Create(new(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body));
 			sut.TryCheckOutMessageBody();
 
 			ClaimStoreMock.Verify(cs => cs.Redeem(MessageMock.Object, It.IsAny<IResourceTracker>()), Times.Never());

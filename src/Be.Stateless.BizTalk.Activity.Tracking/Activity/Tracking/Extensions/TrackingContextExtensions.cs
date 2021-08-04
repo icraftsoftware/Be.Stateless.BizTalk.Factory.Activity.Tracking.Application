@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Extensions
 		public static TrackingContext GetTrackingContext(this IBaseMessage message)
 		{
 			if (message == null) throw new ArgumentNullException(nameof(message));
-			return new TrackingContext {
+			return new() {
 				ProcessActivityId = message.GetProperty(TrackingProperties.ProcessActivityId),
 				ProcessingStepActivityId = message.GetProperty(TrackingProperties.ProcessingStepActivityId),
 				MessagingStepActivityId = message.GetProperty(TrackingProperties.MessagingStepActivityId)
@@ -108,7 +108,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Extensions
 		public static TrackingContext GetTrackingContext(this IBaseMessageContext messageContext)
 		{
 			if (messageContext == null) throw new ArgumentNullException(nameof(messageContext));
-			return new TrackingContext {
+			return new() {
 				ProcessActivityId = messageContext.GetProperty(TrackingProperties.ProcessActivityId),
 				ProcessingStepActivityId = messageContext.GetProperty(TrackingProperties.ProcessingStepActivityId),
 				MessagingStepActivityId = messageContext.GetProperty(TrackingProperties.MessagingStepActivityId)
@@ -127,7 +127,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Extensions
 		public static TrackingContext GetTrackingContext(this XLANGMessage message)
 		{
 			if (message == null) throw new ArgumentNullException(nameof(message));
-			return new TrackingContext {
+			return new() {
 				ProcessActivityId = message.GetProperty(TrackingProperties.ProcessActivityId),
 				ProcessingStepActivityId = message.GetProperty(TrackingProperties.ProcessingStepActivityId),
 				MessagingStepActivityId = message.GetProperty(TrackingProperties.MessagingStepActivityId)

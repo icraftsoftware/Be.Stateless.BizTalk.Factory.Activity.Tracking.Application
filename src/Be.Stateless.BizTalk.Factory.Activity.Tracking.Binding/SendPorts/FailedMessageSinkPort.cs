@@ -23,7 +23,6 @@ using Be.Stateless.BizTalk.Dsl.Binding;
 using Be.Stateless.BizTalk.Dsl.Binding.Adapter;
 using Be.Stateless.BizTalk.Dsl.Binding.Convention;
 using Be.Stateless.BizTalk.Dsl.Binding.Convention.Simple;
-using Be.Stateless.BizTalk.Dsl.Binding.Subscription;
 using Be.Stateless.BizTalk.Factory;
 using Be.Stateless.BizTalk.MicroComponent;
 using Be.Stateless.BizTalk.MicroPipelines;
@@ -52,7 +51,7 @@ namespace Be.Stateless.BizTalk
 			Transport.Adapter = new FileAdapter.Outbound(a => { a.DestinationFolder = @"C:\Files\Drops\BizTalk.Factory\Failures"; });
 			Transport.Host = Platform.Settings.HostResolutionPolicy;
 			Transport.RetryPolicy = RetryPolicy.RealTime;
-			Filter = new Filter(() => ErrorReportProperties.ErrorType == "FailedMessage");
+			Filter = new(() => ErrorReportProperties.ErrorType == "FailedMessage");
 		}
 	}
 }

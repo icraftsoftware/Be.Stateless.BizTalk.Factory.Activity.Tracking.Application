@@ -233,7 +233,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 				.Returns(eventStream.Object);
 
 			var sut = new MessagingStep(pipelineContext.Object, message.Object);
-			using (var trackingStream = new TrackingStream(new MemoryStream(_content), new MessageBodyCaptureDescriptor("data", MessageBodyCaptureMode.Claimed)))
+			using (var trackingStream = new TrackingStream(new MemoryStream(_content), new("data", MessageBodyCaptureMode.Claimed)))
 			{
 				// TrackActivity is supposed to occur at stream's end
 				trackingStream.Drain();

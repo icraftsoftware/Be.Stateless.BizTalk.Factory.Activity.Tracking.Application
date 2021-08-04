@@ -40,7 +40,7 @@ namespace Be.Stateless.BizTalk.Claim.Store
 					"and check-out directory:\r\n  {1}.",
 					agentConfiguration.CheckInDirectories.Aggregate(string.Empty, (acc, d) => acc + "\r\n  " + d + ";"),
 					agentConfiguration.CheckOutDirectory);
-				_pollingTimer = new Timer(OnTimerElapsed);
+				_pollingTimer = new(OnTimerElapsed);
 			}
 			// do an initial collection and schedule next one
 			ThreadPool.QueueUserWorkItem(OnTimerElapsed);

@@ -43,7 +43,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Processing
 		{
 			if (activatingMessage == null) throw new ArgumentNullException(nameof(activatingMessage));
 			new Process(Service.RootService.InstanceId.AsNormalizedActivityId())
-				.AddStep(new MessagingStep(activatingMessage));
+				.AddStep(new(activatingMessage));
 		}
 
 		/// <summary>
@@ -66,7 +66,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Processing
 			var process = Initiate(Service.RootService.InstanceId, Service.RootService.GetType().Namespace, null, null, null);
 
 			// set up orchestration's tracking context
-			return new TrackingContext {
+			return new() {
 				ProcessActivityId = process.ActivityId
 			};
 		}
@@ -99,7 +99,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Processing
 				keyMessage.GetProperty(TrackingProperties.Value3));
 
 			// set up orchestration's tracking context
-			return new TrackingContext {
+			return new() {
 				ProcessActivityId = process.ActivityId
 			};
 		}
@@ -159,7 +159,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Processing
 			process.AddStep(messagingStep);
 
 			// set up orchestration's tracking context
-			return new TrackingContext {
+			return new() {
 				ProcessActivityId = process.ActivityId,
 				MessagingStepActivityId = messagingStep.ActivityId
 			};
@@ -236,7 +236,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Processing
 			if (trackingContext.ProcessActivityId.IsNullOrEmpty())
 				throw new ArgumentException("trackingContext.ProcessActivityId is null or empty: process tracking has not been initiated.", nameof(trackingContext));
 
-			new Process(trackingContext.ProcessActivityId).AddStep(new MessagingStep(message));
+			new Process(trackingContext.ProcessActivityId).AddStep(new(message));
 		}
 
 		internal static void Terminate(TrackingContext trackingContext, string status)

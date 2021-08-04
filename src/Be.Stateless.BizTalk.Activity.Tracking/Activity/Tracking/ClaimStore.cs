@@ -359,7 +359,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			// correct. This allows to redeem payloads from e.g. http resources without having to check them in beforehand.
 			if (!Uri.TryCreate(url, UriKind.Absolute, out var uri))
 			{
-				uri = new Uri(Path.Combine(CheckOutDirectory, url), UriKind.Absolute);
+				uri = new(Path.Combine(CheckOutDirectory, url), UriKind.Absolute);
 			}
 			// TODO SECURITY: don't accept/allow any Uri scheme and Urls to resources from anywhere
 			using (var client = new WebClient())

@@ -53,8 +53,8 @@ namespace Be.Stateless.BizTalk.Activity.Tracking
 			ClaimStore.CheckInDirectory = null;
 			ClaimStore.CheckOutDirectory = null;
 
-			MessageMock = new Unit.Message.Mock<IBaseMessage> { DefaultValue = DefaultValue.Mock };
-			ResourceTrackerMock = new Mock<IResourceTracker>();
+			MessageMock = new() { DefaultValue = DefaultValue.Mock };
+			ResourceTrackerMock = new();
 		}
 
 		public void Dispose()

@@ -135,14 +135,14 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Extensions
 		public void ThrowsWhenOrchestrationMessageIsNull()
 		{
 			Invoking(() => ((XLANGMessage) null).GetTrackingContext()).Should().Throw<ArgumentNullException>();
-			Invoking(() => ((XLANGMessage) null).SetTrackingContext(new TrackingContext())).Should().Throw<ArgumentNullException>();
+			Invoking(() => ((XLANGMessage) null).SetTrackingContext(new())).Should().Throw<ArgumentNullException>();
 		}
 
 		[Fact]
 		public void ThrowsWhenPipelineMessageIsNull()
 		{
 			Invoking(() => ((IBaseMessage) null).GetTrackingContext()).Should().Throw<ArgumentNullException>();
-			Invoking(() => ((IBaseMessage) null).SetTrackingContext(new TrackingContext())).Should().Throw<ArgumentNullException>();
+			Invoking(() => ((IBaseMessage) null).SetTrackingContext(new())).Should().Throw<ArgumentNullException>();
 		}
 
 		private TrackingContext CreateTrackingContext()

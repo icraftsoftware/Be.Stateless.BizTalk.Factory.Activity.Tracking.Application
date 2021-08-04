@@ -45,19 +45,19 @@ namespace Be.Stateless.BizTalk.MicroComponent
 			var activityTrackerContext = new ActivityTracker.Context(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body);
 
 			_activityTrackerFactory = Activity.Tracking.Messaging.ActivityTracker.Factory;
-			ActivityTrackerMock = new Mock<Activity.Tracking.Messaging.ActivityTracker>(activityTrackerContext);
+			ActivityTrackerMock = new(activityTrackerContext);
 			Activity.Tracking.Messaging.ActivityTracker.Factory = _ => ActivityTrackerMock.Object;
 
 			_messageBodyTrackerFactory = MessageBodyTracker.Factory;
-			MessageBodyTrackerMock = new Mock<MessageBodyTracker>(activityTrackerContext);
+			MessageBodyTrackerMock = new(activityTrackerContext);
 			MessageBodyTracker.Factory = _ => MessageBodyTrackerMock.Object;
 
 			_trackingContextCacheInstance = TrackingContextCache.Instance;
-			CacheMock = new Mock<TrackingContextCache>(MockBehavior.Strict);
+			CacheMock = new(MockBehavior.Strict);
 			TrackingContextCache.Instance = CacheMock.Object;
 
 			_processNameResolverFactory = ProcessNameResolver.Factory;
-			ProcessNameResolverMock = new Mock<ProcessNameResolver>(MessageMock.Object);
+			ProcessNameResolverMock = new(MessageMock.Object);
 			ProcessNameResolver.Factory = _ => ProcessNameResolverMock.Object;
 		}
 
@@ -91,7 +91,7 @@ namespace Be.Stateless.BizTalk.MicroComponent
 		{
 			var component = new ActivityTracker();
 			var builder = new StringBuilder();
-			using (var writer = XmlWriter.Create(builder, new XmlWriterSettings { OmitXmlDeclaration = true }))
+			using (var writer = XmlWriter.Create(builder, new() { OmitXmlDeclaration = true }))
 			{
 				component.Serialize(writer);
 			}
@@ -230,8 +230,8 @@ namespace Be.Stateless.BizTalk.MicroComponent
 		{
 			// MockBehavior must be Strict for following test
 			var activityTrackerComponentContext = new ActivityTracker.Context(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body);
-			ActivityTrackerMock = new Mock<Activity.Tracking.Messaging.ActivityTracker>(MockBehavior.Strict, activityTrackerComponentContext);
-			MessageBodyTrackerMock = new Mock<MessageBodyTracker>(MockBehavior.Strict, activityTrackerComponentContext);
+			ActivityTrackerMock = new(MockBehavior.Strict, activityTrackerComponentContext);
+			MessageBodyTrackerMock = new(MockBehavior.Strict, activityTrackerComponentContext);
 
 			// method call ordering is important as only one of the first two methods, i.e. either TryCheckOutMessageBody()
 			// or SetupCapture(), ensures a TrackingStream is setup

@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 
 		#region Mock's Factory Hook Point
 
-		internal static Func<IBaseMessage, ProcessNameResolver> Factory { get; set; } = message => new ProcessNameResolver(message);
+		internal static Func<IBaseMessage, ProcessNameResolver> Factory { get; set; } = message => new(message);
 
 		#endregion
 

@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -27,6 +27,16 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 {
 	public class ActivityFactoryFixture
 	{
+		#region Setup/Teardown
+
+		public ActivityFactoryFixture()
+		{
+			PipelineContextMock = new();
+			PipelineContextMock.Setup(pc => pc.GetEventStream()).Returns(new Mock<EventStream>().Object);
+		}
+
+		#endregion
+
 		[Fact]
 		public void CreateMessagingStepReturnsRegularMessagingStep()
 		{
@@ -47,20 +57,14 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 		public void FindMessagingStepReturnsMessagingStepReference()
 		{
 			var factory = new ActivityFactory(PipelineContextMock.Object);
-			factory.FindMessagingStep(new TrackingContext { MessagingStepActivityId = "pseudo-activity-id" }).Should().BeOfType<MessagingStepReference>();
+			factory.FindMessagingStep(new() { MessagingStepActivityId = "pseudo-activity-id" }).Should().BeOfType<MessagingStepReference>();
 		}
 
 		[Fact]
 		public void FindProcessReturnsProcessReference()
 		{
 			var factory = new ActivityFactory(PipelineContextMock.Object);
-			factory.FindProcess(new TrackingContext { ProcessActivityId = "pseudo-activity-id" }).Should().BeOfType<ProcessReference>();
-		}
-
-		public ActivityFactoryFixture()
-		{
-			PipelineContextMock = new Mock<IPipelineContext>();
-			PipelineContextMock.Setup(pc => pc.GetEventStream()).Returns(new Mock<EventStream>().Object);
+			factory.FindProcess(new() { ProcessActivityId = "pseudo-activity-id" }).Should().BeOfType<ProcessReference>();
 		}
 
 		private Mock<IPipelineContext> PipelineContextMock { get; }

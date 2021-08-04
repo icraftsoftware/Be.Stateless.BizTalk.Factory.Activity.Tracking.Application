@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ namespace Be.Stateless.BizTalk.Message.Extensions
 			// extract url from claim token
 			var urlNode = document.SelectSingleNode("/*/s0:Url", nsm);
 			if (urlNode == null) throw new ArgumentException($"{document.DocumentElement.IfNotNull(de => de.Name)} token message has no Url element.");
-			return new MessageBodyCaptureDescriptor(urlNode.InnerText, MessageBodyCaptureMode.Claimed);
+			return new(urlNode.InnerText, MessageBodyCaptureMode.Claimed);
 		}
 	}
 }

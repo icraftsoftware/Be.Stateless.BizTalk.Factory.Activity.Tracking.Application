@@ -20,18 +20,16 @@ using System.Transactions;
 using Be.Stateless.BizTalk.Component;
 using Be.Stateless.BizTalk.ContextBuilders.Send.Claim;
 using Be.Stateless.BizTalk.ContextProperties;
-using Be.Stateless.BizTalk.Dsl;
 using Be.Stateless.BizTalk.Dsl.Binding;
 using Be.Stateless.BizTalk.Dsl.Binding.Adapter;
 using Be.Stateless.BizTalk.Dsl.Binding.Convention;
 using Be.Stateless.BizTalk.Dsl.Binding.Convention.Simple;
-using Be.Stateless.BizTalk.Dsl.Binding.Subscription;
 using Be.Stateless.BizTalk.Factory;
 using Be.Stateless.BizTalk.Maps.ToSql.Procedures.Claim;
 using Be.Stateless.BizTalk.MicroComponent;
 using Be.Stateless.BizTalk.MicroPipelines;
+using Be.Stateless.BizTalk.Schema;
 using Be.Stateless.BizTalk.Schemas.Xml;
-using Microsoft.Adapters.Sql;
 using RetryPolicy = Be.Stateless.BizTalk.Dsl.Binding.Convention.RetryPolicy;
 
 namespace Be.Stateless.BizTalk
@@ -55,7 +53,7 @@ namespace Be.Stateless.BizTalk
 				});
 			Transport.Adapter = new WcfSqlAdapter.Outbound(
 				a => {
-					a.Address = new SqlAdapterConnectionUri {
+					a.Address = new() {
 						InitialCatalog = "BizTalkFactoryTransientStateDb",
 						Server = Platform.Settings.ProcessingDatabaseServer,
 						InstanceName = Platform.Settings.ProcessingDatabaseInstance
@@ -65,7 +63,7 @@ namespace Be.Stateless.BizTalk
 				});
 			Transport.Host = Platform.Settings.HostResolutionPolicy;
 			Transport.RetryPolicy = RetryPolicy.ShortRunning;
-			Filter = new Filter(() => BtsProperties.MessageType == Schema<Claim.CheckIn>.MessageType);
+			Filter = new(() => BtsProperties.MessageType == SchemaMetadata.For<Claim.CheckIn>().MessageType);
 		}
 	}
 }

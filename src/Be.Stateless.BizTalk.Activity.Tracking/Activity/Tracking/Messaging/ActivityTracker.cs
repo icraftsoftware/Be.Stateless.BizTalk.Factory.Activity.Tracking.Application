@@ -38,7 +38,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 
 		#region Mock's Factory Hook Point
 
-		internal static Func<MicroComponent.ActivityTracker.Context, ActivityTracker> Factory { get; set; } = context => new ActivityTracker(context);
+		internal static Func<MicroComponent.ActivityTracker.Context, ActivityTracker> Factory { get; set; } = context => new(context);
 
 		#endregion
 

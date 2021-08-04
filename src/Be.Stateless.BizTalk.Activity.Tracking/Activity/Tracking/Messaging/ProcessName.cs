@@ -54,7 +54,7 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			if (unsupportedProperties.Any()) throw new ArgumentException(message);
 
 			_isCreatingSingletonInstance = true;
-			Processes = new T();
+			Processes = new();
 			var prefix = typeof(T).FullName + ".";
 			properties.ForEach(p => Reflector.SetProperty(Processes, p.Name, prefix + p.Name));
 		}

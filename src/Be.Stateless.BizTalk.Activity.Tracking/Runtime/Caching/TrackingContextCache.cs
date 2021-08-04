@@ -39,7 +39,7 @@ namespace Be.Stateless.BizTalk.Runtime.Caching
 		[SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Required for unit testsing purposes.")]
 		protected TrackingContextCache()
 		{
-			_cache = new MemoryCache(nameof(TrackingContextCache));
+			_cache = new(nameof(TrackingContextCache));
 		}
 
 		/// <summary>
@@ -62,7 +62,7 @@ namespace Be.Stateless.BizTalk.Runtime.Caching
 			if (duration < 1) throw new ArgumentException("Expiration duration must be strictly positive.", nameof(duration));
 
 			var cacheItem = new CacheItem(key, trackingContext);
-			var policy = new CacheItemPolicy { AbsoluteExpiration = new DateTimeOffset(DateTime.UtcNow.AddSeconds(duration)) };
+			var policy = new CacheItemPolicy { AbsoluteExpiration = new(DateTime.UtcNow.AddSeconds(duration)) };
 			_cache.Set(cacheItem, policy);
 		}
 

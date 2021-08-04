@@ -33,7 +33,7 @@ namespace Be.Stateless.BizTalk.Install.Command
 			using (var cnx = BizTalkFactoryManagementDbConnection)
 			using (var cmd = new SqlCommand(cmdText, cnx))
 			{
-				cmd.Parameters.Add(new SqlParameter("@name", SqlDbType.NVarChar));
+				cmd.Parameters.Add(new("@name", SqlDbType.NVarChar));
 				cnx.Open();
 				foreach (var processName in ProcessNames)
 				{

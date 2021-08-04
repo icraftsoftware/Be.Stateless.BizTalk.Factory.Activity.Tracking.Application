@@ -38,7 +38,7 @@ namespace Be.Stateless.BizTalk.Install.Command
 					InitialCatalog = MANAGEMENT_DATABASE_NAME,
 					IntegratedSecurity = true
 				};
-				return new SqlConnection(builder.ConnectionString);
+				return new(builder.ConnectionString);
 			}
 		}
 
