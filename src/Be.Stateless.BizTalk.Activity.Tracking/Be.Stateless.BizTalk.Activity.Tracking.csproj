@@ -35,12 +35,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Be.Stateless.BizTalk.Abstractions" Version="2.0.21171.29951" />
-    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents" Version="2.0.21215.44110" />
-    <PackageReference Include="Be.Stateless.BizTalk.Settings" Version="2.0.21172.21079" />
-    <PackageReference Include="Be.Stateless.BizTalk.Stream" Version="2.0.21215.39558" />
-    <PackageReference Include="Be.Stateless.BizTalk.XLang" Version="2.0.21171.57626" />
-    <PackageReference Include="Be.Stateless.Extensions" Version="2.0.21005.38790" />
+    <PackageReference Include="Be.Stateless.BizTalk.Abstractions" Version="2.0.21284.24948" />
+    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents" Version="2.0.21285.41095" />
+    <PackageReference Include="Be.Stateless.BizTalk.Settings" Version="2.0.21285.38408" />
+    <PackageReference Include="Be.Stateless.BizTalk.Stream" Version="2.0.21285.39338" />
+    <PackageReference Include="Be.Stateless.BizTalk.XLang" Version="2.0.21285.39533" />
+    <PackageReference Include="Be.Stateless.Extensions" Version="2.0.21281.26117" />
     <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

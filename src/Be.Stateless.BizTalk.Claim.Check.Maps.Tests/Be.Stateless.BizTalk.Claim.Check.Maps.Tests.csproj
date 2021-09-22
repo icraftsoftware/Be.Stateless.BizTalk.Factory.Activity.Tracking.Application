@@ -20,14 +20,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Be.Stateless.BizTalk.Messaging.Unit" Version="2.0.21171.58430" />
-    <PackageReference Include="Be.Stateless.BizTalk.Schemas" Version="2.0.21173.39237" />
-    <PackageReference Include="Be.Stateless.BizTalk.Transform.Unit" Version="2.0.21171.58785" />
+    <PackageReference Include="Be.Stateless.BizTalk.Messaging.Unit" Version="2.0.21285.39917" />
+    <PackageReference Include="Be.Stateless.BizTalk.Schemas" Version="2.0.21285.45764" />
+    <PackageReference Include="Be.Stateless.BizTalk.Transform.Unit" Version="2.0.21285.40634" />
     <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="coverlet.msbuild" Version="2.9.0">
+    <PackageReference Include="coverlet.msbuild" Version="3.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

@@ -57,7 +57,12 @@ param(
    [Parameter(Mandatory = $false)]
    [ValidateNotNullOrEmpty()]
    [string]
-   $EnvironmentSettingOverridesType,
+   $EnvironmentSettingOverridesTypeName,
+
+   [Parameter(Mandatory = $false)]
+   [ValidateScript( { ($_ | Test-None) -or ($_ | Test-Path -PathType Container) } )]
+   [string[]]
+   $AssemblyProbingFolderPaths,
 
    [Parameter(Mandatory = $false)]
    [ValidateNotNullOrEmpty()]
@@ -89,7 +94,9 @@ ApplicationManifest -Name BizTalk.Factory.Activity.Tracking -Description 'BizTal
    BamIndex -Activity Process -Name BeginTime, InterchangeID, ProcessName, Value1, Value2, Value3
    BamIndex -Activity ProcessMessagingStep -Name MessagingStepActivityID, ProcessActivityID
    BamIndex -Activity MessagingStep -Name InterchangeID, Time, Value1, Value2, Value3
-   Binding -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding) -EnvironmentSettingOverridesType $EnvironmentSettingOverridesType
+   Binding -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding) `
+      -EnvironmentSettingOverridesTypeName $EnvironmentSettingOverridesTypeName `
+      -AssemblyProbingFolderPaths $AssemblyProbingFolderPaths
    Map -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Claim.Check.Maps)
    ProcessDescriptor -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Activity.Tracking) -DatabaseServer $ManagementServer
    Schema -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Claim.Check.Schemas)
@@ -117,5 +124,6 @@ ApplicationManifest -Name BizTalk.Factory.Activity.Tracking -Description 'BizTal
    SsoConfigStore -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Factory.Activity.Tracking.Binding) `
       -AdministratorGroups $BizTalkAdministratorGroup `
       -UserGroups $BizTalkApplicationUserGroup, $BizTalkIsolatedHostUserGroup `
-      -EnvironmentSettingOverridesType $EnvironmentSettingOverridesType
+      -EnvironmentSettingOverridesTypeName $EnvironmentSettingOverridesTypeName `
+      -AssemblyProbingFolderPaths $AssemblyProbingFolderPaths
 }
