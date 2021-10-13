@@ -30,7 +30,7 @@ namespace Be.Stateless.BizTalk.Claim.Store.Configuration
 		[Fact]
 		public void DeclaredSection()
 		{
-			var claimStoreConfigurationSection = (ClaimStoreConfigurationSection) ConfigurationManager.GetSection("be.stateless.test/biztalk/claimStore");
+			var claimStoreConfigurationSection = (ClaimStoreConfigurationSection) ConfigurationManager.GetSection("be.stateless.test/biztalk.factory/claimStore");
 			claimStoreConfigurationSection.Should().NotBeNull();
 			claimStoreConfigurationSection!.Agent.Should().NotBeNull();
 			claimStoreConfigurationSection.Agent.PollingInterval.Should().Be(TimeSpan.Parse("00:03:33"));
@@ -41,21 +41,21 @@ namespace Be.Stateless.BizTalk.Claim.Store.Configuration
 		[Fact]
 		public void DefaultFileLockTimeout()
 		{
-			var claimStoreConfigurationSection = (ClaimStoreConfigurationSection) ConfigurationManager.GetSection("be.stateless.test/biztalk/claimStoreWithoutPollingInterval");
+			var claimStoreConfigurationSection = (ClaimStoreConfigurationSection) ConfigurationManager.GetSection("be.stateless.test/biztalk.factory/claimStoreWithoutPollingInterval");
 			claimStoreConfigurationSection!.Agent.FileLockTimeout.Should().Be(TimeSpan.Parse(AgentConfigurationElement.FILE_LOCK_TIMEOUT_DEFAULT_VALUE));
 		}
 
 		[Fact]
 		public void DefaultPollingInterval()
 		{
-			var claimStoreConfigurationSection = (ClaimStoreConfigurationSection) ConfigurationManager.GetSection("be.stateless.test/biztalk/claimStoreWithoutPollingInterval");
+			var claimStoreConfigurationSection = (ClaimStoreConfigurationSection) ConfigurationManager.GetSection("be.stateless.test/biztalk.factory/claimStoreWithoutPollingInterval");
 			claimStoreConfigurationSection!.Agent.PollingInterval.Should().Be(TimeSpan.Parse(AgentConfigurationElement.POLLING_INTERVAL_DEFAULT_VALUE));
 		}
 
 		[Fact]
 		public void InvalidCheckInDirectories()
 		{
-			Invoking(() => ConfigurationManager.GetSection("be.stateless.test/biztalk/claimStoreWithInvalidCheckInDirectories"))
+			Invoking(() => ConfigurationManager.GetSection("be.stateless.test/biztalk.factory/claimStoreWithInvalidCheckInDirectories"))
 				.Should().Throw<ConfigurationErrorsException>()
 				.WithMessage("Required attribute 'path' not found.*");
 		}
@@ -63,7 +63,7 @@ namespace Be.Stateless.BizTalk.Claim.Store.Configuration
 		[Fact]
 		public void NegativeFileLockTimeout()
 		{
-			Invoking(() => ConfigurationManager.GetSection("be.stateless.test/biztalk/claimStoreWithNegativeFileLockTimeout"))
+			Invoking(() => ConfigurationManager.GetSection("be.stateless.test/biztalk.factory/claimStoreWithNegativeFileLockTimeout"))
 				.Should().Throw<ConfigurationErrorsException>()
 				.WithMessage("The value for the property 'fileLockTimeout' is not valid. The error is: The time span value must be positive.*");
 		}
@@ -71,7 +71,7 @@ namespace Be.Stateless.BizTalk.Claim.Store.Configuration
 		[Fact]
 		public void NegativePollingInterval()
 		{
-			Invoking(() => ConfigurationManager.GetSection("be.stateless.test/biztalk/claimStoreWithNegativePollingInterval"))
+			Invoking(() => ConfigurationManager.GetSection("be.stateless.test/biztalk.factory/claimStoreWithNegativePollingInterval"))
 				.Should().Throw<ConfigurationErrorsException>()
 				.WithMessage("The value for the property 'pollingInterval' is not valid. The error is: The time span value must be positive.*");
 		}
@@ -79,7 +79,7 @@ namespace Be.Stateless.BizTalk.Claim.Store.Configuration
 		[Fact]
 		public void NoCheckInDirectories()
 		{
-			Invoking(() => ConfigurationManager.GetSection("be.stateless.test/biztalk/claimStoreWithoutCheckInDirectories"))
+			Invoking(() => ConfigurationManager.GetSection("be.stateless.test/biztalk.factory/claimStoreWithoutCheckInDirectories"))
 				.Should().Throw<ConfigurationErrorsException>()
 				.WithMessage("DirectoryConfigurationElementCollection collection contains no items.*");
 		}
@@ -87,7 +87,7 @@ namespace Be.Stateless.BizTalk.Claim.Store.Configuration
 		[Fact]
 		public void NonexistentCheckInDirectories()
 		{
-			Invoking(() => ConfigurationManager.GetSection("be.stateless.test/biztalk/claimStoreWithNonexistentCheckInDirectories"))
+			Invoking(() => ConfigurationManager.GetSection("be.stateless.test/biztalk.factory/claimStoreWithNonexistentCheckInDirectories"))
 				.Should().Throw<ConfigurationErrorsException>()
 				.WithMessage(@"The value for the property 'path' is not valid. The error is: Could not find a part of the path 'c:\some-nonexistent-folder'.*");
 		}
@@ -95,7 +95,7 @@ namespace Be.Stateless.BizTalk.Claim.Store.Configuration
 		[Fact]
 		public void NonexistentCheckOutDirectory()
 		{
-			Invoking(() => ConfigurationManager.GetSection("be.stateless.test/biztalk/claimStoreWithNonexistentCheckOutDirectory"))
+			Invoking(() => ConfigurationManager.GetSection("be.stateless.test/biztalk.factory/claimStoreWithNonexistentCheckOutDirectory"))
 				.Should().Throw<ConfigurationErrorsException>()
 				.WithMessage(@"The value for the property 'checkOutDirectory' is not valid. The error is: Could not find a part of the path 'c:\some-nonexistent-folder'.*");
 		}
@@ -105,7 +105,7 @@ namespace Be.Stateless.BizTalk.Claim.Store.Configuration
 		[SuppressMessage("ReSharper", "StringLiteralTypo")]
 		public void UnconfiguredSection()
 		{
-			Invoking(() => ConfigurationManager.GetSection("be.stateless.test/biztalk/unconfiguredClaimStore"))
+			Invoking(() => ConfigurationManager.GetSection("be.stateless.test/biztalk.factory/unconfiguredClaimStore"))
 				.Should().Throw<ConfigurationErrorsException>()
 				.WithMessage("Required attribute 'agent' not found.*");
 		}

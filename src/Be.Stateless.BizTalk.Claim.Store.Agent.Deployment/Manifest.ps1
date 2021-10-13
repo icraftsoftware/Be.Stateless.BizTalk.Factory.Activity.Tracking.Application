@@ -17,11 +17,11 @@
 #endregion
 
 [CmdletBinding()]
-[OutputType([hashtable])]
+[OutputType([HashTable])]
 param(
    [Parameter(Mandatory = $true)]
    [ValidateNotNullOrEmpty()]
-   [pscredential]
+   [PSCredential]
    $Credential,
 
    [Parameter(Mandatory = $false)]
@@ -64,7 +64,7 @@ Set-StrictMode -Version Latest
 $claimStoreAgentConfigurationFile = Get-ResourceItem -Name Be.Stateless.BizTalk.Claim.Store.Agent.exe -Extension .config
 
 LibraryManifest -Name BizTalk.Factory.Claim.Store.Agent -Description 'BizTalk.Factory''s Claim Store Agent.' -Build {
-   EventLogSource -Name 'Claim Store Agent' -LogName Application
+   EventLogSource -Name 'Claim.Store' -LogName Application
    WindowsService -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Claim.Store.Agent) `
       -Name BF_CSA `
       -Credential $Credential `
@@ -73,10 +73,10 @@ LibraryManifest -Name BizTalk.Factory.Claim.Store.Agent -Description 'BizTalk.Fa
       -Description 'This service moves the files that are captured by the claim and tracking infrastructure on the BizTalk Server nodes towards a central location. Stopping the service will cause claimed and tracked files to accumulate on the BizTalk Server nodes disk.' `
       -Condition ($env:COMPUTERNAME -in $TargetHosts)
    XmlConfigurationAction -Path $claimStoreAgentConfigurationFile `
-      -Update /configuration/be.stateless/biztalk/claimStore/agent `
+      -Update /configuration/be.stateless/biztalk.factory/claimStore/agent `
       -Attributes @{ checkOutDirectory = $CheckOutDirectory }
    XmlConfigurationAction -Path $claimStoreAgentConfigurationFile `
-      -Update /configuration/be.stateless/biztalk/claimStore/agent/checkInDirectories/directory `
+      -Update /configuration/be.stateless/biztalk.factory/claimStore/agent/checkInDirectories/directory `
       -Attributes @{ path = $CheckInDirectory }
    XmlConfigurationAction -Path $claimStoreAgentConfigurationFile `
       -Update "/configuration/connectionStrings/add[@name='TransientStateDb']" `

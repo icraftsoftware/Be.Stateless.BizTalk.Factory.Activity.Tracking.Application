@@ -47,7 +47,7 @@ namespace Be.Stateless.BizTalk.Claim.Store.Configuration
 		public AgentConfigurationElement Agent => (AgentConfigurationElement) base[_agentProperty];
 
 		private const string AGENT_PROPERTY_NAME = "agent";
-		private const string DEFAULT_SECTION_NAME = "be.stateless/biztalk/claimStore";
+		private const string DEFAULT_SECTION_NAME = "be.stateless/biztalk.factory/claimStore";
 
 		private static readonly ConfigurationPropertyCollection _properties = new();
 

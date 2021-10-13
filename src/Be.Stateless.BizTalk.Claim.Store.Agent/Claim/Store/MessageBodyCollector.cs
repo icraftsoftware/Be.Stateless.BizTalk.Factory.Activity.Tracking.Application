@@ -32,27 +32,43 @@ namespace Be.Stateless.BizTalk.Claim.Store
 	{
 		public void Start()
 		{
-			lock (_lock)
+			try
 			{
-				var agentConfiguration = ClaimStoreConfigurationSection.Current.Agent;
-				_logger.InfoFormat(
-					"Claim Store Agent Service is initializing with the following check-in directories:{0}\r\n" +
-					"and check-out directory:\r\n  {1}.",
-					agentConfiguration.CheckInDirectories.Aggregate(string.Empty, (acc, d) => acc + "\r\n  " + d + ";"),
-					agentConfiguration.CheckOutDirectory);
-				_pollingTimer = new(OnTimerElapsed);
+				lock (_lock)
+				{
+					var agentConfiguration = ClaimStoreConfigurationSection.Current.Agent;
+					_logger.InfoFormat(
+						"Claim Store Agent Service is initializing with the following check-in directories:{0}\r\n" +
+						"and check-out directory:\r\n  {1}.",
+						agentConfiguration.CheckInDirectories.Aggregate(string.Empty, (acc, d) => acc + "\r\n  " + d + ";"),
+						agentConfiguration.CheckOutDirectory);
+					_pollingTimer = new(OnTimerElapsed);
+				}
+				// do an initial collection and schedule next one
+				ThreadPool.QueueUserWorkItem(OnTimerElapsed);
 			}
-			// do an initial collection and schedule next one
-			ThreadPool.QueueUserWorkItem(OnTimerElapsed);
+			catch (Exception exception)
+			{
+				if (_logger.IsErrorEnabled) _logger.Error("An error occurred during Claim Store Agent Service start up.", exception);
+				throw;
+			}
 		}
 
 		public void Stop()
 		{
-			lock (_lock)
+			try
 			{
-				_pollingTimer.Change(TimeSpan.FromMilliseconds(-1.0), TimeSpan.FromMilliseconds(-1.0));
-				_pollingTimer.Dispose();
-				_pollingTimer = null;
+				lock (_lock)
+				{
+					_pollingTimer.Change(TimeSpan.FromMilliseconds(-1.0), TimeSpan.FromMilliseconds(-1.0));
+					_pollingTimer.Dispose();
+					_pollingTimer = null;
+				}
+			}
+			catch (Exception exception)
+			{
+				if (_logger.IsErrorEnabled) _logger.Error("An error occurred during Claim Store Agent Service shutdown.", exception);
+				throw;
 			}
 		}
 
@@ -76,19 +92,27 @@ namespace Be.Stateless.BizTalk.Claim.Store
 			{
 				if (exception.IsFatal())
 				{
-					_logger.Fatal("A fatal error occurred while collecting claimed and tracked message bodies.", exception);
+					_logger.Fatal("A fatal error occurred during Claim Store Agent Service's message body collection.", exception);
 					throw;
 				}
-				if (_logger.IsErrorEnabled) _logger.Error("An error occurred while collecting claimed and tracked message bodies.", exception);
+				if (_logger.IsErrorEnabled) _logger.Error("An error occurred during Claim Store Agent Service's message body collection.", exception);
 			}
 		}
 
 		private void ScheduleNextCollection()
 		{
 			if (_pollingTimer == null) return;
-			lock (_lock)
+			try
 			{
-				_pollingTimer?.Change(ClaimStoreConfigurationSection.Current.Agent.PollingInterval, TimeSpan.FromMilliseconds(-1.0));
+				lock (_lock)
+				{
+					_pollingTimer?.Change(ClaimStoreConfigurationSection.Current.Agent.PollingInterval, TimeSpan.FromMilliseconds(-1.0));
+				}
+			}
+			catch (Exception exception)
+			{
+				if (_logger.IsErrorEnabled) _logger.Error("An error occurred during Claim Store Agent Service's scheduling of next message body collection.", exception);
+				throw;
 			}
 		}
 

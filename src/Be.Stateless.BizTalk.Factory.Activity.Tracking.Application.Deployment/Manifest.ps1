@@ -17,7 +17,7 @@
 #endregion
 
 [CmdletBinding()]
-[OutputType([hashtable])]
+[OutputType([HashTable])]
 param(
    [Parameter(Mandatory = $false)]
    [ValidateNotNullOrEmpty()]
@@ -62,7 +62,7 @@ param(
    [Parameter(Mandatory = $false)]
    [ValidateScript( { ($_ | Test-None) -or ($_ | Test-Path -PathType Container) } )]
    [string[]]
-   $AssemblyProbingFolderPaths,
+   $AssemblyProbingFolderPaths = @(),
 
    [Parameter(Mandatory = $false)]
    [ValidateNotNullOrEmpty()]
@@ -88,7 +88,7 @@ param(
 
 Set-StrictMode -Version Latest
 
-ApplicationManifest -Name BizTalk.Factory.Activity.Tracking -Description 'BizTalk.Factory''s activity tracking applicatioin add-on for general purpose BizTalk Server development.' -Reference BizTalk.Factory -Build {
+ApplicationManifest -Name BizTalk.Factory.Activity.Tracking -Description 'BizTalk.Factory''s activity tracking application add-on for general purpose BizTalk Server development.' -Reference BizTalk.Factory -Build {
    Assembly -Path (Get-ResourceItem -Name Be.Stateless.BizTalk.Activity.Tracking)
    BamActivityModel -Path (Get-ResourceItem -Name ActivityModel -Extension .xml)
    BamIndex -Activity Process -Name BeginTime, InterchangeID, ProcessName, Value1, Value2, Value3

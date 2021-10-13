@@ -25,33 +25,33 @@ namespace Be.Stateless.BizTalk.Claim.Store.Agent
 		public ServiceController()
 		{
 			InitializeComponent();
-			_collector = new();
+			_messageBodyCollector = new();
 		}
 
 		#region Base Class Member Overrides
 
 		protected override void OnContinue()
 		{
-			_collector.Start();
+			_messageBodyCollector.Start();
 		}
 
 		protected override void OnPause()
 		{
-			_collector.Stop();
+			_messageBodyCollector.Stop();
 		}
 
 		protected override void OnStart(string[] args)
 		{
-			_collector.Start();
+			_messageBodyCollector.Start();
 		}
 
 		protected override void OnStop()
 		{
-			_collector.Stop();
+			_messageBodyCollector.Stop();
 		}
 
 		#endregion
 
-		private readonly MessageBodyCollector _collector;
+		private readonly MessageBodyCollector _messageBodyCollector;
 	}
 }
