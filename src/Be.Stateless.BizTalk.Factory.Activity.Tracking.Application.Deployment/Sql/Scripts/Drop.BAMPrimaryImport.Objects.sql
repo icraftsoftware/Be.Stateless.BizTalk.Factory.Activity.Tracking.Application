@@ -52,6 +52,21 @@ IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[vw_Last
    DROP VIEW [dbo].[vw_LastWeekSuccessfulProcesses]
 GO
 
-/****** Revoke IIS BizTalkActivityMonitoring  AppPool identity's read access to BamPrimaryImport Database ******/
-EXEC dbo.sp_droprolemember @rolename=N'db_datareader', @membername=N'$(BizTalkApplicationUserGroup)'
+/****** Revoke BizTalk Application User Groups read access to BamPrimaryImport Database ******/
+DECLARE @rowNumber INT = 0
+DECLARE @group nvarchar(128)
+WHILE (1 = 1)
+BEGIN
+   WITH Groups AS (
+      SELECT ROW_NUMBER() OVER(ORDER BY value ASC) AS RowNumber, value AS [Group]
+      FROM STRING_SPLIT(N'$(BizTalkHostUserGroups)', ';')
+   )
+   SELECT TOP 1 @rowNumber = RowNumber, @group = TRIM([Group])
+   FROM Groups
+   WHERE RowNumber > @rowNumber
+
+   IF @@ROWCOUNT = 0 BREAK;
+
+   EXEC dbo.sp_droprolemember @rolename=N'db_datareader', @membername=@group
+END
 GO

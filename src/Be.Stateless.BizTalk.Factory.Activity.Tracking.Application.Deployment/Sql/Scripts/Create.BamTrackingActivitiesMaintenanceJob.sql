@@ -86,6 +86,7 @@ exec sp_executesql @stmt',
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
 
 /****** Object:  Step [Purge Captured Large Message Bodies] ******/
+/* #NOSQLPS --> start up on FileSystem PSDrive instead of SqlServer one, see https://docs.microsoft.com/en-us/sql/powershell/run-windows-powershell-steps-in-sql-server-agent */
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge Captured Large Message Bodies',
       @step_id=2,
       @cmdexec_success_code=0,
@@ -96,7 +97,7 @@ EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge Ca
       @retry_attempts=0,
       @retry_interval=0,
       @os_run_priority=0, @subsystem=N'PowerShell',
-      @command=N'#NOSQLPS --start up on FileSystem PSDrive instead of SqlServer one, see https://docs.microsoft.com/en-us/sql/powershell/run-windows-powershell-steps-in-sql-server-agent
+      @command=N'#NOSQLPS
 $Deadline = [datetime]::Now.AddDays(-$(BamArchiveWindowTimeLength))
 Get-ChildItem -Path "$(ClaimStoreCheckOutDirectory)" -Directory | Where-Object CreationTime -lt $Deadline | Remove-Item -Recurse -Force -Confirm:$false',
       @database_name=N'master',

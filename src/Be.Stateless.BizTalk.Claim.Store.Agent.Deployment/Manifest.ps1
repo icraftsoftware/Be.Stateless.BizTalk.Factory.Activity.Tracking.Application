@@ -50,7 +50,7 @@ param(
    [Parameter(Mandatory = $false)]
    [ValidateNotNullOrEmpty()]
    [string]
-   $ProcessingServer = $env:COMPUTERNAME,
+   $ProcessingServer = (Get-BizTalkGroupSettings).SubscriptionDBServerName,
 
    [Parameter(Mandatory = $false)]
    [AllowEmptyCollection()]
