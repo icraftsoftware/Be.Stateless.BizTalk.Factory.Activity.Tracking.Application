@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Be.Stateless.Extensions" Version="2.0.21308.30406" />
+    <PackageReference Include="Be.Stateless.Extensions" Version="2.0.21343.20798" />
     <PackageReference Include="Be.Stateless.Stream" Version="2.0.21281.39270" />
     <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">

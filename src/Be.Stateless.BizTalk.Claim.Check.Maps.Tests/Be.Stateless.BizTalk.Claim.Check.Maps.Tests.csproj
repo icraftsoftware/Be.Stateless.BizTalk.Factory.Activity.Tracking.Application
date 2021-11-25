@@ -23,7 +23,7 @@
     <PackageReference Include="Be.Stateless.BizTalk.Messaging.Unit" Version="2.0.21308.31565" />
     <PackageReference Include="Be.Stateless.BizTalk.Schemas" Version="2.0.21285.45764" />
     <PackageReference Include="Be.Stateless.BizTalk.Transform.Unit" Version="2.0.21285.40634" />
-    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.1">
+    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

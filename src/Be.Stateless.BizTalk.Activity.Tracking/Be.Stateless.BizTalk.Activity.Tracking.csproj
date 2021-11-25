@@ -42,11 +42,11 @@
     <PackageReference Include="Be.Stateless.BizTalk.Stream" Version="2.0.21285.39338" />
     <PackageReference Include="Be.Stateless.BizTalk.XLang" Version="2.0.21285.39533" />
     <PackageReference Include="Be.Stateless.BizTalk.Xml" Version="2.0.21285.38612" />
-    <PackageReference Include="Be.Stateless.Extensions" Version="2.0.21308.30406" />
+    <PackageReference Include="Be.Stateless.Extensions" Version="2.0.21343.20798" />
     <PackageReference Include="Be.Stateless.Reflection" Version="2.0.21281.37160" />
     <PackageReference Include="Be.Stateless.Stream" Version="2.0.21281.39270" />
     <PackageReference Include="Be.Stateless.Xml" Version="2.0.21281.40683" />
-    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.1">
+    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

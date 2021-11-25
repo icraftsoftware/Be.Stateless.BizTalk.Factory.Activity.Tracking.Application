@@ -13,7 +13,7 @@
     <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents.XUnit" Version="2.0.21302.35531" />
     <PackageReference Include="Be.Stateless.BizTalk.Settings.Unit" Version="2.0.21285.38408" />
     <PackageReference Include="Be.Stateless.Stream.Unit" Version="2.0.21281.39270" />
-    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.1">
+    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

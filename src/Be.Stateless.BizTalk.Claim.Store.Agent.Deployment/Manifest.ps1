@@ -16,6 +16,8 @@
 
 #endregion
 
+#Requires -Modules @{ ModuleName = 'BizTalk.Deployment'; ModuleVersion = '1.0.21350.31793'; GUID = '533b5f59-49ce-4f51-a293-cb78f5cf81b5' }
+
 [CmdletBinding()]
 [OutputType([HashTable])]
 param(
