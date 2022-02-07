@@ -1,5 +1,5 @@
 ﻿/*
- Copyright © 2012 - 2021 François Chabot
+ Copyright © 2012 - 2022 François Chabot
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -297,8 +297,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 -- =============================================
--- Author:     Microsoft
--- Description: http://msdn.microsoft.com/en-us/library/aa560758.aspx
+-- Author:      Microsoft
+-- Description: https://docs.microsoft.com/en-us/biztalk/core/how-to-remove-incomplete-activity-instances
 -- =============================================
 -- TODO : Check latest version
 CREATE PROCEDURE [dbo].[RemoveDanglingInstances]

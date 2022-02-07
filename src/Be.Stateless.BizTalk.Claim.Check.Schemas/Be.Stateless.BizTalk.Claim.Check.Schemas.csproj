@@ -37,7 +37,7 @@
   <ItemGroup>
     <PackageReference Include="Be.Stateless.BizTalk.Messaging" Version="2.1.22025.26745" />
     <PackageReference Include="Be.Stateless.Extensions" Version="2.1.22025.20499" />
-    <PackageReference Include="BizTalk.Server.2020.Build" Version="2.1.22025.37275" Condition="'$(TF_BUILD)' != 'true'">
+    <PackageReference Include="BizTalk.Server.2020.Build" Version="2.1.22038.34530" Condition="'$(TF_BUILD)' != 'true'">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

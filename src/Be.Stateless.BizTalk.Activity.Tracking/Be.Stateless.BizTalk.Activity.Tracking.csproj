@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Be.Stateless.BizTalk.Abstractions" Version="2.1.22025.23485" />
+    <PackageReference Include="Be.Stateless.BizTalk.Abstractions" Version="2.1.22038.28359" />
     <PackageReference Include="Be.Stateless.BizTalk.Messaging" Version="2.1.22025.26745" />
     <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents" Version="2.1.22025.28006" />
     <PackageReference Include="Be.Stateless.BizTalk.Settings" Version="2.1.22025.21655" />

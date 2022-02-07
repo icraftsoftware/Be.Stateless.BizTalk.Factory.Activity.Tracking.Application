@@ -24,10 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Be.Stateless.BizTalk.Abstractions" Version="2.1.22025.23485" />
-    <PackageReference Include="Be.Stateless.BizTalk.Dsl.Binding" Version="2.1.22025.35897" />
-    <PackageReference Include="Be.Stateless.BizTalk.Dsl.Binding.Conventions" Version="2.1.22025.35897" />
-    <PackageReference Include="Be.Stateless.BizTalk.Dsl.Environment.Settings" Version="2.1.22025.35897" />
+    <PackageReference Include="Be.Stateless.BizTalk.Abstractions" Version="2.1.22038.28359" />
+    <PackageReference Include="Be.Stateless.BizTalk.Dsl.Binding" Version="2.1.22038.33899" />
+    <PackageReference Include="Be.Stateless.BizTalk.Dsl.Binding.Conventions" Version="2.1.22038.33899" />
+    <PackageReference Include="Be.Stateless.BizTalk.Dsl.Environment.Settings" Version="2.1.22038.33899" />
     <PackageReference Include="Be.Stateless.BizTalk.Dsl.Pipeline" Version="2.1.22025.30333" />
     <PackageReference Include="Be.Stateless.BizTalk.Messaging" Version="2.1.22025.26745" />
     <PackageReference Include="Be.Stateless.BizTalk.Pipeline.Components" Version="2.1.22025.28847" />

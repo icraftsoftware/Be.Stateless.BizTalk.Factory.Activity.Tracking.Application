@@ -1,5 +1,5 @@
 ﻿/*
- Copyright © 2012 - 2021 François Chabot
+ Copyright © 2012 - 2022 François Chabot
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[monitoring_ProcessDescriptors](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](128) NOT NULL,
+	[Name] [nvarchar](256) NOT NULL,
  CONSTRAINT [PK_monitoring_ProcessDescriptors] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
