@@ -11,7 +11,7 @@
   <ItemGroup>
     <PackageReference Include="Be.Stateless.BizTalk.Activity.Monitoring" Version="2.1.22025.43746" />
     <PackageReference Include="Be.Stateless.BizTalk.Explorer" Version="2.1.22025.23369" />
-    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents.XUnit" Version="2.1.22025.28006" />
+    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents.XUnit" Version="2.1.22047.46252" />
     <PackageReference Include="Be.Stateless.BizTalk.Settings.Unit" Version="2.1.22025.21655" />
     <PackageReference Include="Be.Stateless.Stream.Unit" Version="2.1.22025.21947" />
     <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.3">
@@ -22,7 +22,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="FluentAssertions" Version="6.4.0" />
+    <PackageReference Include="FluentAssertions" Version="6.5.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="xunit.core" Version="2.4.1" />

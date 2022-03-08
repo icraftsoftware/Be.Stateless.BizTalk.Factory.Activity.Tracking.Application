@@ -24,14 +24,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Be.Stateless.BizTalk.Abstractions" Version="2.1.22038.28359" />
+    <PackageReference Include="Be.Stateless.BizTalk.Abstractions" Version="2.1.22046.40892" />
     <PackageReference Include="Be.Stateless.BizTalk.Dsl.Binding" Version="2.1.22038.33899" />
     <PackageReference Include="Be.Stateless.BizTalk.Dsl.Binding.Conventions" Version="2.1.22038.33899" />
     <PackageReference Include="Be.Stateless.BizTalk.Dsl.Environment.Settings" Version="2.1.22038.33899" />
     <PackageReference Include="Be.Stateless.BizTalk.Dsl.Pipeline" Version="2.1.22025.30333" />
     <PackageReference Include="Be.Stateless.BizTalk.Messaging" Version="2.1.22025.26745" />
     <PackageReference Include="Be.Stateless.BizTalk.Pipeline.Components" Version="2.1.22025.28847" />
-    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents" Version="2.1.22025.28006" />
+    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents" Version="2.1.22047.46252" />
     <PackageReference Include="Be.Stateless.BizTalk.Pipelines" Version="2.1.22025.39770" />
     <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.3">
       <PrivateAssets>all</PrivateAssets>
