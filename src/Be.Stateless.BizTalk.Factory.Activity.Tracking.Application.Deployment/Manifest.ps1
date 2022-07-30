@@ -16,6 +16,7 @@
 
 #endregion
 
+#Requires -Modules @{ ModuleName = 'Resource.Manifest' ; ModuleVersion = '2.1.0.0' ; MaximumVersion = '2.2.0.0' ; GUID = '07e35b0e-3441-46b4-82e6-d8daafb837bd' }
 #Requires -Modules @{ ModuleName = 'BizTalk.Deployment' ; ModuleVersion = '2.1.0.0' ; MaximumVersion = '2.2.0.0' ; GUID = '533b5f59-49ce-4f51-a293-cb78f5cf81b5' }
 
 [CmdletBinding()]

@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2021 François Chabot
+// Copyright © 2012 - 2022 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ using Be.Stateless.BizTalk.Message.Extensions;
 using Be.Stateless.BizTalk.Stream;
 using Be.Stateless.BizTalk.Unit;
 using Be.Stateless.IO;
+using Be.Stateless.Linq;
 using FluentAssertions;
 using Microsoft.BizTalk.Component.Interop;
 using Microsoft.BizTalk.Message.Interop;
@@ -96,8 +97,8 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 			MessageMock.Object.BodyPart.Data.Should().BeOfType<TrackingStream>();
 		}
 
-		[Fact(Skip = "Broken by Moq.")]
 		[SuppressMessage("ReSharper", "SuspiciousTypeConversion.Global")]
+		[Fact]
 		public void CaptureOfInboundMessagePiggiesBackKernelTransaction()
 		{
 			using (new TransactionScope())
@@ -113,12 +114,11 @@ namespace Be.Stateless.BizTalk.Activity.Tracking.Messaging
 				var sut = MessageBodyTracker.Create(new(PipelineContextMock.Object, MessageMock.Object, ActivityTrackingModes.Body));
 				sut.SetupTracking();
 
-				// TODO upgrade Moq
 				ClaimStoreMock.Verify(
 					cs => cs.SetupMessageBodyCapture(
 						It.IsAny<TrackingStream>(),
 						It.IsAny<ActivityTrackingModes>(),
-						It.Is<Func<IKernelTransaction>>(ktf => ReferenceEquals(ktf(), transaction))),
+						It.Is(() => transaction, new LambdaComparer<Func<IKernelTransaction>>((ktf1, ktf2) => ReferenceEquals(ktf1(), ktf2())))),
 					Times.Once());
 			}
 		}

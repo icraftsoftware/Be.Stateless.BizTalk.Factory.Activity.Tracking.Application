@@ -19,6 +19,8 @@
     <IsPackable>true</IsPackable>
     <PackageId>$(AssemblyName)</PackageId>
     <PackageDescription>$(Description)</PackageDescription>
+    <PackageIconUrl>https://github.com/icraftsoftware/Be.Stateless.Build.Scripts/raw/master/nuget.png</PackageIconUrl>
+    <PackageIcon>nuget.png</PackageIcon>
     <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
     <PackageTags>BizTalk library activity tracking</PackageTags>
     <IncludeSymbols>true</IncludeSymbols>
@@ -31,22 +33,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\.build\nuget.png" Pack="true" PackagePath="" />
     <None Include="..\..\.settings\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Be.Stateless.BizTalk.Abstractions" Version="2.1.22046.40892" />
-    <PackageReference Include="Be.Stateless.BizTalk.Messaging" Version="2.1.22025.26745" />
-    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents" Version="2.1.22047.46252" />
+    <PackageReference Include="Be.Stateless.BizTalk.Messaging" Version="2.1.22095.48625" />
+    <PackageReference Include="Be.Stateless.BizTalk.Pipeline.MicroComponents" Version="2.1.22143.17879" />
     <PackageReference Include="Be.Stateless.BizTalk.Settings" Version="2.1.22025.21655" />
-    <PackageReference Include="Be.Stateless.BizTalk.Stream" Version="2.1.22025.26169" />
-    <PackageReference Include="Be.Stateless.BizTalk.XLang" Version="2.1.22025.26179" />
-    <PackageReference Include="Be.Stateless.BizTalk.Xml" Version="2.1.22025.24612" />
+    <PackageReference Include="Be.Stateless.BizTalk.Stream" Version="2.1.22095.24182" />
+    <PackageReference Include="Be.Stateless.BizTalk.XLang" Version="2.1.22158.32368" />
+    <PackageReference Include="Be.Stateless.BizTalk.Xml" Version="2.1.22122.30387" />
     <PackageReference Include="Be.Stateless.Extensions" Version="2.1.22025.20499" />
-    <PackageReference Include="Be.Stateless.Reflection" Version="2.1.22025.20814" />
+    <PackageReference Include="Be.Stateless.Reflection" Version="2.1.22095.30556" />
     <PackageReference Include="Be.Stateless.Stream" Version="2.1.22025.21947" />
     <PackageReference Include="Be.Stateless.Xml" Version="2.1.22025.22704" />
-    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.3">
+    <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
